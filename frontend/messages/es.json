@@ -1,0 +1,1001 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "products": "Productos",
+    "compare": "Comparar",
+    "solutions": "Soluciones",
+    "cases": "Casos de éxito",
+    "blog": "Blog",
+    "downloads": "Descargas",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "solClub": "Club Ecuestre",
+    "solEducation": "Educación",
+    "solRehab": "Terapia de Rehabilitación y Equinoterapia",
+    "solRacing": "Carreras & Jockey",
+    "solHome": "Hogar y Jinetes Individuales",
+    "solEvent": "Eventos & Exposición"
+  },
+  "common": {
+    "learnMore": "Más información",
+    "contactUs": "Contáctenos",
+    "getQuote": "Solicitar presupuesto",
+    "download": "Descargar"
+  },
+  "home": {
+    "hero": {
+      "badge": "Fabricante global · Desde 2017",
+      "title1": "Fabricante profesional de",
+      "title2": "simuladores ecuestres",
+      "subtitle": "Diseñamos y fabricamos simuladores ecuestres de alto rendimiento que ofrecen entornos de entrenamiento seguros, eficaces y basados en datos para jinetes de todo el mundo.",
+      "btnProducts": "Ver productos →",
+      "btnCases": "Ver casos de éxito →",
+      "btnQuote": "Solicitar presupuesto →",
+      "stat1": "Líneas de producto",
+      "stat2": "Aplicaciones",
+      "stat3": "Años de I+D",
+      "stat4": "Socios globales"
+    },
+    "products": {
+      "title": "Gama de productos",
+      "subtitle": "Tres simuladores profesionales que cubren desde la competición de élite hasta la rehabilitación terapéutica.",
+      "ms30p": {
+        "tag": "Concurso completo profesional",
+        "subtitle": "Simulador profesional de concurso completo",
+        "desc": "Adoptado por el Hong Kong Jockey Club. Diseñado para atletas de élite con doble matriz de sensores biomecánicos de alta precisión en cabeza y torso."
+      },
+      "ms30": {
+        "tag": "Educación inteligente",
+        "subtitle": "Simulador educativo inteligente",
+        "desc": "Adoptado por Riding for the Disabled Association (RDA) Hong Kong. Sistema en red multi-unidad para instrucción grupal digital y equinoterapia."
+      },
+      "ms20": {
+        "tag": "Entrenamiento de jockeys",
+        "subtitle": "Simulador de entrenamiento para jockeys",
+        "desc": "Simula el galope a máxima velocidad y la aceleración neumática — equipo de alto rendimiento diseñado para jockeys profesionales."
+      },
+      "learnMore": "Más información",
+      "prev": "Anterior",
+      "next": "Siguiente"
+    },
+    "whyUs": {
+      "title": "¿Por qué elegir Equestrian Simulators?",
+      "subtitle": "Soluciones profesionales de entrenamiento ecuestre que potencian a instituciones y deportistas.",
+      "items": {
+        "safe": {
+          "title": "Entrenamiento sin riesgos",
+          "desc": "Sin necesidad de caballo. Elimine el riesgo de lesiones y practique cualquier movimiento con confianza."
+        },
+        "weather": {
+          "title": "Disponibilidad total",
+          "desc": "Entrene sin importar el clima ni las instalaciones disponibles — en cualquier momento y lugar."
+        },
+        "data": {
+          "title": "Entrenamiento basado en datos",
+          "desc": "Análisis biomecánico en tiempo real para una evaluación objetiva del rendimiento y retroalimentación personalizada."
+        },
+        "cost": {
+          "title": "Reducción drástica de costes",
+          "desc": "Sin gastos de mantenimiento ni cuidado del caballo. Reduzca los costes operativos y la barrera de entrada."
+        }
+      }
+    },
+    "solutions": {
+      "title": "Soluciones para cada entorno",
+      "subtitle": "Soluciones de entrenamiento ecuestre adaptadas a instituciones de todas las disciplinas.",
+      "items": {
+        "club": {
+          "title": "Clubes ecuestres",
+          "desc": "Mejore la experiencia de los socios y aumente la frecuencia de entrenamiento."
+        },
+        "education": {
+          "title": "Escuelas y universidades",
+          "desc": "Programas ecuestres seguros y estructurados para instituciones académicas."
+        },
+        "rehab": {
+          "title": "Rehabilitación y terapia",
+          "desc": "Entornos de equinoterapia controlados y de bajo riesgo."
+        },
+        "racing": {
+          "title": "Carreras y entrenamiento de jockeys",
+          "desc": "Entrenamiento de alto rendimiento basado en datos para jockeys profesionales."
+        },
+        "home": {
+          "title": "Uso doméstico y personal",
+          "desc": "Entrene a su propio ritmo y según su horario."
+        },
+        "event": {
+          "title": "Ferias y eventos",
+          "desc": "Atraiga público y ofrezca experiencias de marca inolvidables."
+        }
+      }
+    },
+    "trusted": {
+      "title": "Confianza en todo el mundo",
+      "subtitle": "La elección de instituciones líderes y organismos gubernamentales a nivel global."
+    },
+    "whatIs": {
+      "title": "¿Qué es un simulador ecuestre?",
+      "desc": "Un simulador ecuestre es un dispositivo de entrenamiento impulsado por IA que replica los aires y movimientos del caballo mediante sensores de precisión y algoritmos biomecánicos, permitiendo a los jinetes entrenar eficazmente en un entorno sin riesgos. Ampliamente adoptado por clubes ecuestres, escuelas, centros de rehabilitación y programas de formación de jockeys como complemento ideal al entrenamiento con caballo real."
+    },
+    "reviews": {
+      "title": "Lo que dicen nuestros socios",
+      "subtitle": "La confianza de instituciones líderes en todo el mundo.",
+      "items": [
+        {
+          "quote": "El MS.30P ha potenciado significativamente nuestro programa de formación de jockeys. El preciso feedback de los sensores proporciona datos biomecánicos que simplemente no podemos obtener con los métodos de entrenamiento convencionales.",
+          "name": "Director de Formación",
+          "org": "Centro de Entrenamiento HKJC Shenzhen"
+        },
+        {
+          "quote": "La seguridad es primordial para nuestros jinetes con discapacidad. La parada de emergencia y la suave simulación de los aires del MS.30 crean un entorno verdaderamente libre de riesgos que permite a los participantes ganar confianza a su propio ritmo.",
+          "name": "Gerente de Programa",
+          "org": "Riding for the Disabled Association, Hong Kong"
+        },
+        {
+          "quote": "Desde que introdujimos el simulador, la capacidad de nuestro programa ecuestre se ha triplicado. Los alumnos entrenan independientemente del clima o la disponibilidad del caballo, y los resultados de aprendizaje han mejorado notablemente.",
+          "name": "Jefe de Estudios Ecuestres",
+          "org": "Universidad de Turismo de Sichuan"
+        },
+        {
+          "quote": "El simulador da a nuestros alumnos una base sólida antes de montar a caballo por primera vez. Los padres valoran mucho la seguridad, y las inscripciones en nuestro programa ecuestre han crecido un 40%.",
+          "name": "Director de Entrenamiento",
+          "org": "Escuela Afiliada de la Universidad Sun Yat-sen, Shenzhen"
+        }
+      ]
+    },
+    "cta": {
+      "title": "¿Listo para transformar su entrenamiento?",
+      "subtitle": "Hable con nuestro equipo para una consulta personalizada y una demostración del producto.",
+      "btnProduct": "Ver productos →",
+      "btnWhatsapp": "Contactar por WhatsApp →",
+      "btnCases": "Ver casos de éxito →"
+    },
+    "faq": {
+      "items": [
+        {
+          "q": "¿En qué se diferencia el simulador del entrenamiento con caballo real?",
+          "a": "Nuestros simuladores replican la biomecánica equina mediante una plataforma de movimiento de 6 ejes y más de 200 sensores de precisión, ofreciendo condiciones de entrenamiento consistentes y medibles. A diferencia del caballo real, el simulador no se ve afectado por el estado del animal, el clima ni la disponibilidad de instalaciones."
+        },
+        {
+          "q": "¿Para quién es adecuado el simulador ecuestre?",
+          "a": "Apto para todo tipo de jinetes: principiantes que desarrollan la posición y el equilibrio, jinetes avanzados que perfeccionan su técnica, pacientes en rehabilitación y jockeys profesionales que trabajan el control del peso y los reflejos."
+        },
+        {
+          "q": "¿Qué modelos ofrecen?",
+          "a": "Ofrecemos tres modelos: MS.30P (grado profesional de concurso completo), MS.30 / Pony-MS.30 (grado educativo y terapéutico, ambos con certificación CE), y MS.20 (especializado en entrenamiento de jockeys y caballos de carreras). Contáctenos para una recomendación personalizada."
+        },
+        {
+          "q": "¿Cómo puedo solicitar un presupuesto?",
+          "a": "Complete el formulario de consulta en nuestra página de Contacto o envíenos un correo a info@equestrian-simulators.com. Nuestro objetivo es responder en 24 horas con una propuesta personalizada."
+        }
+      ]
+    },
+    "footer": {
+      "companyDesc": "Guangdong TanYue Education Equipment Co., Ltd. — especialistas en simuladores ecuestres inteligentes. Proveedor oficial del Hong Kong Jockey Club (HKJC) y reconocido por la RDA. Certificado CE. ",
+      "productsTitle": "Productos",
+      "companyTitle": "Empresa",
+      "aboutUs": "Quienes Somos",
+      "cases": "Casos de Exito",
+      "blog": "Blog",
+      "downloads": "Descargas",
+      "contactTitle": "Contacto",
+      "email": "info@equestrian-simulators.com",
+      "whatsapp": "+86 131 1288 6222",
+      "address": "Dongguan, Guangdong, China",
+      "hours": "Lun–Vie 9:00–18:00 (GMT+8)",
+      "certified": "Certificado CE · Aprobado RDA",
+      "copyright": "© 2025 Guangdong TanYue Education Equipment Co., Ltd. Todos los derechos reservados.",
+      "privacy": "Politica de Privacidad",
+      "terms": "Terminos de Uso",
+      "sitemap": "Mapa del Sitio",
+      "icp": ""
+    }
+  },
+  "ms30p": {
+    "badge": "Reconocimiento Oficial HKJC",
+    "subtitle": "Simulador profesional de concurso completo para competicion de elite y entrenamiento avanzado",
+    "btnQuote": "Solicitar Presupuesto",
+    "btnCompare": "Comparar Modelos",
+    "immersive": {
+      "tag": "Caracteristica Principal",
+      "title": "Sensado Biomecanico de Alta Precision",
+      "desc": "Matrices de sensores de alta sensibilidad en la cabeza y el abdomen del caballo capturan los ajustes del peso del jinete y los comandos de ayudas en tiempo real, con respuesta dinamica en milisegundos.",
+      "tags": [
+        "Sensores de Cabeza",
+        "Sensores Abdominales",
+        "Retroalimentacion en Tiempo Real",
+        "Analisis Biomecanico"
+      ]
+    },
+    "features": {
+      "title": "Caracteristicas Principales",
+      "subtitle": "Tecnologia de nivel profesional disenada para el entrenamiento competitivo",
+      "card1": {
+        "title": "Reconocimiento Inteligente de Ayudas",
+        "desc": "Reconoce las ayudas de pierna interior y desencadena transiciones de marcha y cambios de velocidad precisos mediante movimiento biomecanico real, con soporte para Piaffe y Passage.",
+        "tags": [
+          "Transicion Interior",
+          "Piaffe",
+          "Passage",
+          "Cambio de Marcha"
+        ]
+      },
+      "card2": {
+        "title": "Experiencia Completa de Concurso Completo",
+        "desc": "Reproduce con precision paso, trote y galope, con soporte para movimientos avanzados de doma como Piaffe y Passage, mas simulacion de recorridos de salto.",
+        "tags": [
+          "Paso",
+          "Trote",
+          "Galope",
+          "Piaffe",
+          "Passage",
+          "Salto"
+        ]
+      },
+      "card3": {
+        "title": "Sistema de Seguridad Profesional",
+        "desc": "Doble proteccion con freno de emergencia y proteccion ante fallos de software. Certificacion CE (RED/EMC/LVD). Adoptado oficialmente por el Centro de Shenzhen del HKJC.",
+        "tags": [
+          "Freno de Emergencia",
+          "Certificado CE",
+          "Aprobado HKJC"
+        ]
+      }
+    },
+    "video": {
+      "title": "Demostracion del Producto"
+    },
+    "specs": {
+      "title": "Especificaciones Tecnicas",
+      "left": [
+        [
+          "Modelo",
+          "MS.30P (Horse)"
+        ],
+        [
+          "Categoria",
+          "Simulador Ecuestre Profesional"
+        ],
+        [
+          "Certificacion",
+          "CE (RED / EMC / LVD)"
+        ],
+        [
+          "Avalado por",
+          "HKJC"
+        ],
+        [
+          "Marchas",
+          "Paso / Trote / Galope / Piaffe / Passage"
+        ],
+        [
+          "Longitud Total",
+          "2263mm"
+        ],
+        [
+          "Anchura Total",
+          "1122mm"
+        ],
+        [
+          "Altura Estatica",
+          "1750mm"
+        ],
+        [
+          "Dimensiones Base",
+          "2100x690mm"
+        ],
+        [
+          "Altura del Sillin",
+          "1500mm"
+        ]
+      ],
+      "right": [
+        [
+          "Peso Total",
+          "450KG"
+        ],
+        [
+          "Carga Nominal",
+          "98KG"
+        ],
+        [
+          "Alimentacion",
+          "220V AC / 50Hz"
+        ],
+        [
+          "Potencia Nominal",
+          "4.8KW"
+        ],
+        [
+          "Altura Minima de Techo",
+          ">=3000mm"
+        ],
+        [
+          "Espacio Lateral",
+          ">=300mm"
+        ],
+        [
+          "Espacio Delantero/Trasero",
+          ">=500mm"
+        ],
+        [
+          "Ancho de Puerta (montado)",
+          ">=1222mm"
+        ],
+        [
+          "Ancho de Puerta (desmontado)",
+          ">=800mm"
+        ],
+        [
+          "Temperatura de Trabajo",
+          "5C - 40C"
+        ],
+        [
+          "Garantia",
+          "1 Ano"
+        ]
+      ]
+    },
+    "whatIs": {
+      "title": "Que es el Simulador Ecuestre Profesional MS.30P?",
+      "desc": "El MS.30P es un simulador ecuestre profesional disenado para la competicion de elite y el entrenamiento avanzado. Impulsado por un sistema de retroalimentacion biomecanica con IA, con el respaldo oficial del Hong Kong Jockey Club (HKJC) y certificacion CE (RED/EMC/LVD). Equipado con mas de 200 sensores de precision, reproduce con exactitud el paso, trote y galope, y admite Piaffe, Passage y simulacion de recorridos de salto.",
+      "stat1": "Modos de Marcha",
+      "stat2": "Sensores de Precision",
+      "stat3": "Respaldo Oficial"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "items": [
+        {
+          "q": "Para que grupo de edad es adecuado el MS.30P?",
+          "a": "Disenado para jinetes mayores de 10 anos, especialmente jovenes intermedios a avanzados y profesionales adultos. Las funciones Piaffe y Passage son ideales para jinetes con ambiciones competitivas. Para menores de 10 anos, recomendamos el modelo educativo MS.30."
+        },
+        {
+          "q": "Que condiciones de instalacion se requieren?",
+          "a": "Altura minima de techo >=3000mm, suministro de energia 220V/4.8KW. Dimensiones: 2263x1122x1750mm, peso 450KG, carga nominal 98KG. Espacio lateral >=300mm, delantero/trasero >=500mm. Ancho de puerta >=1222mm (montado), >=800mm (desmontado)."
+        },
+        {
+          "q": "Como se diferencia el entrenamiento con el simulador del entrenamiento con un caballo real?",
+          "a": "El MS.30P usa una plataforma de movimiento de 6 ejes y 200+ sensores para reproducir la biomecanica de un caballo real. Ofrece condiciones de entrenamiento estables y medibles, el complemento ideal para el entrenamiento con caballos reales."
+        },
+        {
+          "q": "Que datos de entrenamiento proporciona el sistema de IA?",
+          "a": "Tras cada sesion se genera un informe automatico con distribucion del equilibrio de peso, puntuacion de postura, evaluacion de marchas Piaffe/Passage y tendencias de progreso, todos exportables."
+        },
+        {
+          "q": "Que incluye el servicio posventa y la instalacion?",
+          "a": "El MS.30P incluye 1 ano de garantia completa, con instalacion gratuita y formacion del personal. La base esta equipada con ruedas giratorias para facilitar el desplazamiento."
+        }
+      ]
+    },
+    "downloads": {
+      "tag": "Descargas Gratuitas",
+      "title": "Obtene el Pack Completo de Recursos Horse-MS.30P",
+      "item1": {
+        "label": "Catalogo",
+        "title": "Especificaciones Tecnicas Completas",
+        "desc": "PDF - Bilingue CN/EN",
+        "btn": "Descargar"
+      },
+      "item2": {
+        "label": "Certificacion",
+        "title": "Certificado CE",
+        "desc": "PDF - Escaneado Oficial - Estandar UE",
+        "btn": "Solicitar"
+      }
+    },
+    "cta": {
+      "title": "Interesado en el MS.30P?",
+      "subtitle": "Contacta con nuestro equipo para precios, soluciones personalizadas y una reserva de demostracion",
+      "btnQuote": "Solicitar Presupuesto",
+      "btnWhatsapp": "WhatsApp",
+      "btnEmail": "Enviar Email"
+    }
+  },
+  "ms30": {
+    "badge": "Reconocimiento Oficial RDA",
+    "subtitle": "Simulador Ecuestre Inteligente para Instruccion Grupal Digital",
+    "btnQuote": "Solicitar Presupuesto",
+    "btnCompare": "Comparar Modelos",
+    "immersive": {
+      "tag": "Caracteristica Principal",
+      "title": "Sistema de Ensenanza en Red Multi-Unidad",
+      "desc": "Varias unidades se conectan en sincronizacion en tiempo real. Los instructores monitorizan los datos biomecanicos de cada jinete desde un panel central.",
+      "tags": [
+        "Red Multi-Unidad",
+        "Monitor en Tiempo Real",
+        "Sincronizacion de Datos",
+        "Panel Central"
+      ]
+    },
+    "features": {
+      "title": "Caracteristicas Principales",
+      "subtitle": "Entrenamiento en red para una instruccion grupal mas eficiente",
+      "card1": {
+        "title": "Modo de Instruccion Dual",
+        "desc": "Alterna entre modo Paseo Libre y modo Curriculo Guiado para adaptarse a cualquier escenario de ensenanza, desde principiantes hasta habilidades avanzadas.",
+        "tags": [
+          "Paseo Libre",
+          "Modo Curriculo",
+          "Aprendizaje por Niveles"
+        ]
+      },
+      "card2": {
+        "title": "Simulacion de Tres Aires",
+        "desc": "Reproduccion precisa del paso, trote y galope con parametros de aire suaves y seguros, ideales para ninos y principiantes para establecer bases correctas de equitacion.",
+        "tags": [
+          "Paso",
+          "Trote",
+          "Galope"
+        ]
+      },
+      "card3": {
+        "title": "Diseno con Seguridad Prioritaria",
+        "desc": "Doble proteccion con freno de emergencia y proteccion ante fallos de software. Certificacion CE (RED/EMC/LVD). Adoptado oficialmente por la Riding for the Disabled Association (RDA) Hong Kong.",
+        "tags": [
+          "Freno de Emergencia",
+          "Certificado CE",
+          "Aprobado RDA"
+        ]
+      }
+    },
+    "video": {
+      "title": "Demostracion del Producto"
+    },
+    "specs": {
+      "title": "Especificaciones Tecnicas",
+      "left": [
+        [
+          "Modelo",
+          "MS.30 (Pony)"
+        ],
+        [
+          "Categoria",
+          "Simulador Ecuestre Educativo"
+        ],
+        [
+          "Certificacion",
+          "CE (RED / EMC / LVD)"
+        ],
+        [
+          "Avalado por",
+          "Riding for the Disabled Association (RDA) Hong Kong"
+        ],
+        [
+          "Aires",
+          "Paso / Trote / Galope"
+        ],
+        [
+          "Red Multi-Unidad",
+          "Compatible"
+        ],
+        [
+          "Longitud Total",
+          "2068mm"
+        ],
+        [
+          "Anchura Total",
+          "1002mm"
+        ],
+        [
+          "Altura Estatica",
+          "1500mm"
+        ],
+        [
+          "Dimensiones Base",
+          "1905x570mm"
+        ],
+        [
+          "Altura del Sillin",
+          "1200mm"
+        ]
+      ],
+      "right": [
+        [
+          "Peso Total",
+          "300KG"
+        ],
+        [
+          "Carga Nominal",
+          "80KG"
+        ],
+        [
+          "Alimentacion",
+          "220V AC / 50Hz"
+        ],
+        [
+          "Potencia Nominal",
+          "4KW"
+        ],
+        [
+          "Altura Minima de Techo",
+          ">=2600mm"
+        ],
+        [
+          "Espacio Lateral",
+          ">=300mm"
+        ],
+        [
+          "Espacio Del./Tras.",
+          ">=500mm"
+        ],
+        [
+          "Ancho de Puerta (montado)",
+          ">=1102mm"
+        ],
+        [
+          "Ancho de Puerta (desmontado)",
+          ">=670mm"
+        ],
+        [
+          "Temperatura de Trabajo",
+          "5C - 40C"
+        ],
+        [
+          "Garantia",
+          "1 Ano"
+        ]
+      ]
+    },
+    "whatIs": {
+      "title": "Que es el Simulador Ecuestre MS.30?",
+      "desc": "El MS.30 es un simulador ecuestre educativo para escuelas de equitacion, universidades y centros de rehabilitacion. Varias unidades se conectan en red LAN, permitiendo a los instructores supervisar los datos de cada jinete en tiempo real. Reconocido oficialmente por la Riding for the Disabled Association (RDA) Hong Kong y certificado CE (RED/EMC/LVD). Reproduce con precision paso, trote y galope con parametros suaves y seguros para ninos de 4+ anos y adultos principiantes.",
+      "stat1": "Modos de Aire",
+      "stat2": "RDA Oficial",
+      "stat3": "Centros Equipados"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "items": [
+        {
+          "q": "Para que edad es adecuado el MS.30?",
+          "a": "Adecuado para todas las edades a partir de 4 anos. Los parametros de aire son suaves y seguros, ideales para ninos y principiantes. Para entrenamiento competitivo, se recomienda el MS.30P."
+        },
+        {
+          "q": "Como funciona la red multi-unidad?",
+          "a": "Varias unidades MS.30 se sincronizan en red LAN. Los instructores pueden ver en tiempo real los datos de cada alumno, puntuaciones de postura y progreso de entrenamiento desde un panel central."
+        },
+        {
+          "q": "La instalacion requiere modificaciones especiales?",
+          "a": "No se requieren modificaciones. Suministro 220V/4KW. Dimensiones: 2068x1002x1500mm, 300KG, carga nominal 80KG. Techo >=2600mm, lateral >=300mm, del./tras. >=500mm. Puerta >=1102mm (montado) o >=670mm (desmontado)."
+        },
+        {
+          "q": "Cual es la diferencia entre MS.30 y MS.30P?",
+          "a": "El MS.30 es el modelo educativo para instruccion grupal. El MS.30P es el modelo profesional con sensores biomecanicos de alta precision y soporte para Piaffe y Passage."
+        },
+        {
+          "q": "Que incluye la garantia y el servicio posventa?",
+          "a": "1 ano de garantia completa, incluyendo instalacion gratuita en sitio y capacitacion del personal, soporte tecnico remoto 7x24 y actualizaciones de software gratuitas durante la garantia."
+        }
+      ]
+    },
+    "downloads": {
+      "tag": "Descargas Gratuitas",
+      "title": "Obtene el Pack Completo de Recursos Pony-MS.30",
+      "item1": {
+        "label": "Catalogo",
+        "title": "Especificaciones Tecnicas Completas",
+        "desc": "PDF - Bilingue CN/EN",
+        "btn": "Descargar"
+      },
+      "item2": {
+        "label": "Certificacion Oficial",
+        "title": "Certificado CE",
+        "desc": "PDF - Escaneado Oficial - Estandar UE",
+        "btn": "Solicitar"
+      }
+    },
+    "cta": {
+      "title": "Interesado en el MS.30?",
+      "subtitle": "Contacta con nuestro equipo para precios, soluciones personalizadas y una reserva de demostracion",
+      "btnQuote": "Solicitar Presupuesto",
+      "btnWhatsapp": "WhatsApp",
+      "btnEmail": "Enviar Email"
+    }
+  },
+  "ms20": {
+    "badge": "Especialista en Entrenamiento de Jinetes",
+    "subtitle": "Simulador de Alta Velocidad para Jinetes y Entrenamiento de Carreras",
+    "btnQuote": "Solicitar Presupuesto",
+    "btnCompare": "Comparar Modelos",
+    "immersive": {
+      "tag": "Caracteristica Principal",
+      "title": "Sistema de Experiencia de Galope a Alta Velocidad",
+      "desc": "Disenado para entrenamiento de carreras y experiencias de exhibicion. El sistema de silla neumatica replica con precision la postura del jinete y soporta simulacion de galope a alta velocidad con pantalla inmersiva.",
+      "tags": [
+        "Galope Rapido",
+        "Silla Neumatica",
+        "Entrenamiento Jinetes",
+        "Pantalla Inmersiva"
+      ]
+    },
+    "features": {
+      "title": "Caracteristicas Principales",
+      "subtitle": "Competicion Profesional — Para el Entrenamiento de Jinetes",
+      "card1": {
+        "title": "Simulacion de Galope a Alta Velocidad",
+        "desc": "Simula con precision los movimientos de galope en carreras con parametros de alta velocidad ajustables, permitiendo a los jinetes desarrollar memoria muscular correcta en un entorno seguro.",
+        "tags": [
+          "Galope",
+          "Alta Velocidad",
+          "Entrenamiento de Carrera"
+        ]
+      },
+      "card2": {
+        "title": "Sistema de Silla Neumatica",
+        "desc": "La silla con sensores neumaticos detecta en tiempo real la distribucion del centro de gravedad y la presion de los isquiones, generando puntuaciones de postura para optimizar el equilibrio.",
+        "tags": [
+          "Sensor Neumatico",
+          "Analisis de Postura",
+          "Retroalimentacion"
+        ]
+      },
+      "card3": {
+        "title": "Diseno Ligero y Compacto",
+        "desc": "Solo 200KG. Pequena huella que permite despliegue flexible en centros de entrenamiento, hipodromos, exhibiciones y eventos de experiencia.",
+        "tags": [
+          "200KG",
+          "Despliegue Flexible",
+          "Apto para Exhibicion"
+        ]
+      }
+    },
+    "video": {
+      "title": "Demostracion del Producto"
+    },
+    "specs": {
+      "title": "Especificaciones Tecnicas",
+      "left": [
+        [
+          "Modelo",
+          "MS.20"
+        ],
+        [
+          "Categoria",
+          "Carreras / Simulador de Entrenamiento de Jinetes"
+        ],
+        [
+          "Aire",
+          "Galope (Carreras de Alta Velocidad)"
+        ],
+        [
+          "Sistema de Silla",
+          "Silla con Sensor Neumatico"
+        ],
+        [
+          "Longitud Total",
+          "2000mm"
+        ],
+        [
+          "Anchura Total",
+          "600mm"
+        ],
+        [
+          "Altura Estatica",
+          "1610mm"
+        ],
+        [
+          "Longitud del Cuerpo",
+          "1833mm"
+        ],
+        [
+          "Altura del Sillin (estatico)",
+          "1385mm"
+        ],
+        [
+          "Altura del Sillin (operacion)",
+          "1435mm"
+        ]
+      ],
+      "right": [
+        [
+          "Peso Total",
+          "200KG"
+        ],
+        [
+          "Carga Nominal",
+          "80KG"
+        ],
+        [
+          "Alimentacion",
+          "220V AC / 50Hz"
+        ],
+        [
+          "Potencia Nominal",
+          "1.2KW"
+        ],
+        [
+          "Altura Minima de Techo",
+          ">=2600mm"
+        ],
+        [
+          "Ancho de Puerta (montado)",
+          ">=700mm"
+        ],
+        [
+          "Ruedas de Base",
+          "Incluidas"
+        ],
+        [
+          "Temperatura de Trabajo",
+          "5C - 40C"
+        ],
+        [
+          "Garantia",
+          "1 Ano"
+        ]
+      ]
+    },
+    "whatIs": {
+      "title": "Que es el Simulador de Carreras MS.20?",
+      "desc": "El MS.20 es un simulador ecuestre de carreras para entrenamiento de jinetes, experiencias de carreras y exhibiciones. Su sistema de silla neumatica reproduce con precision la experiencia de galope a alta velocidad. Con solo 200KG y un diseno compacto, se despliega facilmente en centros de entrenamiento de jinetes, hipodromos y recintos de exposicion.",
+      "stat1": "Diseno Ligero",
+      "stat2": "Duracion Demo",
+      "stat3": "Casos de Uso"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "items": [
+        {
+          "q": "Cual es la diferencia entre MS.20 y MS.30?",
+          "a": "El MS.20 es el modelo especializado en carreras con silla neumatica para simulacion de galope a alta velocidad. El MS.30 es el modelo educativo para instruccion grupal. El MS.30P es el modelo profesional para movimientos avanzados de doma."
+        },
+        {
+          "q": "Para que lugares es adecuado el MS.20?",
+          "a": "Ideal para centros de entrenamiento de jinetes, hipodromos, recintos de exposicion, centros de experiencia y grandes eventos. A 200KG, se despliega sin instalacion permanente."
+        },
+        {
+          "q": "Como funciona la silla neumatica?",
+          "a": "Los sensores de presion en la silla detectan la distribucion de isquiones y el desplazamiento del centro de gravedad en tiempo real, generando puntuaciones de postura para optimizar el equilibrio."
+        },
+        {
+          "q": "Que debo saber sobre la instalacion y el transporte?",
+          "a": "Sin modificaciones especiales. Suministro 220V/1.2KW. Dimensiones: 2000x600x1610mm, 200KG, carga 80KG. Techo >=2600mm, puerta >=700mm. Ruedas incluidas para movimiento en superficies planas."
+        },
+        {
+          "q": "Que incluye la garantia y el servicio posventa?",
+          "a": "1 ano de garantia completa, instalacion y capacitacion gratuitas, soporte tecnico remoto 7x24 y actualizaciones de software gratuitas."
+        }
+      ]
+    },
+    "downloads": {
+      "tag": "Descargas Gratuitas",
+      "title": "Obtene el Pack Completo Racehorse-MS.20",
+      "item1": {
+        "label": "Catalogo",
+        "title": "Especificaciones Tecnicas Completas",
+        "desc": "PDF - Bilingue CN/EN",
+        "btn": "Descargar"
+      }
+    },
+    "cta": {
+      "title": "Interesado en el MS.20?",
+      "subtitle": "Contacta con nuestro equipo para precios, soluciones personalizadas y reserva de demostracion",
+      "btnQuote": "Solicitar Presupuesto",
+      "btnWhatsapp": "WhatsApp",
+      "btnEmail": "Enviar Email"
+    }
+  },
+  "compare": {
+    "hero": {
+      "tag": "Comparacion Completa de Modelos",
+      "title": "Cual Modelo es el Adecuado para Usted?",
+      "subtitle": "Compare los tres simuladores ecuestres inteligentes para encontrar la mejor opcion para su institucion"
+    },
+    "which": {
+      "title": "Cual Debo Elegir?",
+      "ms30p_items": [
+        "Jinetes profesionales / Eventing",
+        "Analisis biomecanico de alta precision",
+        "Piaffe / Passage doma avanzada",
+        "Proveedor aprobado por el HKJC Hong Kong"
+      ],
+      "ms30_items": [
+        "Escuelas de equitacion / Universidades",
+        "Instruccion grupal multi-unidad",
+        "Rehabilitacion e iniciacion ecuestre juvenil",
+        "Reconocido oficialmente por Riding for the Disabled Association (RDA) Hong Kong"
+      ],
+      "ms20_items": [
+        "Experiencia en hipodromo / Pop-ups",
+        "Eventos de exhibicion y experiencia",
+        "Centros de entrenamiento de jinetes",
+        "Simulacion de galope a alta velocidad"
+      ],
+      "ms30p_desc": "Para instituciones que buscan rendimiento de entrenamiento elite",
+      "ms30_desc": "Para instituciones centradas en seguridad, ensenanza y gestion multi-unidad",
+      "ms20_desc": "Para recintos de exposicion y centros de experiencia de jinetes"
+    },
+    "table": {
+      "title": "Comparacion Detallada de Especificaciones",
+      "groups": [
+        {
+          "group": "Uso y Posicionamiento",
+          "rows": [
+            {
+              "label": "Categoria",
+              "ms30p": "Eventing Profesional",
+              "ms30": "Educacion y Rehab",
+              "ms20": "Carreras / Velocidad",
+              "highlight": false
+            },
+            {
+              "label": "Reconocido por",
+              "ms30p": "HKJC Hong Kong",
+              "ms30": "Riding for the Disabled Association (RDA) Hong Kong",
+              "ms20": "—",
+              "highlight": false
+            },
+            {
+              "label": "Mejor para",
+              "ms30p": "Jinetes pro, clubes elite",
+              "ms30": "Escuelas, centros de rehab",
+              "ms20": "Jinetes, clubes de carreras",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "group": "Aires y Entrenamiento",
+          "rows": [
+            {
+              "label": "Simulacion de Aires",
+              "ms30p": "Paso/Trote/Galope/Piaffe/Passage",
+              "ms30": "Paso/Trote/Galope",
+              "ms20": "Galope (Alta Velocidad)",
+              "highlight": true
+            },
+            {
+              "label": "Red Multi-Unidad",
+              "ms30p": "✓",
+              "ms30": "✓",
+              "ms20": "—",
+              "highlight": false
+            },
+            {
+              "label": "Modo Curriculo",
+              "ms30p": "✓",
+              "ms30": "✓",
+              "ms20": "—",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "group": "Sensores y Datos",
+          "rows": [
+            {
+              "label": "Sensores Biomecanicos",
+              "ms30p": "Alta precision lumbar+pierna",
+              "ms30": "Puntuacion basica de postura",
+              "ms20": "Sensor de silla neumatica",
+              "highlight": true
+            },
+            {
+              "label": "Datos en Tiempo Real",
+              "ms30p": "✓",
+              "ms30": "✓",
+              "ms20": "✓",
+              "highlight": false
+            },
+            {
+              "label": "Reconocimiento de Pierna",
+              "ms30p": "✓",
+              "ms30": "—",
+              "ms20": "—",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "group": "Seguridad y Certificacion",
+          "rows": [
+            {
+              "label": "Certificacion CE",
+              "ms30p": "✓ RED/EMC/LVD",
+              "ms30": "✓ RED/EMC/LVD",
+              "ms20": "—",
+              "highlight": false
+            },
+            {
+              "label": "Freno de Emergencia",
+              "ms30p": "✓",
+              "ms30": "✓",
+              "ms20": "✓",
+              "highlight": false
+            },
+            {
+              "label": "Proteccion de Software",
+              "ms30p": "✓",
+              "ms30": "✓",
+              "ms20": "✓",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "group": "Especificaciones Tecnicas",
+          "rows": [
+            {
+              "label": "Peso Total",
+              "ms30p": "450 KG",
+              "ms30": "300 KG",
+              "ms20": "200 KG",
+              "highlight": false
+            },
+            {
+              "label": "Carga Nominal",
+              "ms30p": "98 KG",
+              "ms30": "80 KG",
+              "ms20": "80 KG",
+              "highlight": false
+            },
+            {
+              "label": "Potencia Nominal",
+              "ms30p": "4.8 KW",
+              "ms30": "4 KW",
+              "ms20": "1.2 KW",
+              "highlight": false
+            },
+            {
+              "label": "Dimensiones",
+              "ms30p": "2263x1122x1750mm",
+              "ms30": "2068x1002x1500mm",
+              "ms20": "2000x600x1610mm",
+              "highlight": false
+            },
+            {
+              "label": "Altura del Sillin",
+              "ms30p": "1500mm",
+              "ms30": "1200mm",
+              "ms20": "1385mm(est)/1435mm(mov)",
+              "highlight": false
+            },
+            {
+              "label": "Garantia",
+              "ms30p": "1 Ano",
+              "ms30": "1 Ano",
+              "ms20": "1 Ano",
+              "highlight": false
+            }
+          ]
+        }
+      ]
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "items": [
+        {
+          "q": "Cual es la diferencia entre MS.30P y MS.30?",
+          "a": "El MS.30P es grado eventing profesional con sensores biomecanicos de alta precision y reconocimiento de ayudas de pierna. El MS.30 es el grado educativo y de rehabilitacion. Ambos tienen certificacion CE."
+        },
+        {
+          "q": "Los simuladores tienen certificacion CE?",
+          "a": "El MS.30P y MS.30 tienen certificacion CE (RED/EMC/LVD). El MS.20 no tiene actualmente certificacion CE."
+        },
+        {
+          "q": "Como elijo el modelo correcto?",
+          "a": "Por uso: MS.30P para entrenamiento profesional y clubes elite; MS.30 para escuelas y centros de rehab; MS.20 para entrenamiento de jinetes y experiencias de carreras."
+        },
+        {
+          "q": "Los simuladores soportan entrenamiento en red multi-unidad?",
+          "a": "El MS.30P y MS.30 soportan red multi-unidad. El MS.20 no soporta actualmente la funcion de red."
+        }
+      ]
+    },
+    "cta": {
+      "title": "No sabe que modelo le conviene?",
+      "subtitle": "Contactenos para una consulta gratuita y le recomendaremos la mejor solucion",
+      "btnConsult": "Consulta Gratuita",
+      "btnWhatsapp": "WhatsApp",
+      "btnEmail": "Enviar Email",
+      "ms30p_tag": "Eventing Pro - Aprobado HKJC",
+      "ms30_tag": "Educacion y Rehab - Aprobado RDA",
+      "ms20_tag": "Jinete de Carreras - Silla Neumatica",
+      "learnMore": "Saber Mas",
+      "unsure": "Todavia no esta seguro?",
+      "contactUs": "Contactenos para asesoramiento personalizado →"
+    }
+  }
+}

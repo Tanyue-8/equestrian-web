@@ -1,0 +1,476 @@
+﻿@import "tailwindcss";
+@source "../../";
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+  --color-brand-blue: #0A1E3F;
+  --color-brand-gold: #C9A84C;
+  --color-brand-cream: #F5F0E8;
+  --color-brand-border: #E0D8C8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: #ffffff;
+  color: #171717;
+  overflow-x: hidden;
+}
+
+/* 闅愯棌婊氬姩鏉?*/
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* PC绔嫋鎷藉尯鍩熼殣钘忔粴鍔ㄦ潯 */
+.md\:block::-webkit-scrollbar { display: none; }
+
+/* ===== Navbar鍝嶅簲寮?===== */
+@media (max-width: 767px) {
+  #hamburger-btn { display: flex !important; }
+  #lang-switcher { display: none !important; }
+  #nav-quote-btn { display: none !important; }
+  #hero-section { margin-top: 80px !important; }
+  #hero-text-wrapper {
+    transform: scale(0.34) !important;
+    transform-origin: bottom left !important;
+  }
+}
+
+@media (min-width: 768px) {
+  #hamburger-btn { display: none !important; }
+  #lang-switcher { display: block !important; }
+  #nav-quote-btn { display: block !important; }
+}
+
+/* 鎵嬫満绔骇鍝佹粦鍔ㄥ尯 */
+@media (max-width: 767px) {
+  #mobile-products-slider { display: block !important; }
+}
+@media (min-width: 768px) {
+  #mobile-products-slider { display: none !important; }
+}
+#mobile-products-slider ::-webkit-scrollbar { display: none; }
+
+
+/* 鎵嬫満绔疞ogo缃戞牸 */
+@media (max-width: 767px) {
+  #mobile-logos-grid { display: grid !important; }
+}
+@media (min-width: 768px) {
+  #mobile-logos-grid { display: none !important; }
+}
+
+/* MS30P Hero鍝嶅簲寮?*/
+@media (max-width: 767px) {
+  .ms30p-hero {
+    min-height: auto !important;
+    overflow: hidden !important;
+    width: 100% !important;
+  }
+  #ms30p-hero-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 100px 20px 40px !important;
+    gap: 24px !important;
+    min-height: auto !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  /* 鍙冲垪锛堜骇鍝佸浘锛夌Щ鍒颁笂闈?*/
+  .ms30p-hero > div:nth-child(2) > div:nth-child(2) {
+    order: -1 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  /* 宸﹀垪锛堟枃瀛楋級鍦ㄥ浘鐗囦笅鏂?*/
+  .ms30p-hero > div:nth-child(2) > div:nth-child(1) {
+    order: 1 !important;
+    text-align: center !important;
+    transform: scale(0.8) !important;
+    transform-origin: top center !important;
+    margin-bottom: -40px !important;
+  }
+}
+
+/* 鎵嬫満绔疦avbar padding淇 */
+@media (max-width: 767px) {
+  #navbar-top-row {
+    padding: 0 16px !important;
+    box-sizing: border-box !important;
+  }
+  .ms30p-features-slider {
+    overflow: hidden !important;
+    position: relative !important;
+  }
+  .ms30p-specs-table {
+    overflow-x: auto !important;
+    display: block !important;
+    width: 100% !important;
+    font-size: 12px !important;
+  }
+  #ms30p-downloads-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 淇敼1锛氶珮绮惧害鐢熺墿鍔涘鎰熷簲妯″潡鍥剧墖瑁佸壀闂 */
+@media (max-width: 767px) {
+  #ms30p-immersive-section {
+    height: auto !important;
+    aspect-ratio: 4/3 !important;
+  }
+  #ms30p-immersive-section > div:last-child {
+    bottom: auto !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    padding: 20px 5% !important;
+  }
+}
+
+/* 淇敼2锛氭妧鏈鏍兼敼涓烘墜鏈虹涓ゅ垪11琛?*/
+@media (max-width: 767px) {
+  #ms30p-specs-grid {
+    gap: 4px !important;
+    padding: 0 8px !important;
+  }
+  #ms30p-specs-left,
+  #ms30p-specs-right {
+    width: 100% !important;
+    padding-right: 0 !important;
+    border-right: none !important;
+  }
+  #ms30p-specs-left > div,
+  #ms30p-specs-right > div {
+    padding: 6px 4px !important;
+    font-size: 10px !important;
+    line-height: 1.4 !important;
+  }
+}
+
+/* 淇敼3锛欳TA鎸夐挳鎵嬫満绔敼涓轰竴鍒椾笁琛?*/
+@media (max-width: 767px) {
+  #ms30p-cta-buttons {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  #ms30p-cta-buttons a,
+  #ms30p-cta-buttons button {
+    width: 80% !important;
+    text-align: center !important;
+  }
+}
+
+/* MS30 鎵嬫満绔搷搴斿紡 */
+@media (max-width: 767px) {
+  #ms30-hero-grid {
+    grid-template-columns: 1fr !important;
+    flex-direction: column !important;
+  }
+  #ms30-immersive-section {
+    height: auto !important;
+    aspect-ratio: 4/3 !important;
+  }
+  #ms30-immersive-section > div:last-child {
+    bottom: auto !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    padding: 20px 5% !important;
+  }
+  #ms30-cta-buttons {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  #ms30-cta-buttons a,
+  #ms30-cta-buttons button {
+    width: 80% !important;
+    text-align: center !important;
+  }
+}
+
+/* MS20 鎵嬫満绔搷搴斿紡 */
+@media (max-width: 767px) {
+  #ms20-hero-grid {
+    grid-template-columns: 1fr !important;
+    flex-direction: column !important;
+  }
+  #ms20-immersive-section {
+    height: auto !important;
+    aspect-ratio: 4/3 !important;
+  }
+  #ms20-immersive-section > div:last-child {
+    bottom: auto !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    padding: 20px 5% !important;
+  }
+  #ms20-cta-buttons {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  #ms20-cta-buttons a,
+  #ms20-cta-buttons button {
+    width: 80% !important;
+    text-align: center !important;
+  }
+}
+
+/* MS30 Hero 鎵嬫満绔細鍥句笂鏂囧瓧涓?*/
+@media (max-width: 767px) {
+  #ms30-hero-grid {
+    grid-template-columns: 1fr !important;
+    padding: 60px 24px 40px !important;
+    min-height: unset !important;
+  }
+  #ms30-hero-grid > div:nth-child(1) {
+    order: 2;
+  }
+  #ms30-hero-grid > div:nth-child(2) {
+    order: 1;
+    margin-bottom: 16px;
+  }
+  #ms30-hero-grid > div:nth-child(2) img {
+    max-width: 280px !important;
+    height: 240px !important;
+  }
+  #ms30-hero-grid h1 {
+    font-size: 52px !important;
+    letter-spacing: -2px !important;
+  }
+  #ms30-hero-grid p {
+    font-size: 14px !important;
+    margin-bottom: 20px !important;
+  }
+}
+
+/* MS20 Hero 鎵嬫満绔細鍥句笂鏂囧瓧涓?*/
+@media (max-width: 767px) {
+  #ms20-hero-grid {
+    grid-template-columns: 1fr !important;
+    padding: 60px 24px 40px !important;
+    min-height: unset !important;
+  }
+  #ms20-hero-grid > div:nth-child(1) {
+    order: 2;
+  }
+  #ms20-hero-grid > div:nth-child(2) {
+    order: 1;
+    margin-bottom: 16px;
+    margin-top: 5px;
+  }
+  #ms20-hero-grid > div:nth-child(2) img {
+    max-width: 280px !important;
+    height: 240px !important;
+  }
+  #ms20-hero-grid h1 {
+    font-size: 52px !important;
+    letter-spacing: -2px !important;
+  }
+  #ms20-hero-grid p {
+    font-size: 14px !important;
+    margin-bottom: 20px !important;
+  }
+}
+
+
+/* compare椤?鎵嬫満绔竴鍒楀竷灞€ */
+@media (max-width: 767px) {
+  #compare-which-grid {
+    grid-template-columns: 1fr !important;
+  }
+  #compare-cta-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* cases椤?鎵嬫満绔搷搴斿紡 */
+@media (max-width: 767px) {
+  /* 妗堜緥鍗＄墖锛氫笂鍥句笅鏂囧瓧 */
+  #hkjc, #rda, #university, #military {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    gap: 0 !important;
+  }
+  #hkjc > div:first-child,
+  #rda > div:first-child,
+  #university > div:first-child,
+  #military > div:first-child {
+    height: 260px !important;
+    order: 1;
+  }
+  #hkjc > div:last-child,
+  #rda > div:last-child,
+  #university > div:last-child,
+  #military > div:last-child {
+    height: auto !important;
+    order: 2;
+    overflow: visible !important;
+  }
+
+  /* 涓轰粈涔堥€夋嫨鎴戜滑锛氫笂鍥句笅鏂囧瓧 */
+  #cases-why-grid {
+    grid-template-columns: 1fr !important;
+  }
+  #cases-why-grid > div:first-child {
+    order: 1;
+  }
+  #cases-why-grid > div:last-child {
+    order: 2;
+  }
+
+  .case-slider-wrap {
+    height: 260px !important;
+    min-height: 260px !important;
+    max-height: 260px !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* blog椤?鎵嬫満绔崱鐗囨í鍚戞粦鍔?*/
+@media (max-width: 767px) {
+  #blog-list-wrap {
+    max-width: 100% !important;
+    padding: 40px 0 60px !important;
+    overflow-x: hidden !important;
+  }
+  #blog-cards-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    gap: 16px !important;
+    padding: 0 24px 12px !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  #blog-cards-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+  #blog-cards-grid > * {
+    flex: 0 0 80vw !important;
+    max-width: 80vw !important;
+    scroll-snap-align: start !important;
+  }
+}
+
+/* downloads椤?鎵嬫満绔竴鍒楀琛?*/
+@media (max-width: 767px) {
+  #downloads-grid-0,
+  #downloads-grid-1,
+  #downloads-grid-2 {
+    grid-template-columns: 1fr !important;
+    padding: 0 20px 40px !important;
+  }
+}
+
+/* about椤?鎵嬫満绔搷搴斿紡 */
+@media (max-width: 767px) {
+  /* 鍝佺墝浣垮懡锛氫笂鏂囧瓧涓嬪浘鐗?*/
+  #about-mission-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  #about-mission-grid > div:first-child {
+    order: 2;
+  }
+  #about-mission-grid > div:last-child {
+    order: 1;
+  }
+  #about-mission-grid > div:last-child img {
+    height: 260px !important;
+  }
+  #about-values-grid {
+    grid-template-columns: 1fr !important;
+  }
+  /* 璁よ瘉璧勮川锛氬崟鍒?*/
+  #about-cert-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* contact页 手机端响应式 */
+@media (max-width: 767px) {
+  #contact-main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  #contact-main-grid > div:first-child {
+    order: 1;
+  }
+  #contact-main-grid > div:last-child {
+    order: 2;
+  }
+  #contact-channels-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 博客详情页 手机端侧边栏移到正文下方 */
+@media (max-width: 767px) {
+  #blog-detail-grid {
+    grid-template-columns: 1fr !important;
+    padding: 32px 20px !important;
+    gap: 32px !important;
+  }
+  #blog-detail-grid > article {
+    order: 1;
+  }
+  #blog-detail-grid > aside {
+    order: 2;
+    position: static !important;
+    top: auto !important;
+  }
+  #blog-detail-grid > article img {
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+  }
+}
+
+/* 解决方案页 PC端默认列数 */
+#solution-adv-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+#solution-case-grid {
+  grid-template-columns: 200px 1fr;
+}
+#solution-fits-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* 解决方案页 手机端响应式 */
+@media (max-width: 767px) {
+  /* 核心优势单列 */
+  #solution-adv-grid {
+    grid-template-columns: 1fr !important;
+  }
+  /* 参考案例上图下文字 */
+  #solution-case-grid {
+    grid-template-columns: 1fr !important;
+  }
+  #solution-case-grid img {
+    height: 220px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+  }
+  #solution-case-grid > div:first-child {
+    order: 1;
+  }
+  #solution-case-grid > div:last-child {
+    order: 2;
+  }
+  /* 适合您单列 */
+  #solution-fits-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

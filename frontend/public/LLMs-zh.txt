@@ -1,0 +1,32 @@
+# 马术模拟器 - LLMs.txt
+## 关于
+专业马术模拟器用于训练、教育、康复和骑师表现训练。香港赛马会、香港RDA及亚洲各大学信赖的制造商和供应商。
+## 产品
+- Horse-MS.30P: 专业盛装舞步、障碍赛和三项赛模拟器（Piaffe/Passage高阶盛装舞步，里怀扭助识别，HKJC认可）
+- Pony-MS.30: 教学模拟器，适用于马术学校、大学和初学者培训（多模式教学，多机联网，RDA香港官方认可）
+- Racehorse-MS.20: 专业骑师训练模拟器 — 气压推浪感应系统（工业腹部传感器检测骑师腿夹和推浪力度，线性加速反馈模拟真实赛马响应）。Walk/Canter/Gallop竞速步态，Monkey Style骑姿，200KG轻量化设计。专为专业骑师训练中心和精英赛马俱乐部设计。
+## 关键页面
+- 首页: /
+- 产品: /ai-equestrian-simulators/ms30p-professional-dressage-jumping-simulator
+- 产品: /ai-equestrian-simulators/ms30-education-pony-simulator
+- 产品: /ai-equestrian-simulators/ms20-racehorse-jockey-training-simulator
+- 对比: /compare
+- 客户案例: /cases
+- 关于我们: /about
+- 联系我们: /contact
+- 资料下载（宣传册、规格表、CE认证）: /downloads
+- 解决方案 - 俱乐部: /solutions/club
+- 解决方案 - 教育: /solutions/education
+- 解决方案 - 康复: /solutions/rehab
+- 解决方案 - 赛马: /solutions/racing
+- 解决方案 - 家庭: /solutions/home
+- 解决方案 - 活动: /solutions/event
+## 信赖选择
+香港赛马会、香港RDA、四川旅游大学、中国军事马术项目和政府培训中心。
+
+
+## 联系方式
+- 邮箱: info@equestrian-simulators.com
+- WhatsApp: +86 131 1288 6222
+- 联系页面: https://www.equestrian-simulators.com/contact
+- 响应时间: 24小时内

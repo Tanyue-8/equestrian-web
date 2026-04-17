@@ -1,0 +1,3878 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>探月教育 - 智能马术模拟器源头工厂 | 香港赛马会及RDA合作伙伴 | 盛装舞步与障碍赛训练系统</title>
+<meta name="description" content="探月教育（Equestrian Simulators）是香港赛马会(HKJC)、RDA及多所高校信赖的智能马术模拟器源头工厂。我们融合生物力学与VR技术，为全球俱乐部提供安全高效的室内马术解决方案。">
+<meta name="keywords" content="马术模拟器, 智能仿真马, 香港赛马会训练设备, RDA马术康复器材, 盛装舞步模拟器, 障碍赛训练系统, 探月教育, 室内马术馆方案, 源头工厂, VR骑马机">
+<style>
+/* ══════ RESET & BASE ══════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#FAF8F5;font-family:-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif;background:#fff;color:#393C41;overflow-x:hidden;line-height:1.6}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* ══════ COLOR SYSTEM ══════ */
+:root{
+  --black:#0A1E3F;
+  --blue:#C9A84C;
+  --blue-deep:#B8832E;
+  --white:#FFFFFF;
+  --gray-bg:#F5F0E8;
+  --text:#1C2333;
+  --text-light:#5A6478;
+  --text-lighter:#9BA5B5;
+  --border:#E0D8C8;
+  --red:#DC2626;--nav-h:120px;--nav-logo-h:80px;--nav-menu-h:40px;
+}
+
+/* ══════ NAV ══════ */
+/* ══ NAV WRAPPER：整体fixed，统一translateY控制 ══ */
+#nav-wrap{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  /* 默认不滑动 */
+  transform:translateY(0);
+  transition:transform 0.36s cubic-bezier(0.4,0,0.2,1);
+}
+/* 滚动超过80px：整体上移80px，logo行(80px)滑出，菜单行(40px)贴顶 */
+#nav-wrap.compact{transform:translateY(-80px)}
+
+/* logo行：80px */
+#navbar{
+  height:80px;background:#0A1E3F;
+  border-bottom:none;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;box-sizing:border-box;
+}
+.nav-top-left,.nav-top-right{display:flex;align-items:center;gap:12px}
+.nav-logo{display:flex;align-items:stretch;justify-content:center;flex:1;cursor:pointer;padding:0}
+.nav-logo img{height:80px;width:auto;max-width:340px;object-fit:contain;display:block}
+/* EN：纯文字，无边框 */
+.nav-lang{font-size:12px;font-weight:500;color:rgba(255,255,255,0.65);cursor:pointer;letter-spacing:0.5px;transition:color 0.2s}
+.nav-lang:hover{color:#C9A84C}
+/* logo行右侧的获取报价：滚动后隐藏 */
+.btn-nav{
+  padding:8px 20px;background:var(--blue);color:#fff;
+  border:none;border-radius:6px;font-size:13px;font-weight:500;
+  cursor:pointer;letter-spacing:0.3px;
+  transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+.btn-nav:hover{background:var(--blue-deep);transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,0.3)}
+.btn-nav:active{transform:translateY(0);box-shadow:none}
+.nav-top-right .btn-nav{transition:opacity 0.2s,background 0.25s,transform 0.25s,box-shadow 0.25s}
+#nav-wrap.compact .nav-top-right .btn-nav{opacity:0;pointer-events:none}
+
+/* 菜单行：40px，紧贴logo行下方 */
+#nav-menu{
+  height:40px;background:#0A1E3F;border-top:none;
+  border-bottom:none;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  /* compact后菜单行在顶部，需要阴影 */
+  transition:box-shadow 0.36s;
+}
+#nav-wrap.compact #nav-menu{box-shadow:0 2px 12px rgba(10,15,26,0.08)}
+
+.nav-item{
+  padding:0 14px;height:40px;line-height:40px;
+  font-size:15px;font-weight:500;letter-spacing:0.8px;color:rgba(255,255,255,0.85);cursor:pointer;white-space:nowrap;transition:color 0.15s;
+}
+.nav-item:hover,.nav-item.active{color:#C9A84C}
+.nav-drop{position:relative}
+.nav-drop-menu{
+  display:none;position:absolute;top:100%;left:50%;
+  transform:translateX(-50%);background:#fff;border-radius:8px;
+  box-shadow:0 8px 32px rgba(10,15,26,0.12);border:1px solid var(--border);
+  padding:6px;min-width:200px;z-index:200;
+}
+.nav-drop-menu a{display:block;padding:9px 14px;font-size:12px;
+  color:var(--text);border-radius:6px;transition:background 0.15s;cursor:pointer}
+.nav-drop-menu a:hover{background:var(--gray-bg);color:var(--black)}
+/* 菜单行右侧报价按钮：compact时出现 */
+.nav-menu-right{display:none;position:absolute;right:32px;top:50%;transform:translateY(-50%)}
+#nav-wrap.compact .nav-menu-right{display:flex}
+
+/* ══════ HERO SECTION ══════ */
+.hero{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.2) 40%,rgba(0,0,0,0.1) 60%,rgba(0,0,0,0.5) 100%)}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:800px;padding:0 20px}
+.hero-content h1{font-size:56px;font-weight:700;color:#fff;letter-spacing:-1px;margin-bottom:8px}
+.hero-content p{font-size:18px;color:rgba(255,255,255,0.85);margin-bottom:32px;line-height:1.6}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* ══════ GLOBAL BUTTONS ══════ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:12px 32px;font-size:15px;font-weight:600;
+  border:none;border-radius:8px;cursor:pointer;
+  letter-spacing:0.3px;
+  transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
+  white-space:nowrap;
+}
+.btn-primary{
+  background:var(--blue);color:#fff;
+}
+.btn-primary:hover{
+  background:var(--blue-deep);transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(201,168,76,0.3);
+}
+.btn-primary:active{transform:translateY(0);box-shadow:none}
+.btn-outline-white{
+  background:transparent;color:#fff;
+  border:2px solid rgba(255,255,255,0.75);
+  backdrop-filter:blur(4px);
+}
+.btn-outline-white:hover{
+  background:rgba(255,255,255,0.15);border-color:#fff;
+  transform:translateY(-2px);
+}
+.btn-outline-white:active{transform:translateY(0)}
+.btn-white{
+  background:#fff;color:var(--black);
+  border:1px solid var(--border);
+}
+.btn-white:hover{background:var(--gray-bg);border-color:var(--black)}
+.btn-sm{padding:8px 20px;font-size:13px}
+
+/* ══════ TRUST BAR (removed — merged into partners) ══════ */
+
+/* ══════ TESLA PRODUCT CARDS ══════ */
+.tesla-cards{display:flex;gap:24px;padding:0 48px 40px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+/* 产品卡片基础 + 后台glow-color变量支持 */
+.tesla-card{flex:0 0 calc(33.333% - 16px);min-width:380px;position:relative;height:580px;border-radius:20px;overflow:hidden;cursor:pointer;scroll-snap-align:start;transition:transform .3s;box-shadow:0 4px 20px rgba(0,0,0,0.08)}
+.tesla-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px var(--glow-color, rgba(0,0,0,0.15))}
+
+/* 模式1：透明背景PNG（棚拍抠图）— 锁定高度340px + 浮动动画 + glow光晕 */
+.tesla-card .tc-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:60px 40px 180px}
+.tesla-card .tc-bg img{max-height:340px;object-fit:contain;filter:drop-shadow(0 0 32px var(--glow-color, rgba(0,0,0,0.25)));animation:tcfloat 4s ease-in-out infinite;transition:transform .4s}
+.tesla-card:hover .tc-bg img{transform:scale(1.08)}
+@keyframes tcfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+/* 模式2：实拍图/场景图（白底JPG或不透明PNG）— 自然比例，无浮动，无光晕 */
+.tesla-card.tc-bg-photo .tc-bg{padding:0;align-items:stretch}
+.tesla-card.tc-bg-photo .tc-bg img{max-height:none;width:100%;height:100%;object-fit:cover;filter:none;animation:none}
+.tesla-card.tc-bg-photo:hover .tc-bg img{transform:scale(1.04)}
+
+/* 卡片内容底部对齐（按钮不参差）*/
+.tesla-card .tc-content{position:absolute;bottom:0;left:0;right:0;padding:32px;z-index:2;background:linear-gradient(to top,rgba(255,255,255,1) 0%,rgba(255,255,255,0.98) 50%,rgba(255,255,255,0) 100%);display:flex;flex-direction:column}
+.tesla-card .tc-label{position:absolute;top:24px;left:28px;font-size:13px;font-weight:700;color:var(--blue);letter-spacing:1.5px;z-index:2;background:rgba(255,255,255,0.9);padding:4px 12px;border-radius:20px}
+.tesla-card .tc-content{position:absolute;bottom:0;left:0;right:0;padding:32px;z-index:2;background:linear-gradient(to top,rgba(255,255,255,1) 0%,rgba(255,255,255,0.98) 50%,rgba(255,255,255,0) 100%)}
+.tesla-card .tc-content h3{font-size:32px;font-weight:800;color:var(--black);margin-bottom:2px;letter-spacing:-0.5px}
+.tesla-card .tc-content .tc-subtitle{font-size:14px;color:var(--blue);font-weight:600;margin-bottom:8px;letter-spacing:0.5px}
+.tesla-card .tc-content p{font-size:15px;color:var(--text);margin-bottom:20px;line-height:1.6}
+.tesla-card .tc-content .btn{padding:10px 28px;font-size:14px;width:auto;align-self:flex-start}
+/* Card backgrounds */
+.tesla-card.card-horse{background:linear-gradient(135deg,#E8EDF5 0%,#F0F4FA 50%,#E2E8F0 100%)}
+.tesla-card.card-pony{background:linear-gradient(135deg,#EDE8F5 0%,#F5F0FA 50%,#E8E2F0 100%)}
+/* MS20 卡片 — 暖金米色，与 MS30P/MS30 同浅色体系 */
+.tesla-card.card-race{background:linear-gradient(135deg,#F5ECD8 0%,#FAF3E8 50%,#F0E6D0 100%)}
+.tesla-card.card-race .tc-content{background:linear-gradient(to top,rgba(255,255,255,1) 0%,rgba(255,255,255,0.98) 50%,rgba(255,255,255,0) 100%)}
+.tesla-card.card-race .tc-content h3{color:var(--black)}
+.tesla-card.card-race .tc-content .tc-subtitle{color:#B8860B}
+.tesla-card.card-race .tc-content p{color:var(--text)}
+.tesla-card.card-race .tc-label{background:rgba(201,168,76,0.15);color:#8B6914;border:1px solid rgba(201,168,76,0.3)}
+
+/* ══════ PARTNERS (merged with trust bar) ══════ */
+.partners-section{padding:80px 40px;background:#fff;text-align:center}
+.partners-section h2{font-size:36px;font-weight:700;color:var(--black);margin-bottom:8px}
+.partners-section>p{font-size:16px;color:var(--text-light);margin-bottom:48px}
+/* categories removed */
+.partners-row{display:flex;flex-wrap:wrap;justify-content:center;gap:48px;align-items:flex-start;max-width:900px;margin:0 auto}
+.partner-item{display:flex;flex-direction:column;align-items:center;gap:12px;width:160px;transition:all .3s}
+.partner-item .partner-logo-wrap{width:140px;height:140px;display:flex;align-items:center;justify-content:center;background:transparent;padding:0;transition:all .3s}
+.partner-item:hover .partner-logo-wrap{transform:translateY(-4px)}
+.partner-item img{width:130px;height:130px;object-fit:contain}
+.partner-item span{font-size:14px;color:var(--text);font-weight:500;line-height:1.4;font-family:-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif}
+.partner-item:hover span{color:var(--black)}
+/* Wide partner cards for horizontal logos */
+.partners-row-wide{display:flex;flex-wrap:wrap;justify-content:center;gap:32px;max-width:1100px;margin:32px auto 0}
+.partner-item-wide{display:flex;flex-direction:column;align-items:center;gap:14px;transition:all .3s}
+.partner-item-wide .partner-logo-wide{width:500px;height:200px;display:flex;align-items:center;justify-content:center;background:transparent;padding:0;transition:all .3s}
+.partner-item-wide:hover .partner-logo-wide{transform:translateY(-4px)}
+.partner-item-wide img{max-width:100%;max-height:100%;object-fit:contain}
+.partner-item-wide span{font-size:14px;color:var(--text);font-weight:500;line-height:1.4;font-family:-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif}
+.partner-item-wide:hover span{color:var(--black)}
+
+.partner-placeholder{justify-content:center}
+.ce-badge{width:128px;height:128px;border-radius:50%;border:3px solid var(--text-light);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800;color:var(--text-light);letter-spacing:2px;transition:all .4s;background:#fff}
+.partner-placeholder:hover .ce-badge{border-color:var(--blue);color:var(--blue);transform:translateY(-4px);box-shadow:0 4px 16px rgba(0,0,0,0.1)}
+
+/* ══════ SECTION ══════ */
+.section{padding:100px 40px}
+.section-gray{background:var(--gray-bg)}
+.section-dark{background:var(--black);color:#fff}
+.section-header{text-align:center;max-width:700px;margin:0 auto 60px}
+.section-header h2{font-size:36px;font-weight:700;color:var(--black);letter-spacing:-0.5px;margin-bottom:8px}
+.section-gray .section-header h2,.section-dark .section-header h2{color:inherit}
+.section-header p{font-size:16px;color:var(--text-light)}
+.section-dark .section-header p{color:rgba(255,255,255,0.7)}
+
+/* ══════ PRODUCT SCROLL SECTIONS ══════ */
+.prod-section{position:relative;min-height:100vh;display:flex;align-items:center;padding:80px 40px}
+.prod-section:nth-child(even){background:var(--gray-bg)}
+.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto;width:100%}
+.prod-grid.reverse{direction:rtl}
+.prod-grid.reverse>*{direction:ltr}
+.prod-text h2{font-size:14px;font-weight:600;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.prod-text h3{font-size:40px;font-weight:700;color:var(--black);letter-spacing:-0.5px;margin-bottom:4px}
+.prod-text .prod-tagline{font-size:16px;color:var(--text-light);margin-bottom:24px}
+.prod-text .prod-desc{font-size:15px;color:var(--text);line-height:1.8;margin-bottom:24px}
+.prod-text .prod-btns{display:flex;gap:12px;flex-wrap:wrap}
+.prod-img{display:flex;align-items:center;justify-content:center}
+.prod-img img{max-height:500px;object-fit:contain;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.15))}
+
+/* ══════ STATS ══════ */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;max-width:1100px;margin:0 auto}
+.stat{text-align:center;padding:40px 20px;position:relative}
+.stat:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:rgba(255,255,255,0.15)}
+.stat-val{font-size:56px;font-weight:800;color:var(--black);line-height:1;letter-spacing:-1px}
+.section-dark .stat-val{color:#fff;background:linear-gradient(135deg,#fff 0%,#E8CA8A 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-lbl{font-size:14px;color:var(--text-light);letter-spacing:2px;margin-top:10px;font-weight:600}
+.section-dark .stat-lbl{color:rgba(255,255,255,0.5)}
+
+/* ══════ SCENARIO GRID ══════ */
+.scenario-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1200px;margin:0 auto}
+.scenario-card{position:relative;height:400px;border-radius:16px;overflow:hidden;cursor:pointer}
+.scenario-card .sc-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s}
+.scenario-card:hover .sc-bg{transform:scale(1.05)}
+.scenario-card .sc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0) 50%)}
+.scenario-card .sc-content{position:absolute;bottom:0;left:0;right:0;padding:24px;z-index:2}
+.scenario-card h3{font-size:20px;font-weight:600;color:#fff;margin-bottom:4px}
+.scenario-card p{font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:12px}
+
+/* ══════ TESTIMONIAL ══════ */
+.testimonials{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.testimonial{background:#fff;border-radius:16px;padding:40px;border:1px solid var(--border)}
+.testimonial blockquote{font-size:16px;color:var(--text);line-height:1.8;font-style:italic;margin-bottom:20px}
+.testimonial .t-author{display:flex;align-items:center;gap:12px}
+.testimonial .t-avatar{width:48px;height:48px;border-radius:50%;background:var(--gray-bg);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:var(--blue)}
+.testimonial .t-name{font-size:14px;font-weight:600;color:var(--black)}
+.testimonial .t-role{font-size:13px;color:var(--text-light)}
+
+/* ══════ CTA BANNER ══════ */
+.cta-banner{text-align:center;max-width:800px;margin:0 auto}
+.cta-banner h2{font-size:36px;font-weight:700;color:#fff;margin-bottom:8px}
+.cta-banner p{font-size:16px;color:rgba(255,255,255,0.8);margin-bottom:32px}
+.cta-channels{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+
+/* ══════ PRODUCT DETAIL PAGE ══════ */
+.page{display:none;background:transparent}.page.active{display:block;background:transparent}
+
+.pd-hero{padding:calc(120px + 24px) 40px 60px;text-align:center;background:var(--gray-bg)}
+.pd-hero .pd-label{font-size:14px;font-weight:600;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.pd-hero h1{font-size:64px;font-weight:700;color:var(--black);letter-spacing:-1px;margin-bottom:8px}
+.pd-hero .pd-tagline{font-size:18px;color:var(--text-light);max-width:600px;margin:0 auto 32px}
+.pd-hero .pd-img{max-width:700px;margin:0 auto}
+.pd-hero .pd-img img{width:100%;object-fit:contain;filter:drop-shadow(0 20px 60px rgba(0,0,0,0.15))}
+.pd-hero .pd-btns{display:flex;justify-content:center;gap:16px;margin-top:32px}
+
+/* Spec bar */
+.spec-bar{display:grid;grid-template-columns:repeat(3,1fr);background:var(--black)}
+.spec-item{
+  text-align:center;padding:40px 24px;
+  border-right:1px solid rgba(255,255,255,0.08);
+  position:relative;
+  transition:background 0.2s;
+}
+.spec-item:last-child{border-right:none}
+.spec-item:hover{background:rgba(201,168,76,0.3)}
+.spec-icon{font-size:28px;margin-bottom:10px;display:block}
+.spec-val{
+  font-size:44px;font-weight:800;
+  color:#fff;letter-spacing:-1px;
+  background:linear-gradient(135deg,#fff 0%,rgba(201,168,76,0.3) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  display:block;line-height:1;
+}
+.spec-lbl{
+  font-size:11px;color:rgba(255,255,255,0.5);
+  text-transform:uppercase;letter-spacing:2.5px;
+  margin-top:8px;font-weight:600;display:block;
+}
+.spec-divider{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:32px;height:2px;background:var(--blue);opacity:0;
+  transition:opacity 0.2s;
+}
+.spec-item:hover .spec-divider{opacity:1}
+
+/* Feature blocks — 科技蓝发光风 */
+.feature-block{
+  display:grid;grid-template-columns:1fr 1fr;min-height:520px;align-items:stretch;
+  position:relative;background:var(--black);overflow:hidden;
+}
+.feature-block::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:none 0%,transparent 70%);
+}
+.feature-block.reverse{direction:rtl}
+.feature-block.reverse>*{direction:ltr}
+.feature-block.reverse::after{
+  background:none 0%,transparent 70%);
+}
+.feature-text{
+  padding:64px 72px;display:flex;flex-direction:column;justify-content:center;
+  position:relative;z-index:1;
+}
+.feature-text h3{
+  font-size:32px;font-weight:800;color:#fff;
+  margin-bottom:18px;letter-spacing:-0.5px;line-height:1.2;
+}
+.feature-text h3 em{
+  font-style:normal;
+  background:linear-gradient(90deg,#DDB96A,#D4AC5A);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.feature-text p{font-size:15px;color:rgba(255,255,255,0.6);line-height:1.9;margin-bottom:0}
+.feature-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.feature-tag{
+  padding:5px 14px;
+  background:rgba(201,168,76,0.3);
+  border:1px solid rgba(96,165,250,0.25);
+  border-radius:20px;font-size:12px;font-weight:600;
+  color:#E8CA8A;letter-spacing:0.5px;
+  transition:all 0.2s;
+}
+.feature-tag:hover{background:rgba(201,168,76,0.3);border-color:rgba(96,165,250,0.5)}
+.feature-num{
+  position:absolute;bottom:24px;right:40px;
+  font-size:120px;font-weight:900;line-height:1;
+  color:rgba(201,168,76,0.3);pointer-events:none;z-index:0;
+}
+.feature-img{
+  overflow:hidden;position:relative;z-index:1;
+  background:rgba(255,255,255,0.02);
+  display:flex;align-items:center;justify-content:center;
+}
+.feature-img img{
+  width:100%;height:100%;object-fit:contain;
+  padding:40px;transition:transform 0.6s ease;
+  filter:drop-shadow(0 0 32px rgba(201,168,76,0.3));
+}
+.feature-block:hover .feature-img img{transform:scale(1.04)}
+
+/* Tech specs table — 深色科技风 */
+.specs-table-wrap{
+  padding:80px 40px;
+  background:var(--black) !important;
+  position:relative;overflow:hidden;
+}
+.specs-table-wrap::before{
+  content:'';position:absolute;
+  top:-150px;right:-150px;width:400px;height:400px;
+  background:radial-gradient(circle,rgba(201,168,76,0.3) 0%,transparent 70%);
+  pointer-events:none;
+}
+.specs-table-wrap h2{
+  font-size:30px;font-weight:800;text-align:center;
+  margin-bottom:48px;color:#fff;
+}
+.specs-table-wrap h2::after{
+  content:'';display:block;width:40px;height:3px;
+  background:linear-gradient(90deg,#C9A84C,#DDB96A);
+  margin:14px auto 0;border-radius:2px;
+}
+.specs-table{width:100%;max-width:800px;margin:0 auto;border-collapse:collapse}
+.specs-table tr{border-bottom:1px solid rgba(255,255,255,0.06);transition:background 0.15s}
+.specs-table tr:hover{background:rgba(201,168,76,0.3)}
+.specs-table td{padding:17px 24px;font-size:14px}
+.specs-table td:first-child{
+  font-weight:500;color:rgba(255,255,255,0.38);
+  width:40%;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;
+}
+.specs-table td:last-child{color:#fff;font-weight:600}
+
+/* Video placeholder */
+.video-placeholder{max-width:900px;margin:0 auto;padding:0 40px 80px}
+.video-box{
+  background:rgba(201,168,76,0.3);
+  border:1px solid rgba(201,168,76,0.3);
+  border-radius:16px;height:460px;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;
+  transition:border-color 0.2s;
+}
+.video-box:hover{border-color:rgba(201,168,76,0.3)}
+.video-box svg{width:64px;height:64px;fill:rgba(96,165,250,0.6)}
+.video-box p{color:rgba(255,255,255,0.35);font-size:14px}
+
+/* PDF download bar */
+.download-bar{
+  display:flex;align-items:center;justify-content:center;gap:20px;padding:32px 40px;
+  background:rgba(201,168,76,0.3);
+  border-top:1px solid rgba(201,168,76,0.3);
+  border-bottom:1px solid rgba(201,168,76,0.3);
+}
+.download-bar p{font-size:14px;color:#DDB96A;font-weight:600;margin:0}
+
+/* ══════ PD2 方案A布局 ══════ */
+/* Hero */
+.pd2-hero{position:relative;width:100%;overflow:hidden;background:#0A1E3F}
+.pd2-hero-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:none 0%,transparent 65%),
+             radial-gradient(ellipse 40% 40% at 20% 80%,rgba(201,168,76,0.3) 0%,transparent 60%);
+}
+.pd2-hero-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:40px;align-items:center;
+  width:100%;max-width:1200px;margin:0 auto;
+  padding:100px 60px 80px;  /* 顶部100px确保导航不遮badge，底部80px保证图片不被截 */
+  min-height:520px;
+}
+.pd2-badge{
+  display:inline-block;padding:6px 16px;
+  background:rgba(201,168,76,0.3);border:1px solid rgba(96,165,250,0.3);
+  border-radius:20px;font-size:12px;font-weight:700;
+  color:#DDB96A;letter-spacing:1.5px;text-transform:uppercase;
+  margin-bottom:24px;
+}
+.pd2-title{
+  font-size:88px;font-weight:900;color:#fff;
+  letter-spacing:-4px;line-height:0.9;margin-bottom:24px;
+}
+.pd2-title span{
+  background:linear-gradient(135deg,#DDB96A,#C9A84C);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.pd2-sub{font-size:18px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:40px}
+.pd2-btns{display:flex;gap:16px;flex-wrap:wrap}
+.btn-ghost{
+  background:transparent;border:none;
+  color:rgba(255,255,255,0.6);font-size:15px;font-weight:600;
+  padding:12px 0;cursor:pointer;transition:color 0.2s;
+}
+.btn-ghost:hover{color:#fff}
+.pd2-img-wrap{position:relative;display:flex;align-items:center;justify-content:center}
+.pd2-img-wrap img{
+  width:100%;max-width:520px;object-fit:contain;
+  position:relative;z-index:1;
+  filter:drop-shadow(0 0 60px rgba(201,168,76,0.3));
+  animation:pd2float 4s ease-in-out infinite;
+}
+
+.pd2-glow{
+  position:absolute;width:60%;height:60%;
+  background:none;opacity:0;
+  border-radius:50%;z-index:0;
+}
+@keyframes pd2float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-16px)}
+}
+
+/* 全宽沉浸图 */
+.pd2-immersive{
+  position:relative;height:600px;overflow:hidden;
+  background:#0A1E3F;
+}
+.pd2-immersive-img{
+  width:100%;height:100%;object-fit:cover;opacity:0.85;
+}
+.pd2-immersive-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(10,15,26,0.82) 0%,rgba(10,15,26,0.45) 45%,rgba(10,15,26,0.05) 100%);
+  display:flex;align-items:center;
+}
+.pd2-immersive-content{
+  padding:0 80px;max-width:600px;
+}
+.pd2-feat-label{
+  font-size:11px;font-weight:700;letter-spacing:3px;
+  color:#D4AC5A;text-transform:uppercase;margin-bottom:16px;
+}
+.pd2-immersive-content h2{
+  font-size:42px;font-weight:800;color:#fff;
+  margin-bottom:20px;letter-spacing:-0.5px;line-height:1.15;
+}
+.pd2-immersive-content p{
+  font-size:16px;color:rgba(255,255,255,0.6);
+  line-height:1.85;margin-bottom:24px;
+}
+
+/* 3列功能卡片 */
+.pd2-cards-section{
+  padding:80px 60px;background:#F5F0E8;
+}
+.pd2-cards-header{text-align:center;margin-bottom:56px}
+.pd2-cards-header h2{font-size:36px;font-weight:800;color:#0A1E3F;margin-bottom:8px}
+.pd2-cards-header p{color:#5A6A7A;font-size:15px}
+.pd2-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+/* 卡片列数响应式支持（后台通过 data-cols 控制，默认3列） */
+.pd2-cards[data-cols="2"]{grid-template-columns:repeat(2,1fr);max-width:860px}
+.pd2-cards[data-cols="3"]{grid-template-columns:repeat(3,1fr)}
+.pd2-cards[data-cols="4"]{grid-template-columns:repeat(4,1fr)}
+.pd2-cards:not([data-cols]){grid-template-columns:repeat(3,1fr)}
+
+.pd2-card{
+  background:#fff;
+  border:1px solid #E0D8C8;
+  border-radius:20px;padding:40px 32px;
+  transition:all 0.3s;position:relative;overflow:hidden;
+  min-height:var(--card-min-h, auto);
+}
+.pd2-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,0.3),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.pd2-card:hover{
+  background:rgba(201,168,76,0.3);
+  border-color:rgba(201,168,76,0.3);
+  transform:translateY(-4px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+}
+.pd2-card:hover::before{opacity:1}
+.pd2-card-highlight{background:#fff;border:1px solid #C9A84C;border-top:3px solid #C9A84C;}
+.pd2-card-highlight::before{opacity:1}
+.pd2-card-icon{font-size:36px;margin-bottom:20px}
+.pd2-card h3{font-size:20px;font-weight:700;color:#0A1E3F;margin-bottom:12px}
+.pd2-card p{font-size:14px;color:#5A6A7A;line-height:1.8;margin-bottom:20px}
+.pd2-card-tags{display:flex;flex-wrap:wrap;gap:6px}
+.pd2-card-tags span{
+  font-size:11px;font-weight:600;padding:4px 10px;
+  border-radius:12px;color:#0A1E3F;
+  background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.35);
+}
+.pd2-card-img{position:relative}
+/* 双层蒙层：上方透明保留图片细节，下方保证文字可读
+   后台通过 --overlay-strength 控制蒙层强度（默认0.72） */
+.pd2-card-img-overlay{
+  position:absolute;inset:0;border-radius:20px;
+  background:linear-gradient(
+    180deg,
+    rgba(8,12,24,0.08) 0%,
+    rgba(8,12,24,0.18) 35%,
+    rgba(8,12,24,calc(var(--overlay-strength, 0.72))) 65%,
+    rgba(8,12,24,calc(var(--overlay-strength, 0.72) + 0.1)) 100%
+  );
+  z-index:1;
+}
+.pd2-card-img .pd2-card-icon,
+.pd2-card-img h3,
+.pd2-card-img p,
+.pd2-card-img .pd2-card-tags{position:relative;z-index:1}
+
+/* 技术参数横向滚动 */
+.pd2-specs-section{
+  padding:80px 0 80px 60px;background:#F5F0E8;
+  border-top:1px solid #E0D8C8;
+}
+.pd2-specs-section h2{
+  font-size:30px;font-weight:800;color:#0A1E3F;
+  margin-bottom:40px;padding-right:60px;
+}
+.pd2-specs-scroll{
+  display:flex;gap:16px;overflow-x:auto;padding-bottom:20px;padding-right:60px;
+  scrollbar-width:thin;scrollbar-color:rgba(201,168,76,0.3) transparent;
+}
+.pd2-specs-scroll::-webkit-scrollbar{height:4px}
+.pd2-specs-scroll::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.3);border-radius:2px}
+.pd2-spec-card{
+  flex:0 0 180px;
+  background:#fff;
+  border:1px solid #E0D8C8;
+  border-radius:16px;padding:24px 20px;
+  transition:all 0.2s;
+}
+.pd2-spec-card:hover{
+  background:rgba(201,168,76,0.3);
+  border-color:rgba(201,168,76,0.3);
+}
+.pd2-spec-card-label{
+  font-size:11px;color:rgba(255,255,255,0.35);
+  text-transform:uppercase;letter-spacing:1px;
+  margin-bottom:10px;font-weight:600;
+}
+.pd2-spec-card-val{
+  font-size:15px;font-weight:700;color:#fff;line-height:1.4;
+}
+
+/* 视频演示区 */
+.pd2-video-section{
+  padding:80px 60px;background:#F5F0E8;
+  border-top:1px solid #E0D8C8;
+}
+.pd2-video-header{text-align:center;margin-bottom:40px}
+.pd2-video-header h2{font-size:30px;font-weight:800;color:#0A1E3F;margin-top:12px}
+.pd2-video-box{
+  max-width:900px;margin:0 auto;
+  background:#fff;
+  border:1px solid #E0D8C8;
+  border-radius:20px;height:480px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;
+}
+.pd2-video-box::before{
+  content:'';position:absolute;inset:0;
+  background:none 0%,transparent 70%);
+}
+.pd2-video-box:hover{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.3)}
+.pd2-play-icon{width:72px;height:72px;fill:rgba(96,165,250,0.7);position:relative;z-index:1}
+.pd2-video-box p{color:#0A1E3F;font-size:18px;font-weight:600;position:relative;z-index:1}
+.pd2-video-box span{color:#5A6A7A;font-size:13px;position:relative;z-index:1}
+
+/* 技术规格表格区 */
+.pd2-specs-table-section{
+  padding:80px 60px;background:#F5F0E8;
+  border-top:1px solid #E0D8C8;
+}
+.pd2-specs-table-section h2{
+  font-size:30px;font-weight:800;color:#0A1E3F;
+  margin-bottom:40px;text-align:center;
+}
+.pd2-specs-table-section h2::after{
+  content:'';display:block;width:40px;height:3px;
+  background:linear-gradient(90deg,#C9A84C,#DDB96A);
+  margin:14px auto 0;border-radius:2px;
+}
+.pd2-specs-tbl{
+  width:100%;max-width:800px;margin:0 auto;
+  border-collapse:collapse;
+}
+.pd2-specs-tbl tr{
+  border-bottom:1px solid #E0D8C8;
+  transition:background 0.15s;
+}
+.pd2-specs-tbl tr:hover{background:rgba(201,168,76,0.3)}
+.pd2-specs-tbl td{padding:18px 24px;font-size:14px}
+.pd2-specs-tbl td:first-child{
+  color:#8A9AAA;width:35%;
+  font-size:12px;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.8px;
+}
+.pd2-specs-tbl td:last-child{color:#0A1E3F;font-weight:600}
+
+/* 技术规格双列布局 */
+.pd2-specs-2col{
+  display:grid;grid-template-columns:1fr 1fr;gap:32px;
+  max-width:1100px;margin:0 auto;
+}
+@media(max-width:768px){.pd2-specs-2col{grid-template-columns:1fr}}
+
+/* ══════ DOWNLOADS PAGE ══════ */
+.dl-hero{padding:calc(120px + 44px) 40px 60px;text-align:center;background:var(--gray-bg)}
+.dl-hero h1{font-size:48px;font-weight:700;color:var(--black);margin-bottom:8px;letter-spacing:-0.5px}
+.dl-hero p{font-size:16px;color:var(--text-light);max-width:500px;margin:0 auto}
+.dl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto;padding:60px 40px 80px}
+.dl-card{background:#fff;border-radius:16px;border:1px solid var(--border);padding:32px;display:flex;flex-direction:column;gap:16px;transition:box-shadow .2s;position:relative;overflow:hidden}
+.dl-card:hover{box-shadow:0 8px 32px rgba(26,18,16,0.10)}
+.dl-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue)}
+.dl-card-icon{font-size:36px}
+.dl-card-type{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue)}
+.dl-card h3{font-size:17px;font-weight:700;color:var(--black);line-height:1.4}
+.dl-card p{font-size:13px;color:var(--text-light);line-height:1.7;flex:1}
+.dl-card-meta{display:flex;gap:12px;align-items:center;font-size:12px;color:var(--text-lighter)}
+.dl-card-meta span{display:flex;align-items:center;gap:4px}
+.dl-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--black);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;text-decoration:none}
+.dl-btn:hover{background:#000}
+.dl-btn-outline{background:transparent;color:var(--black);border:1.5px solid var(--border)}
+.dl-btn-outline:hover{background:var(--gray-bg);border-color:var(--black)}
+.dl-section-title{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-lighter);text-align:center;margin-bottom:32px}
+.dl-cta{background:var(--black);color:#fff;text-align:center;padding:60px 40px}
+.dl-cta h2{font-size:28px;font-weight:700;margin-bottom:8px}
+.dl-cta p{font-size:15px;color:rgba(255,255,255,0.7);margin-bottom:24px}
+@media(max-width:1024px){.dl-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.dl-grid{grid-template-columns:1fr;padding:40px 20px}}
+
+/* ══════ COMPARE TABLE ══════ */
+.compare-wrap{max-width:1100px;margin:0 auto;padding:0 40px}
+.compare-table{width:100%;border-collapse:collapse}
+.compare-table thead th{padding:20px 16px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--text-light);border-bottom:2px solid var(--black);text-align:center;font-weight:600}
+.compare-table thead th:first-child{text-align:left}
+.compare-table thead th:not(:first-child){width:22%}
+.compare-table .group-row td{padding:16px 16px 8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--blue);border-bottom:none;background:transparent}
+.compare-table tbody td{padding:14px 16px;font-size:14px;text-align:center;border-bottom:1px solid var(--border);color:var(--text)}
+.compare-table tbody td:first-child{text-align:left;font-weight:500;color:var(--black)}
+.compare-table tbody tr:hover td{background:#FAFBFC}
+.compare-table .check{color:var(--blue);font-weight:700}
+.compare-table .highlight{font-weight:700;color:var(--black)}
+.compare-cta{text-align:center;padding:40px;background:var(--gray-bg);border-radius:16px;margin-top:60px}
+.compare-cta h3{font-size:24px;font-weight:700;margin-bottom:8px}
+.compare-cta p{font-size:14px;color:var(--text-light);margin-bottom:20px}
+
+/* ══════ CASE STUDY ══════ */
+.case-cards{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:40px}
+.case-card{display:grid;grid-template-columns:1fr 1fr;background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--border)}
+.case-card .case-img{background:var(--gray-bg);min-height:400px;background-size:cover;background-position:center}
+.case-card .case-body{padding:48px}
+.case-card .case-badge{display:inline-block;padding:4px 12px;background:var(--blue);color:#fff;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+.case-card h3{font-size:24px;font-weight:700;color:var(--black);margin-bottom:16px}
+.case-card .case-section{margin-bottom:20px}
+.case-card .case-section h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-light);margin-bottom:6px}
+.case-card .case-section p{font-size:14px;color:var(--text);line-height:1.7}
+.case-card .case-quote{padding:16px 20px;background:var(--gray-bg);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;margin-top:16px;font-style:italic;font-size:14px;color:var(--text);line-height:1.7}
+
+/* ══════ SOLUTION PAGES ══════ */
+/* sol-hero：16:9图片 + aspect-ratio锁定，所有设备完全一致，无裁切 */
+.sol-hero{position:relative;width:100%;overflow:hidden;background:#0A1E3F}
+.sol-hero-bg{position:relative;width:100%;padding-top:56.25%}
+.sol-hero-bg img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:fill;display:block}
+.sol-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,18,35,0.85) 0%,rgba(10,18,35,0.2) 60%,transparent 100%);z-index:1}
+.sol-hero-content{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:3% 5% 4%}
+.sol-hero-content .sol-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px}
+.sol-hero-content h1{font-size:clamp(28px,3.5vw,52px);font-weight:700;color:#fff;letter-spacing:-0.5px;line-height:1.1;margin-bottom:12px}
+.sol-hero-content p{font-size:clamp(13px,1.2vw,17px);color:rgba(255,255,255,0.85);line-height:1.6;max-width:480px}
+
+.sol-product-rec{max-width:1100px;margin:0 auto;padding:80px 40px 60px}
+.sol-product-rec h2{font-size:22px;font-weight:700;color:var(--black);margin-bottom:32px;text-align:center}
+.sol-product-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.sol-prod-card{background:var(--gray-bg);border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:12px;border:1px solid var(--border);transition:box-shadow .2s}
+.sol-prod-card:hover{box-shadow:0 8px 32px rgba(0,0,0,0.1)}
+.sol-prod-card .spc-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue)}
+.sol-prod-card h3{font-size:20px;font-weight:700;color:var(--black)}
+.sol-prod-card p{font-size:14px;color:var(--text-light);line-height:1.7;flex:1}
+.sol-prod-card .spc-btn{margin-top:8px;padding:10px 20px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;align-self:flex-start}
+.sol-prod-card .spc-btn:hover{background:var(--blue-deep)}
+
+.sol-advantages{padding:60px 40px;background:var(--gray-bg)}
+.sol-advantages h2{font-size:22px;font-weight:700;color:var(--black);text-align:center;margin-bottom:40px}
+.sol-adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:0 auto}
+.sol-adv-card{background:#fff;border-radius:12px;padding:28px;border:1px solid var(--border)}
+.sol-adv-card .adv-icon{font-size:32px;margin-bottom:12px}
+.sol-adv-card h4{font-size:16px;font-weight:700;color:var(--black);margin-bottom:6px}
+.sol-adv-card p{font-size:14px;color:var(--text-light);line-height:1.7}
+
+.sol-case-ref{max-width:900px;margin:0 auto;padding:60px 40px}
+.sol-case-ref h2{font-size:22px;font-weight:700;color:var(--black);margin-bottom:24px;text-align:center}
+.sol-case-mini{display:grid;grid-template-columns:200px 1fr;gap:32px;background:var(--gray-bg);border-radius:16px;overflow:hidden;border:1px solid var(--border)}
+.sol-case-mini .scm-img{background:var(--black);background-size:cover;background-position:center;min-height:200px}
+.sol-case-mini .scm-body{padding:32px 32px 32px 0}
+.sol-case-mini .scm-badge{display:inline-block;padding:4px 10px;background:var(--blue);color:#fff;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.sol-case-mini h3{font-size:18px;font-weight:700;color:var(--black);margin-bottom:8px}
+.sol-case-mini p{font-size:14px;color:var(--text);line-height:1.7}
+
+.sol-cta{background:var(--black);padding:80px 40px;text-align:center}
+.sol-cta h2{font-size:32px;font-weight:700;color:#fff;margin-bottom:8px}
+.sol-cta p{font-size:16px;color:rgba(255,255,255,0.7);margin-bottom:32px}
+.sol-cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* ══════ BLOG ══════ */
+.blog-hero{padding:calc(120px + 44px) 40px 60px;text-align:center;background:var(--gray-bg)}
+.blog-hero h1{font-size:48px;font-weight:700;color:var(--black);margin-bottom:8px}
+.blog-hero p{font-size:16px;color:var(--text-light)}
+
+.blog-filter{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.blog-filter-btn{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:500;color:var(--text);cursor:pointer;transition:all .2s}
+.blog-filter-btn.active,.blog-filter-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:1200px;margin:0 auto;padding:0 40px 80px}
+.blog-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--border);transition:box-shadow .2s;cursor:pointer}
+.blog-card:hover{box-shadow:0 8px 32px rgba(0,0,0,0.1)}
+.blog-card-cover{height:200px;background:var(--gray-bg);background-size:cover;background-position:center}
+.blog-card-body{padding:24px}
+.blog-card-tag{display:inline-block;padding:3px 10px;background:rgba(201,168,76,0.3);color:var(--blue);border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.blog-card h3{font-size:17px;font-weight:700;color:var(--black);line-height:1.4;margin-bottom:8px}
+.blog-card p{font-size:13px;color:var(--text-light);line-height:1.7;margin-bottom:12px}
+.blog-card-meta{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-lighter)}
+.blog-card-meta .read-more{color:var(--blue);font-weight:600;font-size:12px}
+
+/* Blog detail */
+.blog-detail-wrap{max-width:1100px;margin:0 auto;padding:60px 40px;display:grid;grid-template-columns:1fr 300px;gap:60px;align-items:start}
+.blog-detail-main h1{font-size:36px;font-weight:700;color:var(--black);line-height:1.3;margin-bottom:16px}
+.blog-detail-meta{display:flex;gap:16px;align-items:center;font-size:13px;color:var(--text-light);margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.blog-detail-meta .bd-tag{padding:3px 10px;background:rgba(201,168,76,0.3);color:var(--blue);border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.blog-detail-cover{width:100%;border-radius:12px;height:360px;background:var(--gray-bg);background-size:cover;background-position:center;margin-bottom:32px}
+.blog-detail-body{font-size:16px;color:var(--text);line-height:1.9}
+.blog-detail-body h2{font-size:24px;font-weight:700;color:var(--black);margin:32px 0 12px;letter-spacing:-0.3px}
+.blog-detail-body h3{font-size:19px;font-weight:700;color:var(--black);margin:24px 0 10px}
+.blog-detail-body p{margin-bottom:16px}
+.blog-detail-body ul{padding-left:20px;margin-bottom:16px}
+.blog-detail-body ul li{margin-bottom:8px;line-height:1.8}
+.blog-detail-body strong{color:var(--black);font-weight:700}
+.blog-sidebar h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-light);margin-bottom:16px}
+.blog-sidebar-card{background:var(--gray-bg);border-radius:12px;padding:16px;margin-bottom:12px;cursor:pointer;transition:background .2s;border:1px solid transparent}
+.blog-sidebar-card:hover{background:#FAF5EC;border-color:rgba(201,168,76,0.3)}
+.blog-sidebar-card p{font-size:13px;font-weight:600;color:var(--black);line-height:1.5;margin-bottom:4px}
+.blog-sidebar-card span{font-size:12px;color:var(--text-light)}
+.blog-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--blue);font-weight:600;cursor:pointer;margin-bottom:24px}
+.blog-back:hover{color:var(--blue-deep)}
+
+/* ══════ ABOUT ══════ */
+.about-hero{padding:calc(120px + 44px) 40px 80px;text-align:center;background:var(--gray-bg)}
+.about-hero h1{font-size:48px;font-weight:700;color:var(--black);margin-bottom:8px}
+.about-hero p{font-size:16px;color:var(--text-light)}
+
+.about-split{display:grid;grid-template-columns:1fr 1fr;min-height:500px;align-items:center}
+.about-text{padding:80px 60px}
+.about-text h2{font-size:32px;font-weight:700;color:var(--black);margin-bottom:16px}
+.about-text p{font-size:15px;color:var(--text);line-height:1.8;margin-bottom:12px}
+.about-img{height:100%;min-height:400px;background-size:cover;background-position:center;background-color:var(--gray-bg)}
+
+/* Timeline */
+.timeline{max-width:700px;margin:0 auto}
+.tl-item{display:flex;gap:24px;margin-bottom:32px;position:relative}
+.tl-year{min-width:80px;font-size:18px;font-weight:700;color:var(--blue)}
+.tl-content{border-left:2px solid var(--border);padding-left:24px;padding-bottom:8px}
+.tl-content h4{font-size:16px;font-weight:700;color:var(--black);margin-bottom:4px}
+.tl-content p{font-size:14px;color:var(--text);line-height:1.6}
+
+/* ══════ CONTACT ══════ */
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;max-width:1100px;margin:0 auto}
+.contact-info .ci-card{background:var(--gray-bg);border-radius:12px;padding:24px;margin-bottom:16px}
+.ci-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-light);margin-bottom:8px}
+.ci-card p{font-size:15px;color:var(--text);line-height:1.6}
+.ci-card a{color:var(--blue);font-weight:500}
+.contact-form{background:var(--gray-bg);border-radius:16px;padding:48px}
+.contact-form h3{font-size:24px;font-weight:700;color:var(--black);margin-bottom:24px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-light);margin-bottom:6px;font-weight:700}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:8px;font-size:15px;color:var(--text);background:#fff;transition:border .2s;font-family:inherit}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 3px rgba(201,168,76,0.3)}
+.form-group textarea{height:100px;resize:vertical}
+.form-submit{width:100%;padding:14px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s}
+.form-submit:hover{background:var(--blue-deep)}
+
+/* Contact channels */
+.contact-channels{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.ch-card{text-align:center;padding:20px;background:#fff;border-radius:12px;border:1px solid var(--border);cursor:pointer;transition:all .2s}
+.ch-card:hover{border-color:var(--blue);box-shadow:0 4px 12px rgba(201,168,76,0.3)}
+.ch-card .ch-icon{font-size:28px;margin-bottom:8px}
+.ch-card .ch-name{font-size:13px;font-weight:600;color:var(--black)}
+.ch-card .ch-detail{font-size:12px;color:var(--text-light);margin-top:2px}
+
+/* ══════ FOOTER ══════ */
+.footer{padding:48px 40px 24px;border-top:1px solid var(--border)}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto 40px}
+.footer-brand p{font-size:13px;color:var(--text-light);line-height:1.7;margin-top:12px;max-width:300px}
+.footer-col h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-light);margin-bottom:16px}
+.footer-col a{display:block;font-size:13px;color:var(--text);padding:4px 0;transition:color .15s}
+.footer-col a:hover{color:var(--blue)}
+.footer-bottom{text-align:center;padding-top:24px;border-top:1px solid var(--border)}
+.footer-bottom p{font-size:12px;color:var(--text-lighter)}
+
+/* ══════ RESPONSIVE ══════ */
+@media(max-width:1024px){
+  .nav-center{display:none}
+  .prod-grid,.feature-block,.about-split,.case-card,.contact-grid{grid-template-columns:1fr}
+  .scenario-grid{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .hero-content h1{font-size:40px}
+  .pd-hero h1{font-size:48px}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .sol-adv-grid{grid-template-columns:1fr 1fr}
+  .sol-case-mini{grid-template-columns:1fr}
+  .blog-grid{grid-template-columns:1fr 1fr}
+  .blog-detail-wrap{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  #navbar{padding:0 16px}#nav-menu{gap:0;overflow-x:auto}.nav-item{padding:0 10px;font-size:11px}
+  .section{padding:60px 20px}
+  .scenario-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .testimonials{grid-template-columns:1fr}
+  .contact-channels{grid-template-columns:1fr}
+  .compare-table{font-size:12px}
+  .hero-content h1{font-size:32px}
+  .pd-hero h1{font-size:36px}
+  .feature-text{padding:40px 20px}
+  .footer-top{grid-template-columns:1fr}
+  .sol-hero-content h1{font-size:clamp(22px,4vw,36px)}
+  .sol-adv-grid{grid-template-columns:1fr}
+  .sol-product-cards{grid-template-columns:1fr}
+  .blog-grid{grid-template-columns:1fr;padding:0 20px 60px}
+  .blog-detail-wrap{padding:40px 20px}
+}
+</style>
+<style id="boss-theme">
+/* ══ 导航透明/深蓝切换 ══ */
+#navbar, #nav-menu {
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+#nav-wrap:not(.nav-transparent) #navbar {
+  background: #0A1E3F !important;
+}
+#nav-wrap:not(.nav-transparent) #nav-menu {
+  background: #0A1E3F !important;
+}
+#nav-wrap.nav-transparent #navbar {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+#nav-wrap.nav-transparent #nav-menu {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+
+
+
+
+
+
+
+
+/* ══ Hero完整显示（任意窗口比例）══ */
+.hero {
+  position: relative;
+  
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 0;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 140px 80px 60px !important;
+  max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  align-items: flex-start;
+}
+/* 窗口较矮时，内容不被截 */
+@media (max-height: 700px) {
+  .hero-content { padding: 100px 80px 40px !important; }
+  .hero-content h1 { font-size: 52px !important; }
+  .hero-btns { margin-bottom: 32px !important; }
+}
+@media (max-width: 900px) {
+  .hero-content { padding: 120px 40px 48px !important; }
+  .hero-content h1 { font-size: 48px !important; }
+}
+@media (max-width: 600px) {
+  .hero-content { padding: 100px 24px 40px !important; }
+  .hero-content h1 { font-size: 36px !important; letter-spacing: -1px !important; }
+  .hero-content p { font-size: 14px !important; }
+  .hero-btns { flex-direction: column !important; }
+}
+
+
+  .hero-bg { background-position: 75% center !important; }
+}
+
+/* Tesla卡片图片等比缩放 */
+.tc-bg img { width: 100%; height: 100%; object-fit: contain; }
+/* Racehorse卡片文字深色 */
+/* MS20 图片正常显示（透明PNG，glow由变量控制）*/
+.card-race .tc-bg img { animation: tcfloat 4s ease-in-out infinite; }
+
+/* 图片卡片文字：白色+阴影 */
+.pd2-card-img h3 {
+  color: #fff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6) !important;
+}
+.pd2-card-img p {
+  color: rgba(255,255,255,0.9) !important;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5) !important;
+}
+.pd2-card-img .pd2-card-tags span {
+  color: #fff !important;
+  background: rgba(201,168,76,0.3) !important;
+  border-color: rgba(201,168,76,0.6) !important;
+  text-shadow: none !important;
+}
+
+/* 导航下拉 */
+.nav-drop-menu { background: #fff !important; border-top: 2px solid #C9A84C !important; }
+.nav-drop-menu a { color: #1C2333 !important; }
+.nav-drop-menu a:hover { color: #C9A84C !important; }
+
+/* 深蓝section标题/文字 */
+.section-dark h2,.section-dark h3{color:#fff!important}
+.section-dark p{color:rgba(255,255,255,0.72)!important}
+.section-dark .section-tag{color:#C9A84C!important;border-color:rgba(201,168,76,0.4)!important;background:rgba(201,168,76,0.1)!important}
+.section-dark .btn-outline{border-color:rgba(255,255,255,0.45)!important;color:#fff!important}
+
+/* "为什么选择"深蓝section内白卡深字 */
+section[style*="background:#0A1E3F"] h2{color:#fff!important}
+section[style*="background:#0A1E3F"] .section-header p{color:rgba(255,255,255,0.68)!important}
+section[style*="background:#0A1E3F"] .section-tag{color:#C9A84C!important;border-color:rgba(201,168,76,0.4)!important;background:rgba(201,168,76,0.1)!important}
+section[style*="background:#0A1E3F"] .feature-card{background:#fff!important;border-color:rgba(255,255,255,0.2)!important;box-shadow:0 4px 20px rgba(10,30,63,0.15)!important}
+section[style*="background:#0A1E3F"] .feature-card h3{color:#0A1E3F!important}
+section[style*="background:#0A1E3F"] .feature-card p{color:#5A6A7A!important}
+section[style*="background:#0A1E3F"] .feature-icon{background:rgba(201,168,76,0.12)!important;color:#C9A84C!important}
+
+/* "合作伙伴"深蓝section评价卡片 */
+section[style*="background:#0A1E3F"] .testimonial-card{background:rgba(255,255,255,0.08)!important;border-color:rgba(255,255,255,0.18)!important}
+section[style*="background:#0A1E3F"] .testimonial-card p,
+section[style*="background:#0A1E3F"] .testimonial-card h4,
+section[style*="background:#0A1E3F"] .testimonial-card span,
+section[style*="background:#0A1E3F"] .testimonial-card cite{color:rgba(255,255,255,0.88)!important}
+section[style*="background:#0A1E3F"] .partner-logo{filter:brightness(0) invert(1);opacity:0.55}
+
+/* section-tag全局金色 */
+.section-tag{color:#C9A84C!important;border-color:rgba(201,168,76,0.4)!important;background:rgba(201,168,76,0.08)!important}
+
+/* 按钮金色 */
+.btn-primary{background:#C9A84C!important;border-color:#C9A84C!important;color:#fff!important}
+.btn-primary:hover{background:#B8832E!important}
+
+/* pd2 badge金色 */
+.pd2-badge{background:rgba(201,168,76,0.15)!important;border-color:rgba(201,168,76,0.5)!important;color:#C9A84C!important}
+
+/* footer深蓝白字 */
+.footer{background:#061224!important}
+.footer,.footer *{color:rgba(255,255,255,0.72)!important}
+.footer h4,.footer .footer-brand-name,.footer-logo-text{color:#fff!important}
+.footer a:hover{color:#C9A84C!important}
+.footer-bottom,.footer-copy{color:rgba(255,255,255,0.4)!important;border-color:rgba(255,255,255,0.08)!important}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- NAV -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="nav-wrap">
+  <nav id="navbar">
+    <div class="nav-top-left">
+      <span class="nav-lang">EN</span>
+    </div>
+    <div class="nav-logo" onclick="showPage('home')">
+      <img src="images/logo02.png" alt="模拟马 Equestrian Simulators" id="nav-logo-img" style="height:52px;width:auto;object-fit:contain;display:block">
+    </div>
+    <div class="nav-top-right">
+      <button class="btn-nav" onclick="showPage('contact')">获取报价</button>
+    </div>
+  </nav>
+  <div id="nav-menu">
+    <div class="nav-item active" onclick="showPage('home')">首页</div>
+    <div class="nav-item nav-drop">产品 ▾
+      <div class="nav-drop-menu">
+        <a onclick="showPage('ms30p')">Horse-MS30P</a>
+        <a onclick="showPage('ms30')">Pony-MS30</a>
+        <a onclick="showPage('ms20')">Racehorse-MS20</a>
+      </div>
+    </div>
+    <div class="nav-item" onclick="showPage('compare')">对比</div>
+    <div class="nav-item nav-drop">解决方案 ▾
+      <div class="nav-drop-menu">
+        <a onclick="showPage('sol-club')">俱乐部与训练中心</a>
+        <a onclick="showPage('sol-edu')">学校与教育机构</a>
+        <a onclick="showPage('sol-rehab')">康复与治疗</a>
+        <a onclick="showPage('sol-racing')">赛马与骑师训练</a>
+        <a onclick="showPage('sol-home')">家庭与个人</a>
+        <a onclick="showPage('sol-event')">展览与活动</a>
+      </div>
+    </div>
+    <div class="nav-item" onclick="showPage('cases')">案例</div>
+    <div class="nav-item" onclick="showPage('blog')">博客</div>
+    <div class="nav-item" onclick="showPage('downloads')">资料下载</div>
+    <div class="nav-item" onclick="showPage('about')">关于</div>
+    <div class="nav-item" onclick="showPage('contact')">联系</div>
+    <div class="nav-menu-right">
+      <button class="btn-nav" onclick="showPage('contact')">获取报价</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: HOME -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <section class="hero" id="home-hero" style="position:relative;width:100%;background:transparent;margin-top:0">
+  <!-- 图片容器：锁定原始比例，完整显示不裁剪 -->
+  <div style="position:relative;width:100%;padding-top:56.26%">
+    <img src="images/hero-poster.jpeg" alt="模拟马 - 全球专业马术模拟器"
+      style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:fill;display:block">
+    <!-- 左侧渐变蒙层（不遮图片主体，只让文字可读）-->
+    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(10,18,35,0.78) 0%,rgba(10,18,35,0.3) 55%,rgba(10,18,35,0.05) 100%)"></div>
+    <!-- 文字内容层：位置由CSS变量控制，后台通过滑块调 --hero-x（左右）和 --hero-valign（上中下）-->
+    <div id="hero-text-block" style="position:absolute;inset:0;display:flex;align-items:var(--hero-valign,center);padding-left:var(--hero-x,28%);padding-right:4%;padding-top:0">
+      <div style="max-width:580px">
+        <div style="font-size:clamp(10px,1.1vw,14px);font-weight:600;color:#C9A84C;letter-spacing:3px;text-transform:uppercase;margin-bottom:clamp(8px,1.5vh,20px);display:flex;align-items:center;gap:10px">
+          <span style="display:block;width:32px;height:1px;background:#C9A84C"></span>
+          全球制造商 · 自2017年
+        </div>
+        <h1 style="font-size:clamp(24px,4.5vw,72px);font-weight:900;color:#fff;line-height:1.08;margin-bottom:clamp(8px,1.5vh,24px);letter-spacing:-1px">
+          全球专业<br><span style="color:#C9A84C">马术模拟器</span>制造商
+        </h1>
+        <p style="font-size:clamp(12px,1.3vw,18px);color:rgba(255,255,255,0.78);line-height:1.7;margin-bottom:clamp(12px,2vh,40px);max-width:480px">
+          面向训练、教学、康复、竞速与体验场景，<br>提供稳定、安全、专业的室内马术模拟解决方案。
+        </p>
+        <div style="display:flex;gap:clamp(8px,1vw,16px);flex-wrap:wrap;margin-bottom:clamp(12px,2vh,48px)">
+          <button class="btn btn-primary" onclick="showPage('ms30p')" style="padding:clamp(10px,1.2vh,16px) clamp(16px,2vw,36px);font-size:clamp(12px,1.1vw,16px);font-weight:700">查看产品 →</button>
+          <button class="btn btn-outline-white" onclick="showPage('sol-club')" style="padding:clamp(10px,1.2vh,16px) clamp(12px,1.5vw,28px);font-size:clamp(12px,1.1vw,16px)">查看应用场景</button>
+          <button class="btn btn-outline-white" onclick="showPage('contact')" style="padding:clamp(10px,1.2vh,16px) clamp(12px,1.5vw,28px);font-size:clamp(12px,1.1vw,16px)">联系合作</button>
+        </div>
+        <div style="display:flex;gap:clamp(16px,3vw,48px);border-top:1px solid rgba(255,255,255,0.15);padding-top:clamp(12px,2vh,28px)">
+          <div><div style="font-size:clamp(18px,2.5vw,36px);font-weight:900;color:#C9A84C;line-height:1">3</div><div style="font-size:clamp(10px,0.9vw,13px);color:rgba(255,255,255,0.6);margin-top:3px">产品系列</div></div>
+          <div><div style="font-size:clamp(18px,2.5vw,36px);font-weight:900;color:#C9A84C;line-height:1">6+</div><div style="font-size:clamp(10px,0.9vw,13px);color:rgba(255,255,255,0.6);margin-top:3px">应用场景</div></div>
+          <div><div style="font-size:clamp(18px,2.5vw,36px);font-weight:900;color:#C9A84C;line-height:1">10+</div><div style="font-size:clamp(10px,0.9vw,13px);color:rgba(255,255,255,0.6);margin-top:3px">年持续研发</div></div>
+          <div><div style="font-size:clamp(18px,2.5vw,36px);font-weight:900;color:#C9A84C;line-height:1">30+</div><div style="font-size:clamp(10px,0.9vw,13px);color:rgba(255,255,255,0.6);margin-top:3px">全球合作</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Trust Bar removed — merged into Partners section below -->
+
+  <!-- Tesla-style Product Cards -->
+  <section class="section" style="padding:60px 0">
+    <div class="section-header">
+      <h2>产品系列</h2>
+      <p>三款专业模拟器，覆盖从专业竞技到教学康复的全部场景</p>
+    </div>
+    <div class="tesla-cards">
+      <!-- Horse-MS30P Card — 冷蓝灰，glow-color: rgba(109,148,209,0.3) -->
+      <div class="tesla-card card-horse" style="--glow-color:rgba(109,148,209,0.3)" onclick="showPage('ms30p')">
+        <div class="tc-label">专业三项赛</div>
+        <!-- 透明背景PNG模式：浮动动画 + glow光晕（高度340px） -->
+        <div class="tc-bg"><img src="images/ms30p.png" alt="Horse-MS30P"></div>
+        <div class="tc-content">
+          <h3>Horse-MS30P</h3>
+          <div class="tc-subtitle">专业三项赛模拟器</div>
+          <p>香港赛马会(HKJC)同款。专为职业竞技与高阶训练打造，配备头部+腹部高精度传感器矩阵。</p>
+          <button class="btn btn-primary">了解更多</button>
+        </div>
+      </div>
+      <!-- Pony-MS30 Card — 暖紫灰，glow-color: rgba(159,128,206,0.25) -->
+      <div class="tesla-card card-pony" style="--glow-color:rgba(159,128,206,0.25)" onclick="showPage('ms30')">
+        <div class="tc-label">智能教学</div>
+        <!-- 透明背景PNG模式：浮动动画 + glow光晕（高度340px） -->
+        <div class="tc-bg"><img src="images/ms30.png" alt="Pony-MS30"></div>
+        <div class="tc-content">
+          <h3>Pony-MS30</h3>
+          <div class="tc-subtitle">智能教学模拟器</div>
+          <p>Hong Kong RDA同款。支持多机组网联动，赋能数字化团体教学与马术康复。</p>
+          <button class="btn btn-primary">了解更多</button>
+        </div>
+      </div>
+      <!-- Racehorse-MS20 Card — 暖金米色，glow-color: rgba(201,168,76,0.3) -->
+      <div class="tesla-card card-race" style="--glow-color:rgba(201,168,76,0.3)" onclick="showPage('ms20')">
+        <div class="tc-label">赛马竞速</div>
+        <!-- 透明背景PNG模式：浮动动画 + glow光晕（高度340px） -->
+        <div class="tc-bg"><img src="images/ms20.png" alt="Racehorse-MS20"></div>
+        <div class="tc-content">
+          <h3>Racehorse-MS20</h3>
+          <div class="tc-subtitle">赛马竞速模拟器</div>
+          <p>体验极致袭步与气压感应加速，专为职业骑师打造的竞速训练装备。</p>
+          <button class="btn btn-primary">了解更多</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="section" style="padding:80px 40px;background:#0A1E3F">
+    <div class="section-header">
+      <h2>为什么选择模拟马®</h2>
+      <p>相比传统真马训练，我们提供更安全、更高效、更经济的解决方案</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;max-width:1200px;margin:0 auto">
+      <div style="background:var(--gray-bg);border-radius:16px;padding:36px 28px;text-align:center;transition:transform .2s" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+        <div style="font-size:40px;margin-bottom:16px">🛡️</div>
+        <h3 style="font-size:18px;font-weight:700;color:var(--black);margin-bottom:8px">零风险训练</h3>
+        <p style="font-size:14px;color:var(--text-light);line-height:1.7">消除真马的不可预测行为，紧急制动毫秒响应。HKJC和RDA验证的安全标准。</p>
+      </div>
+      <div style="background:var(--gray-bg);border-radius:16px;padding:36px 28px;text-align:center;transition:transform .2s" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+        <div style="font-size:40px;margin-bottom:16px">🌤️</div>
+        <h3 style="font-size:18px;font-weight:700;color:var(--black);margin-bottom:8px">全天候可用</h3>
+        <p style="font-size:14px;color:var(--text-light);line-height:1.7">不受天气、场地、马匹状态限制。室内恒温环境，365天随时训练。</p>
+      </div>
+      <div style="background:var(--gray-bg);border-radius:16px;padding:36px 28px;text-align:center;transition:transform .2s" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+        <div style="font-size:40px;margin-bottom:16px">📊</div>
+        <h3 style="font-size:18px;font-weight:700;color:var(--black);margin-bottom:8px">数据驱动教学</h3>
+        <p style="font-size:14px;color:var(--text-light);line-height:1.7">200+传感器实时采集骑姿数据，生物力学反馈精准到每一个扶助动作。</p>
+      </div>
+      <div style="background:var(--gray-bg);border-radius:16px;padding:36px 28px;text-align:center;transition:transform .2s" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+        <div style="font-size:40px;margin-bottom:16px">💰</div>
+        <h3 style="font-size:18px;font-weight:700;color:var(--black);margin-bottom:8px">大幅降低成本</h3>
+        <p style="font-size:14px;color:var(--text-light);line-height:1.7">无需马匹饲养、兽医、马厩等持续开支。一台设备服务无限学员。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Application Scenarios -->
+  <section class="section">
+    <div class="section-header">
+      <h2>全场景解决方案</h2>
+      <p>从专业俱乐部到康复治疗中心，提供完整的马术解决方案</p>
+    </div>
+    <div class="scenario-grid">
+      <div class="scenario-card" onclick="showPage('sol-club')">
+        <div class="sc-bg" style="background-image:url('images/sc-club.jpg');background-color:#2d3748"></div>
+        <div class="sc-overlay"></div>
+        <div class="sc-content">
+          <h3>马术俱乐部</h3>
+          <p>为会员提供高端训练体验</p>
+          <button class="btn btn-white btn-sm">了解更多</button>
+        </div>
+      </div>
+      <div class="scenario-card" onclick="showPage('sol-edu')">
+        <div class="sc-bg" style="background-image:url('images/sc-edu.jpg');background-color:#1a365d"></div>
+        <div class="sc-overlay"></div>
+        <div class="sc-content">
+          <h3>学校与教育机构</h3>
+          <p>安全可控的教学环境</p>
+          <button class="btn btn-white btn-sm">了解更多</button>
+        </div>
+      </div>
+      <div class="scenario-card" onclick="showPage('sol-rehab')">
+        <div class="sc-bg" style="background-image:url('images/sc-rehab.jpg');background-color:#234e52"></div>
+        <div class="sc-overlay"></div>
+        <div class="sc-content">
+          <h3>康复与治疗</h3>
+          <p>马术疗法模拟训练</p>
+          <button class="btn btn-white btn-sm">了解更多</button>
+        </div>
+      </div>
+      <div class="scenario-card" onclick="showPage('sol-racing')">
+        <div class="sc-bg" style="background-image:url('images/sc-racing.jpg');background-color:#44337a"></div>
+        <div class="sc-overlay"></div>
+        <div class="sc-content">
+          <h3>赛马与骑师训练</h3>
+          <p>高速竞技体能训练</p>
+          <button class="btn btn-white btn-sm">了解更多</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners & Trust (merged) -->
+  <div class="partners-section">
+    <h2>深受信赖</h2>
+    <p>全球顶尖机构与政府的共同选择</p>
+
+    <!-- 第一排：方形Logo 4个一行 -->
+    <div class="partners-row">
+      <div class="partner-item">
+        <div class="partner-logo-wrap"><img src="images/partner-sctu.png?v=10" alt="四川旅游学院"></div>
+        <span>四川旅游学院</span>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-wrap"><img src="images/partner-hkjc.png?v=23" alt="香港赛马会 HKJC" style="width:253px;height:253px"></div>
+        <span>香港赛马会</span>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-wrap"><img src="images/partner-pla.png?v=10" alt="中国人民解放军"></div>
+        <span>中国人民解放军</span>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-wrap"><img src="images/partner-sysu.png?v=10" alt="中山大学深圳附属学校"></div>
+        <span>中山大学深圳附属学校</span>
+      </div>
+    </div>
+
+    <!-- 第二排：方形Logo -->
+    <div class="partners-row" style="margin-top:40px">
+      <div class="partner-item">
+        <div class="partner-logo-wrap"><img src="images/partner-xjau.png?v=10" alt="新疆农业大学"></div>
+        <span>新疆农业大学</span>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-wrap"><img src="images/partner-debao.png?v=10" alt="德保职业技术学院"></div>
+        <span>德保职业技术学院</span>
+      </div>
+      <div class="partner-item">
+        <div class="partner-logo-wrap"><img src="images/partner-sz.png?v=10" alt="深圳市马术协会"></div>
+        <span>深圳市马术协会</span>
+      </div>
+    </div>
+
+    <!-- 第三排：横向Logo -->
+    <div class="partners-row-wide" style="margin-top:40px;align-items:center">
+      <div class="partner-item-wide">
+        <div class="partner-logo-wide" style="width:auto;height:120px;display:flex;align-items:center"><img src="images/partner-rda.png?v=19" alt="香港傷健策骑协会 RDA" style="height:120px;width:auto"></div>
+        <span>RDA 残障骑术协会</span>
+      </div>
+      <div class="partner-item-wide">
+        <div class="partner-logo-wide" style="width:auto;height:85px;display:flex;align-items:center"><img src="images/partner-yili.png?v=21" alt="伊犁哈萨克自治州人民政府" style="height:85px;width:auto"></div>
+        <span>伊犁哈萨克自治州政府</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <section class="section" style="background:#0A1E3F">
+    <div class="section-header">
+      <h2>合作伙伴怎么说</h2>
+      <p>深受全球领先机构信赖</p>
+    </div>
+    <div class="testimonials">
+      <div class="testimonial">
+        <blockquote>"MS.30P显著改进了我们的骑师训练计划。其精准的传感器反馈提供了我们无法通过传统训练方法获得的宝贵生物力学数据。"</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">H</div>
+          <div>
+            <div class="t-name">培训总监</div>
+            <div class="t-role">香港赛马会深圳中心</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <blockquote>"对于我们的残疾骑手来说，安全至关重要。MS.30的紧急停止功能和柔和的步态模拟创造了一个零风险的环境，使我们的参与者能够建立信心。"</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">R</div>
+          <div>
+            <div class="t-name">项目经理</div>
+            <div class="t-role">香港残障骑术协会 RDA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="section section-dark">
+    <div class="cta-banner">
+      <h2>准备好革新您的训练方式了吗？</h2>
+      <p>联系我们的团队，获取个性化咨询和产品演示</p>
+      <div class="cta-channels">
+        <button class="btn btn-primary" onclick="showPage('contact')">📋 获取报价</button>
+        <button class="btn btn-outline-white">💬 WhatsApp咨询</button>
+        <button class="btn btn-outline-white">✉️ 发送邮件</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: MS.30P DETAIL -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-ms30p" class="page">
+
+  <!-- ① Hero：产品居中浮动全屏 -->
+  <div class="pd2-hero">
+    <div class="pd2-hero-bg"></div>
+    <div class="pd2-hero-inner">
+      <div class="pd2-hero-left">
+        <div class="pd2-badge">HKJC 官方认可</div>
+        <h1 class="pd2-title">MS<span>.30P</span></h1>
+        <p class="pd2-sub">专为职业竞技与高阶训练打造的<br>三项赛模拟器</p>
+        <div class="pd2-btns">
+          <button class="btn btn-primary" onclick="showPage('contact')">获取报价</button>
+          <button class="btn btn-ghost" onclick="showPage('compare')">对比型号 →</button>
+        </div>
+      </div>
+      <div class="pd2-hero-right">
+        <div class="pd2-img-wrap">
+          <img src="images/ms30p.png" alt="MS.30P">
+          <div class="pd2-glow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② 数据亮点条 已删除（与What Is板块下方数据标识重复）-->
+
+  <!-- ③ 全宽沉浸图+文字悬浮（Feature 1） -->
+  <div class="pd2-immersive">
+    <img src="images/ms30p-immersive.jpg" alt="高精度生物力学感应" class="pd2-immersive-img">
+    <div class="pd2-immersive-overlay">
+      <div class="pd2-immersive-content">
+        <div class="pd2-feat-label">核心特性</div>
+        <h2>高精度生物力学感应</h2>
+        <p>在马匹头部、腹部配置高灵敏度感应矩阵，实时捕捉骑手重心微调与腿部扶助指令，缰绳拉力感应实现毫秒级动态响应。</p>
+        <div class="feature-tags">
+          <span class="feature-tag">头部传感器</span>
+          <span class="feature-tag">腹部传感器</span>
+          <span class="feature-tag">实时反馈</span>
+          <span class="feature-tag">生物力学分析</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 3列功能卡片网格 -->
+  <div class="pd2-cards-section">
+    <div class="pd2-cards-header">
+      <h2>核心功能</h2>
+      <p>专业级技术，为竞技训练而生</p>
+    </div>
+    <div class="pd2-cards">
+      <div class="pd2-card">
+        <div class="pd2-card-icon">🎯</div>
+        <h3>智能扶助识别</h3>
+        <p>识别"里怀"扶助指令，通过真实生物力学动作触发精准步态转换与速度变化，还原真实骑术操控逻辑。</p>
+        <div class="pd2-card-tags">
+          <span>里怀转换</span><span>步态切换</span><span>速度控制</span>
+        </div>
+      </div>
+      <div class="pd2-card pd2-card-highlight pd2-card-img" style="background-image:url(images/ms30p-gallop.jpg);background-size:cover;background-position:center">
+        <div class="pd2-card-img-overlay"></div>
+        <div class="pd2-card-icon">🏇</div>
+        <h3>全能三项赛体验</h3>
+        <p>精准还原慢步、快步、跑步三大基本步态，支持盛装舞步高级动作及场地障碍赛预设路线模拟。</p>
+        <div class="pd2-card-tags">
+          <span>慢步</span><span>快步</span><span>跑步</span><span>场地障碍</span>
+        </div>
+      </div>
+      <div class="pd2-card">
+        <div class="pd2-card-icon">🛡️</div>
+        <h3>专业安全系统</h3>
+        <p>紧急制动装置与软件故障保护双重保障，CE (RED/EMC/LVD) 国际认证，香港赛马会深圳中心官方采用。</p>
+        <div class="pd2-card-tags">
+          <span>紧急制动</span><span>CE认证</span><span>HKJC认可</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ 视频演示区 -->
+  <div class="pd2-video-section">
+    <div class="pd2-video-header">
+      <div class="pd2-feat-label">PRODUCT DEMO</div>
+      <h2>产品演示</h2>
+    </div>
+    <div class="pd2-video-box" style="height:auto;padding:0;border:none;background:none">
+      <video
+        src="images/ms30p-demo.mov"
+        poster="images/ms30p-immersive.jpg"
+        controls
+        style="width:100%;max-width:900px;border-radius:20px;display:block;margin:0 auto;box-shadow:0 0 60px rgba(201,168,76,0.3)"
+      ></video>
+    </div>
+  </div>
+
+  <!-- ⑥ 技术规格表格（双列居中） -->
+  <div class="pd2-specs-table-section">
+    <h2>技术规格</h2>
+    <div class="pd2-specs-2col">
+      <table class="pd2-specs-tbl">
+        <tbody>
+          <tr><td>型号</td><td>MS.30P</td></tr>
+          <tr><td>定位</td><td>专业三项赛模拟器</td></tr>
+          <tr><td>认可机构</td><td>香港赛马会深圳中心（HKJC）</td></tr>
+          <tr><td>步态模拟</td><td>慢步 / 快步 / 跑步</td></tr>
+          <tr><td>头部传感器</td><td>高精度动态模块</td></tr>
+          <tr><td>腹部传感器</td><td>高精度矩阵</td></tr>
+          <tr><td>盛装舞步</td><td>高级（含里怀扶助转换）</td></tr>
+          <tr><td>场地障碍</td><td>支持（预设路线模拟）</td></tr>
+          <tr><td>安全系统</td><td>紧急制动 + 软件故障保护</td></tr>
+          <tr><td>认证</td><td>CE（RED / EMC / LVD）</td></tr>
+        </tbody>
+      </table>
+      <table class="pd2-specs-tbl">
+        <tbody>
+          <tr><td>整机尺寸（长×宽×高）</td><td>详询销售团队</td></tr>
+          <tr><td>最低天花板高度</td><td>详询销售团队</td></tr>
+          <tr><td>占地面积</td><td>详询销售团队</td></tr>
+          <tr><td>整机重量</td><td>详询销售团队</td></tr>
+          <tr><td>电源电压</td><td>220V AC / 50Hz</td></tr>
+          <tr><td>额定功率</td><td>详询销售团队</td></tr>
+          <tr><td>运行噪音</td><td>详询销售团队</td></tr>
+          <tr><td>工作温度</td><td>5°C — 40°C</td></tr>
+          <tr><td>包装尺寸</td><td>详询销售团队</td></tr>
+          <tr><td>质保期</td><td>详询销售团队</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- What Is 定义段（GEO核心） -->
+  <div style="padding:72px 6%;background:#F9F7F4">
+    <div style="max-width:900px;margin:0 auto;text-align:center">
+      <h2 style="font-size:clamp(22px,2.5vw,30px);font-weight:700;color:var(--text,#1C2333);margin-bottom:20px;line-height:1.35">MS.30P 专业马术模拟器是什么？</h2>
+      <p style="font-size:clamp(14px,1.3vw,16px);color:var(--text-light,#5A6478);line-height:1.9;text-align:left">
+        MS.30P 是一款面向职业竞技与高阶训练场景的专业马术模拟器，搭载 AI 生物力学反馈系统，获香港赛马会（HKJC）官方认可，通过 CE（RED/EMC/LVD）认证。配备 200+ 精密传感器，精准还原走步、快步、跑步三种步态的全维度动感体验，支持实时骑姿数据分析与训练报告输出。专为马术俱乐部、职业骑手及高阶骑术训练机构设计，实现无真马的数据驱动训练。
+      </p>
+      <div style="display:flex;justify-content:center;gap:48px;margin-top:36px;flex-wrap:wrap">
+        <div style="text-align:center">
+          <div style="font-size:clamp(28px,3vw,42px);font-weight:800;color:#C9A84C">3</div>
+          <div style="font-size:13px;color:#5A6478;margin-top:4px">步态模式</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:clamp(28px,3vw,42px);font-weight:800;color:#C9A84C">200+</div>
+          <div style="font-size:13px;color:#5A6478;margin-top:4px">精密传感器</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:clamp(28px,3vw,42px);font-weight:800;color:#C9A84C">HKJC</div>
+          <div style="font-size:13px;color:#5A6478;margin-top:4px">官方认可</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ MS.30P — 与MS30/MS20统一样式 -->
+  <section class="section" style="padding:80px 40px;background:#fff">
+    <div style="max-width:860px;margin:0 auto">
+      <h2 style="font-size:clamp(22px,2.5vw,28px);font-weight:700;color:var(--text,#1C2333);margin-bottom:40px;text-align:center">常见问题解答</h2>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0" open>
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            MS.30P 适合哪个年龄段的骑手使用？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">MS.30P 面向10岁以上的骑手，尤其适合有一定基础的青少年及成年职业骑手。如需为10岁以下儿童或初学者配备，建议选择 MS.30 教学款，其步态参数更为温和、安全保障更全面。</p>
+        </details>
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0">
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            安装 MS.30P 需要特殊场地或改造吗？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">无需特殊改造。MS.30P 使用标准220V电源，对地面无特殊承重要求，无需排水设施。只需提供场地尺寸，我们将为您出具免费场地评估报告和安装布局方案。</p>
+        </details>
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0">
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            模拟马和真马训练有什么区别？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">MS.30P 通过6轴运动平台和200+精密传感器还原真马的生物力学动作。它无法复现每匹马的个性差异，但能提供真马无法实现的稳定可量化训练条件——是真马训练的最佳补充，而非替代。</p>
+        </details>
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0">
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            AI 系统能提供哪些训练数据？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">每次训练结束后，AI 系统自动生成训练报告，涵盖重心平衡分布、骑姿评分、扶助动作精准度及训练进度趋势。报告支持导出，可用于教练记录、训练日志及赛前准备规划。</p>
+        </details>
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0">
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            质保和售后服务包含哪些内容？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">MS.30P 提供2年整机质保、5年核心部件质保，7×24小时远程技术支持，全球范围内可安排上门服务。安装时含员工使用培训，质保期内软件升级免费提供。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 全宽CTA -->
+  <section class="section section-dark">
+    <div class="cta-banner">
+      <h2>对MS.30P感兴趣？</h2>
+      <p>联系我们的团队，获取价格、定制方案和演示预约</p>
+      <div class="cta-channels">
+        <button class="btn btn-primary" onclick="showPage('contact')">📋 获取报价</button>
+        <button class="btn btn-outline-white">💬 WhatsApp咨询</button>
+        <button class="btn btn-outline-white">✉️ 发送邮件</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: MS.30 DETAIL -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-ms30" class="page">
+
+  <!-- Hero -->
+  <div class="pd2-hero">
+    <div class="pd2-hero-bg"></div>
+    <div class="pd2-hero-inner">
+      <div class="pd2-hero-left">
+        <div class="pd2-badge">RDA 官方认可</div>
+        <h1 class="pd2-title">MS<span>.30</span></h1>
+        <p class="pd2-sub">赋能数字化团体教学的<br>智能马术模拟器</p>
+        <div class="pd2-btns">
+          <button class="btn btn-primary" onclick="showPage('contact')">获取报价</button>
+          <button class="btn btn-ghost" onclick="showPage('compare')">对比型号 →</button>
+        </div>
+      </div>
+      <div class="pd2-hero-right">
+        <div class="pd2-img-wrap">
+          <img src="images/ms30.png" alt="MS.30">
+          <div class="pd2-glow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 数据亮点条已删除（与What Is板块数据重复）-->
+
+  <!-- 全宽沉浸图 -->
+  <div class="pd2-immersive">
+    <img src="images/ms30-immersive.jpg" alt="MS.30 智能教学" class="pd2-immersive-img">
+    <div class="pd2-immersive-overlay">
+      <div class="pd2-immersive-content">
+        <div class="pd2-feat-label">核心特性</div>
+        <h2>多机联网教学系统</h2>
+        <p>支持多台设备同步联网，教练可在中控端实时监控每位学员的骑乘数据，实现真正的数字化集体教学管理。</p>
+        <div class="feature-tags">
+          <span class="feature-tag">多机组网</span>
+          <span class="feature-tag">实时监控</span>
+          <span class="feature-tag">数据同步</span>
+          <span class="feature-tag">中控管理</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3列功能卡片 -->
+  <div class="pd2-cards-section">
+    <div class="pd2-cards-header">
+      <h2>核心功能</h2>
+      <p>为学校与俱乐部批量教学而设计</p>
+    </div>
+    <div class="pd2-cards">
+      <div class="pd2-card">
+        <div class="pd2-card-icon">🎓</div>
+        <h3>双模式教学</h3>
+        <p>自由骑乘模式与课程引导模式灵活切换，适配不同教学场景，从零基础入门到进阶技术训练全覆盖。</p>
+        <div class="pd2-card-tags"><span>自由模式</span><span>课程模式</span><span>分级教学</span></div>
+      </div>
+      <div class="pd2-card pd2-card-highlight pd2-card-img" style="background-image:url(images/ms30-action.jpg);background-size:cover;background-position:center">
+        <div class="pd2-card-img-overlay"></div>
+        <div class="pd2-card-icon">🐎</div>
+        <h3>三步态还原</h3>
+        <p>精准模拟慢步、快步、跑步，安全柔和的步态特别适合青少年与初级学员，建立正确骑乘基础。</p>
+        <div class="pd2-card-tags"><span>慢步</span><span>快步</span><span>跑步</span></div>
+      </div>
+      <div class="pd2-card">
+        <div class="pd2-card-icon">🛡️</div>
+        <h3>安全无忧设计</h3>
+        <p>紧急停止装置与软件故障保护双重安全机制，CE国际认证，获香港残障骑术协会RDA官方认可采用。</p>
+        <div class="pd2-card-tags"><span>紧急制动</span><span>CE认证</span><span>RDA认可</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 视频演示 -->
+  <div class="pd2-video-section">
+    <div class="pd2-video-header">
+      <div class="pd2-feat-label">PRODUCT DEMO</div>
+      <h2>产品演示</h2>
+    </div>
+    <div class="pd2-video-box" style="height:auto;padding:0;border:none;background:none">
+      <video src="images/ms30-demo.mp4" poster="images/ms30-immersive.jpg" controls
+        style="width:100%;max-width:900px;border-radius:20px;display:block;margin:0 auto;box-shadow:0 0 60px rgba(201,168,76,0.3)"
+      ></video>
+    </div>
+  </div>
+
+  <!-- 技术规格双列 -->
+  <div class="pd2-specs-table-section">
+    <h2>技术规格</h2>
+    <div class="pd2-specs-2col">
+      <table class="pd2-specs-tbl">
+        <tbody>
+          <tr><td>型号</td><td>MS.30</td></tr>
+          <tr><td>定位</td><td>智能教学模拟器</td></tr>
+          <tr><td>认可机构</td><td>香港残障骑术协会（RDA）</td></tr>
+          <tr><td>步态模拟</td><td>慢步 / 快步 / 跑步</td></tr>
+          <tr><td>教学模式</td><td>自由骑乘 / 课程引导</td></tr>
+          <tr><td>组网支持</td><td>多机联网（无限台）</td></tr>
+          <tr><td>适用人群</td><td>青少年 / 初中级学员</td></tr>
+          <tr><td>安全系统</td><td>紧急制动 + 软件故障保护</td></tr>
+          <tr><td>认证</td><td>CE（RED / EMC / LVD）</td></tr>
+          <tr><td>场地障碍</td><td>基础支持</td></tr>
+        </tbody>
+      </table>
+      <table class="pd2-specs-tbl">
+        <tbody>
+          <tr><td>整机尺寸（长×宽×高）</td><td>详询销售团队</td></tr>
+          <tr><td>最低天花板高度</td><td>详询销售团队</td></tr>
+          <tr><td>占地面积</td><td>详询销售团队</td></tr>
+          <tr><td>整机重量</td><td>详询销售团队</td></tr>
+          <tr><td>电源电压</td><td>220V AC / 50Hz</td></tr>
+          <tr><td>额定功率</td><td>详询销售团队</td></tr>
+          <tr><td>运行噪音</td><td>详询销售团队</td></tr>
+          <tr><td>工作温度</td><td>5°C — 40°C</td></tr>
+          <tr><td>包装尺寸</td><td>详询销售团队</td></tr>
+          <tr><td>质保期</td><td>详询销售团队</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- What Is MS.30 -->
+  <section class="section" style="background:#F9F7F4;padding:80px 40px">
+    <div style="max-width:900px;margin:0 auto;text-align:center">
+      <h2 style="font-size:clamp(22px,2.5vw,30px);font-weight:700;color:var(--text,#1C2333);margin-bottom:20px;line-height:1.35">MS.30 智能教学马术模拟器是什么？</h2>
+      <p style="font-size:clamp(14px,1.3vw,16px);color:var(--text-light,#5A6478);line-height:1.9;text-align:left">
+        MS.30 是一款专为教学、康复骑术和团体训练设计的智能马术模拟器，获香港残障骑术协会（RDA）官方认证。支持多台设备组网联动，教练可通过中控台同步管理整班学员的骑乘数据与课程进度。MS.30 精准还原走步、快步、跑步三种步态的生物力学动感，是学校、马术院校、职业培训机构和康复中心的首选解决方案。
+      </p>
+      <div style="display:flex;gap:40px;justify-content:center;margin-top:40px;flex-wrap:wrap">
+        <div style="text-align:center">
+          <div style="font-size:clamp(28px,3vw,42px);font-weight:800;color:#7B68EE">3</div>
+          <div style="font-size:13px;color:var(--text-light,#5A6478);margin-top:4px">步态模式</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:clamp(28px,3vw,42px);font-weight:800;color:#7B68EE">多机</div>
+          <div style="font-size:13px;color:var(--text-light,#5A6478);margin-top:4px">组网联动</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:clamp(28px,3vw,42px);font-weight:800;color:#7B68EE">RDA</div>
+          <div style="font-size:13px;color:var(--text-light,#5A6478);margin-top:4px">官方认证</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ MS.30 -->
+  <section class="section" style="padding:80px 40px;background:#fff">
+    <div style="max-width:860px;margin:0 auto">
+      <h2 style="font-size:clamp(22px,2.5vw,28px);font-weight:700;color:var(--text,#1C2333);margin-bottom:40px;text-align:center">常见问题解答</h2>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0" open>
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            MS.30 适合完全没有骑马经验的初学者吗？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">完全适合。MS.30 专为初级和中级骑手设计，步态幅度温和、安全保障全面，配合教练端数字中控台，非常适合零基础骑手、在校学生和需要受控环境的康复用户使用。</p>
+        </details>
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0">
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            一次课最多可以组网多少台 MS.30？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">MS.30 支持灵活扩展组网，数量无上限，常见部署规模为4至20台以上。所有设备通过单一教练端统一管理，支持实时监控每位学员数据、个性化反馈和全班进度追踪。</p>
+        </details>
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0">
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            MS.30 可以用于康复骑术和治疗项目吗？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">完全可以。MS.30 持有 RDA 认证，验证了其康复用途的适用性。可调节的步态参数让治疗师精准定制每位患者的训练方案，通过模拟马匹有节律的运动，帮助患者改善平衡、体态和协调能力。</p>
+        </details>
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0">
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            多台 MS.30 组网部署需要多大空间？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">每台 MS.30 占地约4㎡，使用标准220V电源。批量部署时，我们团队将根据您的场地尺寸和目标台数提供完整的平面布局方案，确保安全间距、线路排布和教练视野最优化。</p>
+        </details>
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0">
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            学校采购选 MS.30 还是 MS.30P？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">学校和教育机构推荐选择 MS.30：RDA认证安全标准、多机组网教学、更低的单台采购成本，适合班级规模批量配置。MS.30P 是面向竞技骑手和高阶俱乐部的单台高性能专业款，不适用于团体教学场景。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-dark">
+    <div class="cta-banner">
+      <h2>对MS.30感兴趣？</h2>
+      <p>联系我们的团队，获取价格、定制方案和演示预约</p>
+      <div class="cta-channels">
+        <button class="btn btn-primary" onclick="showPage('contact')">📋 获取报价</button>
+        <button class="btn btn-outline-white">💬 WhatsApp咨询</button>
+        <button class="btn btn-outline-white">✉️ 发送邮件</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- PAGE: MS.20 DETAIL -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-ms20" class="page">
+
+  <!-- Hero -->
+  <div class="pd2-hero">
+    <div class="pd2-hero-bg"></div>
+    <div class="pd2-hero-inner">
+      <div class="pd2-hero-left">
+        <div class="pd2-badge">专业赛马训练</div>
+        <h1 class="pd2-title">MS<span>.20</span></h1>
+        <p class="pd2-sub">为竞技赛马骑师打造的<br>高速步态训练系统</p>
+        <div class="pd2-btns">
+          <button class="btn btn-primary" onclick="showPage('contact')">获取报价</button>
+          <button class="btn btn-ghost" onclick="showPage('compare')">对比型号 →</button>
+        </div>
+      </div>
+      <div class="pd2-hero-right">
+        <div class="pd2-img-wrap">
+          <img src="images/ms20.png" alt="MS.20">
+          <div class="pd2-glow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 数据亮点条已删除（与What Is板块数据重复）-->
+
+  <!-- 全宽沉浸图 -->
+  <div class="pd2-immersive">
+    <img src="images/ms20-immersive.jpg" alt="MS.20 高速训练" class="pd2-immersive-img">
+    <div class="pd2-immersive-overlay">
+      <div class="pd2-immersive-content">
+        <div class="pd2-feat-label">核心特性</div>
+        <h2>高速袭步模拟</h2>
+        <p>专为赛马骑师训练设计，精准模拟袭步（Gallop）高速步态的真实动感反馈，结合PSI气压感应系统，实现与真实赛马高度一致的体感训练体验。</p>
+        <div class="feature-tags">
+          <span class="feature-tag">袭步模拟</span>
+          <span class="feature-tag">PSI气压感应</span>
+          <span class="feature-tag">高速反馈</span>
+          <span class="feature-tag">骑师训练</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3列功能卡片 -->
+  <div class="pd2-cards-section">
+    <div class="pd2-cards-header">
+      <h2>核心功能</h2>
+      <p>竞技级训练，为职业骑师而生</p>
+    </div>
+    <div class="pd2-cards">
+      <div class="pd2-card">
+        <div class="pd2-card-icon">⚡</div>
+        <h3>气压感应系统</h3>
+        <p>独创PSI气压传感技术，精准捕捉骑手坐姿压力分布与重心动态变化，提供媲美真实赛马的体感反馈数据。</p>
+        <div class="pd2-card-tags"><span>PSI传感</span><span>压力分布</span><span>重心分析</span></div>
+      </div>
+      <div class="pd2-card pd2-card-highlight pd2-card-img" style="background-image:url(images/ms20-action.jpg);background-size:cover;background-position:center">
+        <div class="pd2-card-img-overlay"></div>
+        <div class="pd2-card-icon">🏇</div>
+        <h3>两点式骑乘训练</h3>
+        <p>模拟赛马骑师两点式骑乘姿态，针对性训练骑师在高速运动中的平衡控制与核心力量。</p>
+        <div class="pd2-card-tags"><span>两点式</span><span>平衡训练</span><span>核心力量</span></div>
+      </div>
+      <div class="pd2-card">
+        <div class="pd2-card-icon">🛡️</div>
+        <h3>专业安全防护</h3>
+        <p>针对高速训练场景设计的多重安全保障，紧急制动响应时间极短，CE认证，满足职业训练机构安全标准。</p>
+        <div class="pd2-card-tags"><span>高速制动</span><span>CE认证</span><span>职业级</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 视频演示 -->
+  <div class="pd2-video-section">
+    <div class="pd2-video-header">
+      <div class="pd2-feat-label">PRODUCT DEMO</div>
+      <h2>产品演示</h2>
+    </div>
+    <div class="pd2-video-box" style="height:auto;padding:0;border:none;background:none">
+      <video src="images/ms20-demo.mp4" poster="images/ms20-immersive.jpg" controls
+        style="width:100%;max-width:900px;border-radius:20px;display:block;margin:0 auto;box-shadow:0 0 60px rgba(201,168,76,0.3)"
+      ></video>
+    </div>
+  </div>
+
+  <!-- 技术规格双列 -->
+  <div class="pd2-specs-table-section">
+    <h2>技术规格</h2>
+    <div class="pd2-specs-2col">
+      <table class="pd2-specs-tbl">
+        <tbody>
+          <tr><td>型号</td><td>MS.20</td></tr>
+          <tr><td>定位</td><td>竞技赛马骑师训练系统</td></tr>
+          <tr><td>步态模拟</td><td>袭步（高速）/ 快步 / 慢步</td></tr>
+          <tr><td>感应系统</td><td>PSI 气压感应矩阵</td></tr>
+          <tr><td>骑乘模式</td><td>两点式 / 坐骑式</td></tr>
+          <tr><td>适用人群</td><td>职业骑师 / 竞技学员</td></tr>
+          <tr><td>安全系统</td><td>紧急制动 + 软件故障保护</td></tr>
+          <tr><td>认证</td><td>CE（RED / EMC / LVD）</td></tr>
+          <tr><td>训练数据</td><td>实时采集 + 报告导出</td></tr>
+          <tr><td>外形材质</td><td>航空铝合金 + 工程塑料</td></tr>
+        </tbody>
+      </table>
+      <table class="pd2-specs-tbl">
+        <tbody>
+          <tr><td>整机尺寸（长×宽×高）</td><td>详询销售团队</td></tr>
+          <tr><td>最低天花板高度</td><td>详询销售团队</td></tr>
+          <tr><td>占地面积</td><td>详询销售团队</td></tr>
+          <tr><td>整机重量</td><td>详询销售团队</td></tr>
+          <tr><td>电源电压</td><td>220V AC / 50Hz</td></tr>
+          <tr><td>额定功率</td><td>详询销售团队</td></tr>
+          <tr><td>运行噪音</td><td>详询销售团队</td></tr>
+          <tr><td>工作温度</td><td>5°C — 40°C</td></tr>
+          <tr><td>包装尺寸</td><td>详询销售团队</td></tr>
+          <tr><td>质保期</td><td>详询销售团队</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- What Is MS.20 -->
+  <section class="section" style="background:#F9F7F4;padding:80px 40px">
+    <div style="max-width:900px;margin:0 auto;text-align:center">
+      <h2 style="font-size:clamp(22px,2.5vw,30px);font-weight:700;color:var(--text,#1C2333);margin-bottom:20px;line-height:1.35">MS.20 赛马骑师训练模拟器是什么？</h2>
+      <p style="font-size:clamp(14px,1.3vw,16px);color:var(--text-light,#5A6478);line-height:1.9;text-align:left">
+        MS.20 是一款专为赛马骑师训练和竞速体验设计的高速马术模拟器，完整还原赛马在高速奔跑状态下的生物力学动态——包括袭步节律、气压感应加速响应和骑师站立姿态重心分布，提供沉浸式训练体验，填补地面体能训练与实际赛前准备之间的差距。面向赛马俱乐部、骑师学院和竞速专项训练机构，MS.20 在无需实际上马的情况下带来可量化的骑手表现提升。
+      </p>
+      <div style="display:flex;gap:40px;justify-content:center;margin-top:40px;flex-wrap:wrap">
+        <div style="text-align:center">
+          <div style="font-size:clamp(28px,3vw,42px);font-weight:800;color:#C9A84C">气压</div>
+          <div style="font-size:13px;color:var(--text-light,#5A6478);margin-top:4px">感应驱动系统</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:clamp(28px,3vw,42px);font-weight:800;color:#C9A84C">3</div>
+          <div style="font-size:13px;color:var(--text-light,#5A6478);margin-top:4px">速度模式</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:clamp(28px,3vw,42px);font-weight:800;color:#C9A84C">CE</div>
+          <div style="font-size:13px;color:var(--text-light,#5A6478);margin-top:4px">认证</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ MS.20 -->
+  <section class="section" style="padding:80px 40px;background:#fff">
+    <div style="max-width:860px;margin:0 auto">
+      <h2 style="font-size:clamp(22px,2.5vw,28px);font-weight:700;color:var(--text,#1C2333);margin-bottom:40px;text-align:center">常见问题解答</h2>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0" open>
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            MS.20 适合哪类用户？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">MS.20 专为职业和业余骑师、赛马俱乐部训练项目及袭步体验场馆设计，也被赛马学院用于骑师站立姿态和重心转移的基础训练，帮助学员在正式上马前建立扎实的骑乘技术基础。</p>
+        </details>
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0">
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            气压感应系统如何还原袭步加速感？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">MS.20 采用高响应气压驱动系统，产生与赛马袭步步频相对应的快速节律推力。压力曲线可在三种速度模式间调节，让训练师可以循序渐进地从受控跑步提升至全速竞赛模拟，在无真马高速训练风险的前提下还原真实的加速体感。</p>
+        </details>
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0">
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            MS.20 可以配合真马训练项目一起使用吗？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">可以，MS.20 作为辅助训练工具效果最佳。骑师可在非上马日用它进行地面体能训练、技术精进和体能维持，在减少真马疲劳积累的同时，加速骑手在两场比赛之间的技能提升。</p>
+        </details>
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0">
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            MS.20 的场地和电力要求是什么？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">MS.20 最小占地约5㎡，层高要求2.5m以上，使用标准220V/50Hz电源，无需特殊结构改造。我们的安装团队负责全程现场安装调试，交付即可使用。</p>
+        </details>
+        <details style="border-bottom:1px solid #E8E4DC;padding:20px 0">
+          <summary style="font-size:15px;font-weight:600;color:var(--text,#1C2333);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
+            MS.20 和 MS.30P 有什么区别？
+            <span style="font-size:20px;color:#C9A84C;flex-shrink:0;margin-left:12px">+</span>
+          </summary>
+          <p style="font-size:14px;color:var(--text-light,#5A6478);line-height:1.8;margin-top:12px;padding-right:24px">MS.30P 是面向职业马术运动员的6轴盛装舞步和障碍赛模拟器，专注于全步态全项目的精准生物力学反馈。MS.20 是专项袭步训练器，针对骑师体能训练和赛马体验优化。两者定位不同项目，经常在综合性马术训练中心联合部署使用。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-dark">
+    <div class="cta-banner">
+      <h2>对MS.20感兴趣？</h2>
+      <p>联系我们的团队，获取价格、定制方案和演示预约</p>
+      <div class="cta-channels">
+        <button class="btn btn-primary" onclick="showPage('contact')">📋 获取报价</button>
+        <button class="btn btn-outline-white">💬 WhatsApp咨询</button>
+        <button class="btn btn-outline-white">✉️ 发送邮件</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- PAGE: COMPARE -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-compare" class="page">
+
+  <div class="about-hero">
+    <h1>产品对比</h1>
+    <p>找到最适合您需求的模拟器</p>
+  </div>
+
+  <!-- 「我该选哪款」引导卡 -->
+  <div style="background:#F5F0E8;padding:56px 5%">
+    <div style="max-width:1060px;margin:0 auto">
+      <div style="text-align:center;margin-bottom:36px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:#C9A84C;margin-bottom:10px">找到适合您的款型</div>
+        <h2 style="font-size:clamp(20px,2.3vw,28px);font-weight:800;color:#0A1E3F">我该选哪款？</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <!-- MS30P -->
+        <div onclick="showPage('ms30p')" style="background:#fff;border-radius:16px;padding:28px 24px;cursor:pointer;border:2px solid #C9A84C;position:relative;box-shadow:0 4px 24px rgba(201,168,76,0.15);transition:transform 0.2s" onmouseenter="this.style.transform='translateY(-4px)'" onmouseleave="this.style.transform=''">
+          <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#C9A84C;color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;white-space:nowrap">⭐ 编辑推荐</div>
+          <div style="font-size:20px;font-weight:800;color:#C9A84C;margin-bottom:16px;margin-top:8px">MS.30P</div>
+          <ul style="list-style:none;padding:0;margin:0 0 20px;font-size:13px;color:#3A4255;line-height:1.9">
+            <li>✓ 职业俱乐部 / 精英训练中心</li>
+            <li>✓ 需要盛装舞步 / 场地障碍</li>
+            <li>✓ 追求最高数据精度</li>
+            <li>✓ HKJC认可场馆标准</li>
+          </ul>
+          <button style="width:100%;padding:10px;background:#C9A84C;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">查看 MS.30P →</button>
+        </div>
+        <!-- MS30 -->
+        <div onclick="showPage('ms30')" style="background:#fff;border-radius:16px;padding:28px 24px;cursor:pointer;border:2px solid #E0D8C8;transition:transform 0.2s" onmouseenter="this.style.transform='translateY(-4px)'" onmouseleave="this.style.transform=''">
+          <div style="font-size:20px;font-weight:800;color:#7B4FBF;margin-bottom:16px">MS.30</div>
+          <ul style="list-style:none;padding:0;margin:0 0 20px;font-size:13px;color:#3A4255;line-height:1.9">
+            <li>✓ 学校 / 教育机构</li>
+            <li>✓ 康复治疗机构（RDA认可）</li>
+            <li>✓ 需要多机组网教学</li>
+            <li>✓ 注重安全性与标准化</li>
+          </ul>
+          <button style="width:100%;padding:10px;background:#7B4FBF;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">查看 MS.30 →</button>
+        </div>
+        <!-- MS20 -->
+        <div onclick="showPage('ms20')" style="background:#fff;border-radius:16px;padding:28px 24px;cursor:pointer;border:2px solid #E0D8C8;transition:transform 0.2s" onmouseenter="this.style.transform='translateY(-4px)'" onmouseleave="this.style.transform=''">
+          <div style="font-size:20px;font-weight:800;color:#8B5E3C;margin-bottom:16px">MS.20</div>
+          <ul style="list-style:none;padding:0;margin:0 0 20px;font-size:13px;color:#3A4255;line-height:1.9">
+            <li>✓ 赛马俱乐部 / 骑师训练</li>
+            <li>✓ 需要高速袭步模拟</li>
+            <li>✓ PSI气压感应数据分析</li>
+            <li>✓ 竞速展示 / 体验场馆</li>
+          </ul>
+          <button style="width:100%;padding:10px;background:#8B5E3C;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">查看 MS.20 →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr><th>功能特性</th><th>MS.30P</th><th>MS.30</th><th>MS.20</th></tr>
+        </thead>
+        <tbody>
+          <!-- Scenario -->
+          <tr class="group-row"><td colspan="4">应用场景与定位</td></tr>
+          <tr><td>产品定位</td><td class="highlight">专业三项赛</td><td>教学与康复</td><td>赛马竞速</td></tr>
+          <tr><td>认可机构</td><td>HKJC 香港赛马会</td><td>Hong Kong RDA</td><td>—</td></tr>
+          <tr><td>最适合</td><td>职业骑手、精英俱乐部</td><td>学校、康复中心</td><td>骑师、赛马俱乐部</td></tr>
+
+          <!-- Gaits -->
+          <tr class="group-row"><td colspan="4">步态与训练</td></tr>
+          <tr><td>慢步</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>快步</td><td class="check">✓</td><td class="check">✓</td><td>—</td></tr>
+          <tr><td>跑步</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>袭步</td><td>—</td><td>—</td><td class="check highlight">✓</td></tr>
+          <tr><td>盛装舞步</td><td class="highlight">高级</td><td>基础</td><td>—</td></tr>
+          <tr><td>场地障碍</td><td class="check">✓</td><td>—</td><td>—</td></tr>
+
+          <!-- Sensors -->
+          <tr class="group-row"><td colspan="4">传感器与技术</td></tr>
+          <tr><td>头部传感器</td><td class="check">✓ 高精度</td><td class="check">✓</td><td>—</td></tr>
+          <tr><td>腹部传感器</td><td class="check">✓ 高精度</td><td class="check">✓</td><td class="check highlight">✓ 气压式</td></tr>
+          <tr><td>缰绳拉力感应</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>里怀扶助识别</td><td class="check highlight">✓</td><td>—</td><td>—</td></tr>
+
+          <!-- Features -->
+          <tr class="group-row"><td colspan="4">功能特性</td></tr>
+          <tr><td>多机组网</td><td>—</td><td class="check highlight">✓ 无限台数</td><td>—</td></tr>
+          <tr><td>教学模式</td><td>—</td><td class="highlight">双模式（教练+独立）</td><td>—</td></tr>
+          <tr><td>递进式软件</td><td>—</td><td class="check">✓ 四大模块</td><td>—</td></tr>
+          <tr><td>紧急制动</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>CE认证</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        </tbody>
+      </table>
+
+      <div class="compare-cta">
+        <h3>不确定哪款适合您？</h3>
+        <p>联系我们获取免费咨询——我们将根据您的具体需求推荐最佳方案</p>
+        <div class="cta-channels">
+          <button class="btn btn-primary" onclick="showPage('contact')">📋 免费咨询</button>
+          <button class="btn btn-outline">💬 WhatsApp咨询</button>
+          <button class="btn btn-outline">✉️ 发送邮件</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 底部三列独立CTA -->
+  <div style="background:#0A1E3F;padding:56px 5%">
+    <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center">
+      <div style="padding:28px 20px;border:1px solid rgba(201,168,76,0.3);border-radius:12px">
+        <div style="font-size:15px;font-weight:800;color:#C9A84C;margin-bottom:8px">MS.30P</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px">专业三项赛 · HKJC认可</p>
+        <button onclick="showPage('contact')" style="padding:10px 24px;background:#C9A84C;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">获取报价</button>
+      </div>
+      <div style="padding:28px 20px;border:1px solid rgba(123,79,191,0.4);border-radius:12px">
+        <div style="font-size:15px;font-weight:800;color:#A07BE0;margin-bottom:8px">MS.30</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px">教育康复 · RDA认可</p>
+        <button onclick="showPage('contact')" style="padding:10px 24px;background:#7B4FBF;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">获取报价</button>
+      </div>
+      <div style="padding:28px 20px;border:1px solid rgba(139,94,60,0.4);border-radius:12px">
+        <div style="font-size:15px;font-weight:800;color:#C49070;margin-bottom:8px">MS.20</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px">竞速骑师 · PSI感应</p>
+        <button onclick="showPage('contact')" style="padding:10px 24px;background:#8B5E3C;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">获取报价</button>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:13px;color:rgba(255,255,255,0.4)">仍不确定？<button onclick="showPage('contact')" style="background:none;border:none;color:#C9A84C;cursor:pointer;font-size:13px;font-weight:700;text-decoration:underline">联系我们获取专属建议 →</button></p>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: CASES -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-cases" class="page">
+
+  <div class="about-hero">
+    <h1>客户成功案例</h1>
+    <p>看看全球领先机构如何使用我们的模拟器</p>
+  </div>
+
+  <section class="section">
+    <div class="case-cards">
+
+      <!-- HKJC Case -->
+      <div class="case-card">
+        <div class="case-img" style="background-image:url('images/case-hk.png');background-color:var(--gray-bg)"></div>
+        <div class="case-body">
+          <span class="case-badge">HKJC</span>
+          <h3>香港赛马会 — 深圳中心</h3>
+          <div class="case-section">
+            <h4>客户背景</h4>
+            <p>香港赛马会(HKJC)是全球顶尖的赛马组织之一。其深圳训练中心需要先进的模拟技术来支持骑师和骑手的培训发展。</p>
+          </div>
+          <div class="case-section">
+            <h4>面临挑战</h4>
+            <p>传统真马训练存在安全风险，且受天气、马匹可用性和高运营成本的限制。HKJC需要一种能够全年提供稳定、数据驱动训练的解决方案。</p>
+          </div>
+          <div class="case-section">
+            <h4>解决方案</h4>
+            <p>部署MS.30P专业三项赛模拟器，配备完整的传感器矩阵，提供生物力学反馈和步态分析。</p>
+          </div>
+          <div class="case-quote">"精准的传感器反馈提供了宝贵的生物力学数据，彻底改变了我们的训练方法论。" — HKJC培训总监</div>
+          <div style="margin-top:20px">
+            <button class="btn btn-primary btn-sm" onclick="showPage('ms30p')">查看 MS.30P</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RDA Case -->
+      <div class="case-card">
+        <div class="case-img" style="background-image:url('images/case-usage.png');background-color:var(--gray-bg)"></div>
+        <div class="case-body">
+          <span class="case-badge">RDA</span>
+          <h3>香港残障骑术协会</h3>
+          <div class="case-section">
+            <h4>客户背景</h4>
+            <p>RDA为身体和智力残障人士提供治疗性骑术项目。安全性和温和、可预测的运动是不可妥协的基本要求。</p>
+          </div>
+          <div class="case-section">
+            <h4>面临挑战</h4>
+            <p>真马行为不可预测，对弱势骑手构成风险。RDA需要能够完全复制骑术治疗效益、同时彻底消除动物相关风险的设备。</p>
+          </div>
+          <div class="case-section">
+            <h4>解决方案</h4>
+            <p>部署MS.30智能教学模拟器，配备紧急制动功能和温和步态模拟，创造完全安全的治疗环境。</p>
+          </div>
+          <div class="case-quote">"MS.30让我们的参与者能够在零风险环境中体验骑术治疗的益处。" — RDA项目经理</div>
+          <div style="margin-top:20px">
+            <button class="btn btn-primary btn-sm" onclick="showPage('ms30')">查看 MS.30</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- University Case -->
+      <div class="case-card">
+        <div class="case-img" style="background-color:var(--gray-bg);display:flex;align-items:center;justify-content:center">
+          <p style="color:var(--text-lighter);font-size:14px">案例图片</p>
+        </div>
+        <div class="case-body">
+          <span class="case-badge" style="background:var(--text-light)">高校</span>
+          <h3>高校马术教育项目</h3>
+          <div class="case-section">
+            <h4>客户背景</h4>
+            <p>多所领先高校将马术教育纳入体育教育和运动科学课程体系。</p>
+          </div>
+          <div class="case-section">
+            <h4>面临挑战</h4>
+            <p>高校需要安全、可扩展的设备，能够容纳大量学生群体，同时提供符合学术标准的可量化学习成果。</p>
+          </div>
+          <div class="case-section">
+            <h4>解决方案</h4>
+            <p>多机MS.30组网部署，一位教练即可管理团体课程，从入门到考级的递进式课程体系。</p>
+          </div>
+          <div style="margin-top:20px">
+            <button class="btn btn-primary btn-sm" onclick="showPage('contact')">联系我们了解详情</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- 为什么选择我们 — 案例页底部 -->
+  <section class="section" style="padding:80px 40px;background:#F5F0E8">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto">
+      <div style="position:relative">
+        <img src="images/ms30p-immersive.jpg" alt="模拟马产品" style="width:100%;border-radius:20px;object-fit:cover;height:500px">
+        <div style="position:absolute;bottom:28px;right:-16px;background:#C9A84C;color:#fff;padding:18px 24px;border-radius:14px;text-align:center;box-shadow:0 8px 28px rgba(201,168,76,0.35)">
+          <div style="font-size:34px;font-weight:900;line-height:1">10+</div>
+          <div style="font-size:12px;font-weight:600;margin-top:4px;opacity:0.9">年经验</div>
+        </div>
+      </div>
+      <div>
+        <div style="display:inline-block;padding:5px 14px;border:1px solid rgba(201,168,76,0.4);border-radius:20px;background:rgba(201,168,76,0.08);color:#C9A84C;font-size:12px;font-weight:600;letter-spacing:1px;margin-bottom:16px">为什么选择我们</div>
+        <h2 style="font-size:34px;font-weight:800;color:#0A1E3F;margin-bottom:12px;line-height:1.25">为什么全球客户<br>选择我们</h2>
+        <p style="color:#5A6A7A;font-size:15px;line-height:1.8;margin-bottom:32px">采购这类设备，客户不仅关注产品本身，也关注制造能力、安装支持与长期使用稳定性。</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+          <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:38px;height:38px;background:rgba(201,168,76,0.12);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px">⚡</div><div><h4 style="font-size:14px;font-weight:700;color:#0A1E3F;margin-bottom:3px">专业步态模拟</h4><p style="font-size:13px;color:#5A6A7A;line-height:1.6">针对不同骑乘项目提供专业动作模拟。</p></div></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:38px;height:38px;background:rgba(201,168,76,0.12);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px">🛡️</div><div><h4 style="font-size:14px;font-weight:700;color:#0A1E3F;margin-bottom:3px">安全稳定的室内训练</h4><p style="font-size:13px;color:#5A6A7A;line-height:1.6">不受天气和真实马匹状态影响。</p></div></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:38px;height:38px;background:rgba(201,168,76,0.12);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px">🌐</div><div><h4 style="font-size:14px;font-weight:700;color:#0A1E3F;margin-bottom:3px">多场景应用适配</h4><p style="font-size:13px;color:#5A6A7A;line-height:1.6">从训练到教学、从康复到展示。</p></div></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:38px;height:38px;background:rgba(201,168,76,0.12);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px">🏭</div><div><h4 style="font-size:14px;font-weight:700;color:#0A1E3F;margin-bottom:3px">源头工厂制造能力</h4><p style="font-size:13px;color:#5A6A7A;line-height:1.6">具备制造、装配、项目交付与产品支持能力。</p></div></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:38px;height:38px;background:rgba(201,168,76,0.12);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px">🔧</div><div><h4 style="font-size:14px;font-weight:700;color:#0A1E3F;margin-bottom:3px">安装培训与售后支持</h4><p style="font-size:13px;color:#5A6A7A;line-height:1.6">从场地准备到基础培训，提供完整落地服务。</p></div></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:38px;height:38px;background:rgba(201,168,76,0.12);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px">🌍</div><div><h4 style="font-size:14px;font-weight:700;color:#0A1E3F;margin-bottom:3px">国际合作经验</h4><p style="font-size:13px;color:#5A6A7A;line-height:1.6">具备多类型项目协同经验，适合全球市场合作。</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: SOLUTION — 俱乐部与训练中心 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-sol-club" class="page">
+  <div class="sol-hero">
+    <div class="sol-hero-bg"><img src="images/sol-club-hero.jpg" alt="俱乐部训练中心"></div>
+    <div class="sol-hero-overlay"></div>
+    <div class="sol-hero-content">
+      <div class="sol-label">解决方案</div>
+      <h1>俱乐部与<br>专业训练中心</h1>
+      <p>真马训练成本高、风险大、场地受限？模拟马让你全天候高强度训练，零伤亡、零马费。</p>
+    </div>
+  </div>
+
+  <div class="sol-product-rec">
+    <h2>推荐配置</h2>
+    <div class="sol-product-cards">
+      <div class="sol-prod-card">
+        <div class="spc-tag">旗舰首选</div>
+        <h3>Horse-MS30P</h3>
+        <p>专业三项赛模拟器，6轴运动平台还原真实马步节律，AI实时纠姿，适合高水平骑手备赛和日常体能训练。</p>
+        <button class="spc-btn" onclick="showPage('ms30p')">查看详情 →</button>
+      </div>
+      <div class="sol-prod-card">
+        <div class="spc-tag">教学副机</div>
+        <h3>Pony-MS30</h3>
+        <p>智能教学模拟器，适合初学会员系统入门训练，降低教练工时，标准化教学流程，批量培养新骑手。</p>
+        <button class="spc-btn" onclick="showPage('ms30')">查看详情 →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-advantages">
+    <h2>俱乐部核心优势</h2>
+    <div class="sol-adv-grid">
+      <div class="sol-adv-card">
+        <div class="adv-icon">⏱️</div>
+        <h4>全天候不间断训练</h4>
+        <p>不受天气、马匹疲劳、场地限制，课时排满即可运营，单台设备日均可服务 8–12 名学员。</p>
+      </div>
+      <div class="sol-adv-card">
+        <div class="adv-icon">📊</div>
+        <h4>数据化训练报告</h4>
+        <p>每节课自动生成坐姿、平衡、节奏评分报告，教练可精准定位问题，学员进步可见、可量化。</p>
+      </div>
+      <div class="sol-adv-card">
+        <div class="adv-icon">💰</div>
+        <h4>大幅降低运营成本</h4>
+        <p>对比真马：无需马厩、兽医、饲料、保险。单台设备投资回报周期通常在 18–24 个月内。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-case-ref">
+    <h2>参考案例</h2>
+    <div class="sol-case-mini">
+      <div class="scm-img" style="background-image:url('images/sol-case-club.jpg')"></div>
+      <div class="scm-body">
+        <span class="scm-badge">真实案例</span>
+        <h3>香港赛马会 — 专业骑手备赛系统</h3>
+        <p>HKJC 引入 MS30P 作为骑师体能与坐姿训练的核心装备，全年无休运行，辅助正式赛前热身与技术巩固，深受职业骑师认可。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 典型客户描述 -->
+  <div style="background:#F5F0E8;padding:60px 6%">
+    <div style="max-width:960px;margin:0 auto">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:#C9A84C;margin-bottom:12px;text-align:center">THIS SOLUTION IS FOR YOU IF…</div>
+      <h2 style="font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#0A1E3F;text-align:center;margin-bottom:36px">以下情况，这套方案最适合您</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">📈</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您想提升训练课时密度</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">一台模拟器每日可服务8-12名学员，不受天气和马匹状态影响，大幅提升课程上座率和收益。</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">📊</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您需要数据化训练管理</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">AI实时生成骑手平衡和姿势数据报告，帮助教练量化训练效果，吸引注重科学训练的高端会员。</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">💰</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您想控制运营成本</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">无马匹饲养、兽医和保险成本，一次性设备投入，稳定低运营成本，ROI通常在12-24个月内回收。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FAQ -->
+  <div style="background:#fff;padding:60px 6%">
+    <h2 style="text-align:center;font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#0A1E3F;margin-bottom:40px">常见问题解答</h2>
+    <div style="max-width:800px;margin:0 auto" class="pd2-faq-list">
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>俱乐部通常需要配备几台模拟器？</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">大多数俱乐部的起步配置是1台 MS.30P 用于高阶训练，加1-2台 MS.30 用于初学者团体课。拥有50-100名活跃会员的中型俱乐部通常运营2-4台。我们提供免费的产能规划咨询，根据您的会员规模和排课表给出配置建议。</p>
+        </div>
+      </div>
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>模拟器可以完全替代真马训练吗？</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">模拟器定位是补充而非替代真马训练。它在技术反复练习、体能调节、初学者入门和雨天训练等场景中表现突出——减少日常例行训练对真马的依赖，将真马留给高价值的技术提升课。</p>
+        </div>
+      </div>
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>俱乐部的投资回收周期一般是多久？</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">根据客户数据，俱乐部通常在12-24个月内收回投资，来源包括课时容量提升、马匹成本节省以及模拟器课程的溢价定价。我们可根据您的定价结构和会员规模提供定制化ROI测算报告。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-cta">
+    <h2>为您的俱乐部定制方案</h2>
+    <p>告诉我们场地面积、学员规模和训练目标，我们24小时内给出完整配置建议</p>
+    <div class="sol-cta-btns">
+      <button class="btn btn-primary" onclick="showPage('contact')">获取定制方案</button>
+      <button class="btn btn-outline-white" onclick="showPage('compare')">对比产品型号</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: SOLUTION — 学校与教育机构 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-sol-edu" class="page">
+  <div class="sol-hero">
+    <div class="sol-hero-bg"><img src="images/sol-edu-hero.jpg" alt="学校与教育机构" style="object-position:top center"></div>
+    <div class="sol-hero-overlay"></div>
+    <div class="sol-hero-content">
+      <div class="sol-label">解决方案</div>
+      <h1>学校与<br>教育机构</h1>
+      <p>将马术纳入体育课程，无需马场、无需养马，开学即用，安全合规，标准化可考核。</p>
+    </div>
+  </div>
+
+  <div class="sol-product-rec">
+    <h2>推荐配置</h2>
+    <div class="sol-product-cards">
+      <div class="sol-prod-card">
+        <div class="spc-tag">最适合学校</div>
+        <h3>Pony-MS30</h3>
+        <p>适合 6 岁以上学生，体型适配范围广，操作安全简单，支持课程化管理，单课时 45 分钟标准模式。</p>
+        <button class="spc-btn" onclick="showPage('ms30')">查看详情 →</button>
+      </div>
+      <div class="sol-prod-card">
+        <div class="spc-tag">高校进阶</div>
+        <h3>Horse-MS30P</h3>
+        <p>适合高校运动科学、体育教育专业，提供可量化的生物力学数据，支持毕业论文研究和竞技训练。</p>
+        <button class="spc-btn" onclick="showPage('ms30p')">查看详情 →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-advantages">
+    <h2>教育场景核心优势</h2>
+    <div class="sol-adv-grid">
+      <div class="sol-adv-card">
+        <div class="adv-icon">🛡️</div>
+        <h4>本质安全，零骑马风险</h4>
+        <p>模拟器有紧急停止和安全带系统，学生无任何坠马风险，完全符合学校安全规范，家长放心。</p>
+      </div>
+      <div class="sol-adv-card">
+        <div class="adv-icon">📚</div>
+        <h4>课程化教学方案</h4>
+        <p>提供完整的课程包：教案、考核标准、进阶关卡，开箱即用，体育教师无需马术背景也能教学。</p>
+      </div>
+      <div class="sol-adv-card">
+        <div class="adv-icon">🏫</div>
+        <h4>多所高校验证</h4>
+        <p>四川旅游学院、中山大学深圳附属学校、新疆农业大学等已将模拟马纳入正式教学体系。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-case-ref">
+    <h2>参考案例</h2>
+    <div class="sol-case-mini">
+      <div class="scm-img" style="background-image:url('images/sol-case-edu.jpg')"></div>
+      <div class="scm-body">
+        <span class="scm-badge">高校合作</span>
+        <h3>四川旅游学院 — 马术课程体系建设</h3>
+        <p>将模拟马引入马术专业课程，每学期覆盖学生超过 200 人，解决了真马资源短缺和场地不足的核心问题，课程评分显著提升。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 典型客户描述 -->
+  <div style="background:#F5F0E8;padding:60px 6%">
+    <div style="max-width:960px;margin:0 auto">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:#C9A84C;margin-bottom:12px;text-align:center">THIS SOLUTION IS FOR YOU IF…</div>
+      <h2 style="font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#0A1E3F;text-align:center;margin-bottom:36px">以下情况，这套方案最适合您</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">🎓</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您想将马术纳入正式课程</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">多机组网支持班级同步教学，教练端实时监控所有学生数据，标准化课程体系适合K12和高校体育部门。</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">👦</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您服务5-18岁青少年群体</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">安全设计适合儿童使用，递进式课程模块从基础到进阶，配合马术运动普及推广，是素质教育的优质载体。</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">📋</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您需要标准化的考核体系</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">系统自动生成学员平衡分和姿势评分，数据化考核替代主观评价，可出具系统报告支持校内学分认定。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FAQ -->
+  <div style="background:#fff;padding:60px 6%">
+    <h2 style="text-align:center;font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#0A1E3F;margin-bottom:40px">常见问题解答</h2>
+    <div style="max-width:800px;margin:0 auto" class="pd2-faq-list">
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>学生使用模拟器的最低年龄要求是多少？</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">MS.30 在有教师监督的教学环境中适合5岁以上学生使用，速度和运动幅度均可调节。建议8岁以下儿童从最慢的走步模式开始，在教师指导下循序渐进。</p>
+        </div>
+      </div>
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>学校需要专业马术教练才能操作系统吗？</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">专业马术教练对于课程设计更有帮助，但经过我们现场培训后，体育教师同样可以独立操作。系统软件引导学生完成预设课程流程，所需专业门槛远低于真马教学。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-cta">
+    <h2>为您的学校定制教学方案</h2>
+    <p>提供学校名称、学生规模和课程需求，我们为您制定完整开课方案</p>
+    <div class="sol-cta-btns">
+      <button class="btn btn-primary" onclick="showPage('contact')">获取教育方案</button>
+      <button class="btn btn-outline-white" onclick="showPage('cases')">查看合作案例</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: SOLUTION — 康复与治疗 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-sol-rehab" class="page">
+  <div class="sol-hero">
+    <div class="sol-hero-bg"><img src="images/sol-rehab-hero.jpg" alt="康复与治疗"></div>
+    <div class="sol-hero-overlay"></div>
+    <div class="sol-hero-content">
+      <div class="sol-label">解决方案</div>
+      <h1>康复治疗<br>与马术疗愈</h1>
+      <p>马背运动对核心肌群、平衡感和神经协调有显著康复效果，模拟马让这一疗法更安全、更可及。</p>
+    </div>
+  </div>
+
+  <div class="sol-product-rec">
+    <h2>推荐配置</h2>
+    <div class="sol-product-cards">
+      <div class="sol-prod-card">
+        <div class="spc-tag">康复首选</div>
+        <h3>Pony-MS30</h3>
+        <p>低速模式下模拟真马步态的三维律动，激活核心肌群，改善平衡与协调，适合儿童康复、老年人平衡训练及神经肌肉疾患人群。</p>
+        <button class="spc-btn" onclick="showPage('ms30')">查看详情 →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-advantages">
+    <h2>康复场景核心优势</h2>
+    <div class="sol-adv-grid">
+      <div class="sol-adv-card">
+        <div class="adv-icon">🧬</div>
+        <h4>生物力学等效验证</h4>
+        <p>模拟器步态数据经生物力学专家验证，与真马行走时骨盆律动高度一致，提供有效的感觉统合刺激。</p>
+      </div>
+      <div class="sol-adv-card">
+        <div class="adv-icon">⚙️</div>
+        <h4>精准参数可调</h4>
+        <p>速度、幅度、节奏全部可调，治疗师可根据患者状态实时调整，支持从被动律动到主动平衡的渐进式康复。</p>
+      </div>
+      <div class="sol-adv-card">
+        <div class="adv-icon">🌐</div>
+        <h4>RDA 国际认证合作</h4>
+        <p>获得英国 RDA（残障骑术协会）认可，香港傷健策骑协会已实际部署，用于特殊需要人士的疗愈骑乘项目。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-case-ref">
+    <h2>参考案例</h2>
+    <div class="sol-case-mini">
+      <div class="scm-img" style="background-image:url('images/sol-case-rehab.jpg')"></div>
+      <div class="scm-body">
+        <span class="scm-badge">康复机构</span>
+        <h3>香港 RDA — 残障骑术疗愈项目</h3>
+        <p>RDA 香港分部将模拟马引入特殊需要儿童的疗愈课程，提供安全可控的马背律动体验，帮助参与者改善平衡感与情绪状态。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 典型客户描述 -->
+  <div style="background:#F5F0E8;padding:60px 6%">
+    <div style="max-width:960px;margin:0 auto">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:#C9A84C;margin-bottom:12px;text-align:center">THIS SOLUTION IS FOR YOU IF…</div>
+      <h2 style="font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#0A1E3F;text-align:center;margin-bottom:36px">以下情况，这套方案最适合您</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">🏥</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您提供马术辅助治疗项目</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">RDA官方认可，低冲击步态适合身体/认知障碍人士，完全可控的运动参数让治疗师精准调节训练强度。</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">🛡️</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">安全是您的首要考量</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">紧急制动响应时间极短，无动物不可预测行为风险，所有运动参数在治疗师完全掌控下运行。</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">📈</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您需要治疗数据支撑报告</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">系统自动记录每次治疗的运动数据、平衡指标和进步趋势，支持临床报告生成和治疗方案调整依据。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FAQ -->
+  <div style="background:#fff;padding:60px 6%">
+    <h2 style="text-align:center;font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#0A1E3F;margin-bottom:40px">常见问题解答</h2>
+    <div style="max-width:800px;margin:0 auto" class="pd2-faq-list">
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>模拟器对有肢体残疾的使用者安全吗？</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">是的。MS.30 获得英国残障骑术协会（RDA）官方认可。运动平稳、完全可控，紧急停止系统即时响应。所有运动参数均由治疗师预设，完全消除了真马训练的不确定性。</p>
+        </div>
+      </div>
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>系统会自动生成治疗训练报告吗？</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">是的。每次训练结束后，系统自动生成报告，涵盖重心平衡分布、姿态评分、训练时长和进度趋势，支持导出PDF，可纳入患者档案或用于项目申请材料。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-cta">
+    <h2>为您的康复机构提供专业支持</h2>
+    <p>我们提供临床背景的产品咨询，协助您设计符合治疗目标的使用方案</p>
+    <div class="sol-cta-btns">
+      <button class="btn btn-primary" onclick="showPage('contact')">获取康复方案</button>
+      <button class="btn btn-outline-white" onclick="showPage('cases')">查看合作案例</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: SOLUTION — 赛马与骑师训练 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-sol-racing" class="page">
+  <div class="sol-hero">
+    <div class="sol-hero-bg"><img src="images/sol-racing-hero.jpg" alt="赛马与骑师训练"></div>
+    <div class="sol-hero-overlay"></div>
+    <div class="sol-hero-content">
+      <div class="sol-label">解决方案</div>
+      <h1>赛马与<br>骑师训练</h1>
+      <p>职业骑师需要高强度、高重复、零风险的训练手段。模拟器让备赛训练突破真马的一切限制。</p>
+    </div>
+  </div>
+
+  <div class="sol-product-rec">
+    <h2>推荐配置</h2>
+    <div class="sol-product-cards">
+      <div class="sol-prod-card">
+        <div class="spc-tag">竞技顶配</div>
+        <h3>Horse-MS30P</h3>
+        <p>6轴运动平台还原障碍赛、盛装舞步完整步伐序列，AI实时捕捉骑手重心与手部动作，生成专业级训练报告。</p>
+        <button class="spc-btn" onclick="showPage('ms30p')">查看详情 →</button>
+      </div>
+      <div class="sol-prod-card">
+        <div class="spc-tag">速度训练</div>
+        <h3>Racehorse-MS20</h3>
+        <p>专为赛马骑师设计，高速骑乘姿态模拟，训练骑师在高速状态下的重心控制、骑姿维持和体能耐力。</p>
+        <button class="spc-btn" onclick="showPage('ms20')">查看详情 →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-advantages">
+    <h2>竞技训练核心优势</h2>
+    <div class="sol-adv-grid">
+      <div class="sol-adv-card">
+        <div class="adv-icon">🎯</div>
+        <h4>高重复无疲劳训练</h4>
+        <p>同一个动作可重复训练数百次，不受马匹状态影响，技术动作的神经肌肉记忆形成速度提升 3 倍以上。</p>
+      </div>
+      <div class="sol-adv-card">
+        <div class="adv-icon">📡</div>
+        <h4>实时生物力学反馈</h4>
+        <p>传感器实时捕捉骑手重心偏移、手部张力、腿部力度，教练远程监看数据，赛前调整更有针对性。</p>
+      </div>
+      <div class="sol-adv-card">
+        <div class="adv-icon">🏅</div>
+        <h4>HKJC 实战验证</h4>
+        <p>香港赛马会将 MS30P 纳入骑师日常训练体系，多名职业骑师赛前指定使用，训练效果获官方认可。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-case-ref">
+    <h2>参考案例</h2>
+    <div class="sol-case-mini">
+      <div class="scm-img" style="background-image:url('images/sol-case-racing.jpg')"></div>
+      <div class="scm-body">
+        <span class="scm-badge">职业赛马</span>
+        <h3>香港赛马会 — 骑师备赛训练系统</h3>
+        <p>HKJC 将模拟马作为骑师体能与坐姿训练核心装备，在非赛季和赛前调整期大量使用，有效弥补真马训练时间不足的问题。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 典型客户描述 -->
+  <div style="background:#F5F0E8;padding:60px 6%">
+    <div style="max-width:960px;margin:0 auto">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:#C9A84C;margin-bottom:12px;text-align:center">THIS SOLUTION IS FOR YOU IF…</div>
+      <h2 style="font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#0A1E3F;text-align:center;margin-bottom:36px">以下情况，这套方案最适合您</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">🏆</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您训练职业或准职业骑师</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">高速袭步模拟+PSI气压感应系统，还原赛马骑师真实体感，精准量化平衡数据，科学化骑师训练体系。</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">📉</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您想降低赛马训练风险</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">骑师体能和技术基础训练在模拟器上完成，减少真马训练中的意外风险，保护骑师和马匹双方安全。</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">⚡</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您需要全天候高强度训练</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">不受赛马状态、天气和场地限制，骑师可随时进行体能训练和技术复盘，备赛期大幅提升训练密度。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FAQ -->
+  <div style="background:#fff;padding:60px 6%">
+    <h2 style="text-align:center;font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#0A1E3F;margin-bottom:40px">常见问题解答</h2>
+    <div style="max-width:800px;margin:0 auto" class="pd2-faq-list">
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>How does the MS.20 compare to training on a real racehorse?</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">The MS.20 replicates the biomechanical demands of a galloping racehorse in a fully controlled environment. It is used for technique drilling, fitness conditioning, and data-driven coaching, complementing (not replacing) live horse training for race preparation.</p>
+        </div>
+      </div>
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>PSI气压系统能为骑师教练提供哪些数据？</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">PSI气压传感矩阵实时采集骑手坐垫重量分布、重心偏移规律和握力压力数据。教练可客观识别左右不对称问题，追踪进步曲线，并基于精准生物力学数据定制训练计划。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-cta">
+    <h2>为职业骑师团队定制训练方案</h2>
+    <p>我们有专属的竞技训练顾问，为赛马俱乐部和骑师学校提供针对性配置建议</p>
+    <div class="sol-cta-btns">
+      <button class="btn btn-primary" onclick="showPage('contact')">联系竞技顾问</button>
+      <button class="btn btn-outline-white" onclick="showPage('compare')">对比产品型号</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: SOLUTION — 家庭与个人 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-sol-home" class="page">
+  <div class="sol-hero">
+    <div class="sol-hero-bg"><img src="images/sol-home-hero.jpg" alt="家庭与个人"></div>
+    <div class="sol-hero-overlay"></div>
+    <div class="sol-hero-content">
+      <div class="sol-label">解决方案</div>
+      <h1>家庭与<br>个人骑手</h1>
+      <p>在家练马术，不再是梦想。无需马场，随时上马，全年进步不间断。</p>
+    </div>
+  </div>
+
+  <div class="sol-product-rec">
+    <h2>推荐配置</h2>
+    <div class="sol-product-cards">
+      <div class="sol-prod-card">
+        <div class="spc-tag">家用首选</div>
+        <h3>Pony-MS30</h3>
+        <p>紧凑设计，适合室内安装，噪音低，操作简单，无需专业人员值守，适合有孩子的家庭和业余骑手日常训练。</p>
+        <button class="spc-btn" onclick="showPage('ms30')">查看详情 →</button>
+      </div>
+      <div class="sol-prod-card">
+        <div class="spc-tag">进阶玩家</div>
+        <h3>Horse-MS30P</h3>
+        <p>如果您是有一定基础的骑手，MS30P 能提供接近真马的骑乘体验和完整的数据训练系统，赛前冬训首选。</p>
+        <button class="spc-btn" onclick="showPage('ms30p')">查看详情 →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-advantages">
+    <h2>家庭场景核心优势</h2>
+    <div class="sol-adv-grid">
+      <div class="sol-adv-card">
+        <div class="adv-icon">🏠</div>
+        <h4>室内安装，空间灵活</h4>
+        <p>普通车库或多功能室即可安装，无需改造地面，噪音低于60dB，不扰邻，不受天气影响。</p>
+      </div>
+      <div class="sol-adv-card">
+        <div class="adv-icon">👨‍👩‍👧</div>
+        <h4>全家共用，年龄兼容</h4>
+        <p>支持儿童到成人多体型设置，不同家庭成员可保存独立训练档案，一台设备服务全家。</p>
+      </div>
+      <div class="sol-adv-card">
+        <div class="adv-icon">📱</div>
+        <h4>自主训练，进阶引导</h4>
+        <p>内置分级训练课程，从零基础到初级认证，跟着系统循序渐进，不需要教练全程陪同。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-case-ref">
+    <h2>用户反馈</h2>
+    <div class="sol-case-mini">
+      <div class="scm-img" style="background-image:url('images/sol-case-home.jpg')"></div>
+      <div class="scm-body">
+        <span class="scm-badge">个人用户</span>
+        <h3>让孩子在家就能系统学马术</h3>
+        <p>"我们家孩子从小喜欢马，但附近没有马场，每周去一次课太麻烦。装了模拟马之后，孩子每天放学都要练半小时，坐姿和平衡感明显进步了，教练也说在真马上表现好多了。"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 典型客户描述 -->
+  <div style="background:#F5F0E8;padding:60px 6%">
+    <div style="max-width:960px;margin:0 auto">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:#C9A84C;margin-bottom:12px;text-align:center">THIS SOLUTION IS FOR YOU IF…</div>
+      <h2 style="font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#0A1E3F;text-align:center;margin-bottom:36px">以下情况，这套方案最适合您</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">🏡</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您想让孩子在家接触马术</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">无需前往马场，在家即可系统学习马术基础，适合对马术感兴趣的5岁以上儿童，建立正确骑乘姿势。</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">🌿</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您有别墅/大空间可安装</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">标准电源即可安装，无特殊场地要求，是高端家庭娱乐和健身设备的独特选择，彰显品味同时兼顾实用。</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">🎯</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您是正在备赛的业余骑手</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">在俱乐部课程之外补充自主训练，利用碎片时间反复练习特定技术动作，加速技能进步曲线。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FAQ -->
+  <div style="background:#fff;padding:60px 6%">
+    <h2 style="text-align:center;font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#0A1E3F;margin-bottom:40px">常见问题解答</h2>
+    <div style="max-width:800px;margin:0 auto" class="pd2-faq-list">
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>家庭安装需要多大的空间？</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">普通室内空间配备220V电源和足够层高即可，无需加固地面或特殊通风。提供房间尺寸后，我们为您出具个性化的空间评估和安装方案。</p>
+        </div>
+      </div>
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>年幼的孩子在家中无人陪同时使用安全吗？</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">12岁以下儿童建议有成人陪同使用。模拟器设有儿童锁定模式，限制速度和运动幅度，紧急停止按钮触手可及。符合CE认证安全标准，按使用手册操作可安全在家使用。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-cta">
+    <h2>为您的家庭选择最适合的方案</h2>
+    <p>告诉我们安装空间和使用人群，我们帮您选配最合适的型号</p>
+    <div class="sol-cta-btns">
+      <button class="btn btn-primary" onclick="showPage('contact')">获取家庭方案</button>
+      <button class="btn btn-outline-white" onclick="showPage('compare')">对比产品型号</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: SOLUTION — 展览与活动 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-sol-event" class="page">
+  <div class="sol-hero">
+    <div class="sol-hero-bg"><img src="images/sol-event-hero.jpg" alt="展览与活动"></div>
+    <div class="sol-hero-overlay"></div>
+    <div class="sol-hero-content">
+      <div class="sol-label">解决方案</div>
+      <h1>展览与<br>体验活动</h1>
+      <p>马术模拟器是展会、品牌体验营和主题活动的流量利器，让观众排队上马，停留时间翻倍。</p>
+    </div>
+  </div>
+
+  <div class="sol-product-rec">
+    <h2>推荐配置</h2>
+    <div class="sol-product-cards">
+      <div class="sol-prod-card">
+        <div class="spc-tag">展览爆款</div>
+        <h3>Pony-MS30</h3>
+        <p>上手门槛最低，30秒内让完全没骑过马的观众体验骑马乐趣，自带打卡属性，适合品牌展台、运动嘉年华和教育博览会。</p>
+        <button class="spc-btn" onclick="showPage('ms30')">查看详情 →</button>
+      </div>
+      <div class="sol-prod-card">
+        <div class="spc-tag">高端体验</div>
+        <h3>Horse-MS30P</h3>
+        <p>更真实的马背体验，适合赛马展会、高端品牌活动和运动科技论坛，VIP 专属体验区首选。</p>
+        <button class="spc-btn" onclick="showPage('ms30p')">查看详情 →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-advantages">
+    <h2>展览活动核心优势</h2>
+    <div class="sol-adv-grid">
+      <div class="sol-adv-card">
+        <div class="adv-icon">🎪</div>
+        <h4>超强引流吸客</h4>
+        <p>展台现场骑马体验 = 天然打卡点。观众主动传播，带动社媒曝光，让品牌展台在展会中脱颖而出。</p>
+      </div>
+      <div class="sol-adv-card">
+        <div class="adv-icon">🔌</div>
+        <h4>快速部署，即插即用</h4>
+        <p>标准电压接口，2小时内完成安装调试，展会结束后整机打包转运，适合多场次巡展使用。</p>
+      </div>
+      <div class="sol-adv-card">
+        <div class="adv-icon">🤝</div>
+        <h4>专业运营支持</h4>
+        <p>提供展会驻场技术人员培训和操作手册，确保活动期间零故障运行，保障品牌形象。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-case-ref">
+    <h2>参考案例</h2>
+    <div class="sol-case-mini">
+      <div class="scm-img" style="background-image:url('images/sol-case-event.jpg')"></div>
+      <div class="scm-body">
+        <span class="scm-badge">品牌活动</span>
+        <h3>正午国防军事体验营 — 沉浸式骑乘体验区</h3>
+        <p>在国防教育主题活动中部署模拟马体验区，活动期间累计接待体验超过 500 人次，成为全场最热门打卡项目，活动方后续追加订购。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 典型客户描述 -->
+  <div style="background:#F5F0E8;padding:60px 6%">
+    <div style="max-width:960px;margin:0 auto">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:#C9A84C;margin-bottom:12px;text-align:center">THIS SOLUTION IS FOR YOU IF…</div>
+      <h2 style="font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#0A1E3F;text-align:center;margin-bottom:36px">以下情况，这套方案最适合您</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">🎪</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您需要活动现场的引流利器</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">马术模拟器在展会、发布会和品牌活动中自带聚集效应，显著延长访客停留时间和互动率。</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">🚚</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您需要快速部署和撤场</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">标准电源即插即用，无需固定安装，支持展览临时部署和多场地巡回使用，我们提供完整展览支持。</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;border-left:3px solid #C9A84C">
+          <div style="font-size:22px;margin-bottom:10px">📸</div>
+          <h4 style="font-size:15px;font-weight:700;color:#0A1E3F;margin-bottom:8px">您重视活动的传播价值</h4>
+          <p style="font-size:13px;color:#5A6478;line-height:1.7">模拟骑马是高度社媒友好的体验，参与者自发拍照分享，为您的活动和品牌带来自然的社媒传播。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FAQ -->
+  <div style="background:#fff;padding:60px 6%">
+    <h2 style="text-align:center;font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#0A1E3F;margin-bottom:40px">常见问题解答</h2>
+    <div style="max-width:800px;margin:0 auto" class="pd2-faq-list">
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>模拟器可以为单次活动租用吗？</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">可以。我们提供短期活动租赁套餐，包含运输、安装调试、现场运营支持和回收服务。提供活动日期、地点和预计人流量，我们为您出具定制报价。</p>
+        </div>
+      </div>
+      <div class="pd2-faq-item" style="background:#F5F0E8;border-radius:8px;margin-bottom:12px;border:1px solid #E0D8C8;overflow:hidden">
+        <div onclick="this.parentElement.classList.toggle('open')" style="padding:18px 24px;font-size:15px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+          <span>每小时可接待多少名体验者？</span><span style="font-size:20px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+        </div>
+        <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+          <p style="padding:0 24px 18px;font-size:14px;color:#5A6478;line-height:1.75">每位体验者标准体验时长为3-5分钟，单台设备每小时可接待12-20人。人流量较大的活动建议部署2-3台，避免排队过长并最大化参与体验。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sol-cta">
+    <h2>为您的活动提供专属体验方案</h2>
+    <p>告诉我们活动规模、时间和场地，我们提供完整的展览部署方案</p>
+    <div class="sol-cta-btns">
+      <button class="btn btn-primary" onclick="showPage('contact')">获取活动方案</button>
+      <button class="btn btn-outline-white" onclick="showPage('ms30')">查看 MS.30 详情</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: BLOG LIST -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-blog" class="page">
+  <div class="blog-hero">
+    <h1>行业洞察</h1>
+    <p>马术训练技术、行业趋势与模拟器应用前沿</p>
+  </div>
+
+  <section class="section" style="padding-top:40px;padding-bottom:0">
+    <div class="blog-filter">
+      <div class="blog-filter-btn active">全部</div>
+      <div class="blog-filter-btn">训练技术</div>
+      <div class="blog-filter-btn">行业资讯</div>
+      <div class="blog-filter-btn">产品解析</div>
+    </div>
+  </section>
+
+  <div class="blog-grid">
+    <!-- 文章 1 -->
+    <div class="blog-card" onclick="showPage('blog-1')">
+      <div class="blog-card-cover" style="background-image:url('images/blog-cover-1.jpg')"></div>
+      <div class="blog-card-body">
+        <span class="blog-card-tag">训练技术</span>
+        <h3>马术模拟器如何改变骑手的训练方式</h3>
+        <p>从生物力学角度解析模拟器的训练原理，以及职业骑手为什么越来越依赖数字化训练工具。</p>
+        <div class="blog-card-meta">
+          <span>2025年3月 · 6分钟阅读</span>
+          <span class="read-more">阅读全文 →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 文章 2 -->
+    <div class="blog-card" onclick="showPage('blog-2')">
+      <div class="blog-card-cover" style="background-image:url('images/blog-cover-2.jpg')"></div>
+      <div class="blog-card-body">
+        <span class="blog-card-tag">行业资讯</span>
+        <h3>2025年全球马术产业：数字化浪潮下的新机会</h3>
+        <p>全球马术市场正在经历深刻变革——本文梳理核心趋势，以及中国制造如何站上这波浪潮。</p>
+        <div class="blog-card-meta">
+          <span>2025年2月 · 8分钟阅读</span>
+          <span class="read-more">阅读全文 →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 文章 3 -->
+    <div class="blog-card" onclick="showPage('blog-3')">
+      <div class="blog-card-cover" style="background-image:url('images/blog-cover-3.jpg')"></div>
+      <div class="blog-card-body">
+        <span class="blog-card-tag">产品解析</span>
+        <h3>MS30P vs MS30：如何为你的场馆选择正确的模拟器</h3>
+        <p>两款产品到底有什么区别？这篇文章从使用场景、技术规格和投资回报三个维度帮你做决策。</p>
+        <div class="blog-card-meta">
+          <span>2025年1月 · 5分钟阅读</span>
+          <span class="read-more">阅读全文 →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ 汇总板块（全站常见问题聚合，GEO核心，后台可增删改） -->
+  <div style="background:#F5F0E8;padding:72px 6%">
+    <div style="max-width:900px;margin:0 auto">
+      <div style="text-align:center;margin-bottom:48px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:#C9A84C;margin-bottom:12px">知识库</div>
+        <h2 style="font-size:clamp(22px,2.5vw,32px);font-weight:800;color:#0A1E3F;margin-bottom:12px">常见问题解答</h2>
+        <p style="font-size:15px;color:#5A6478">关于模拟马产品、采购、安装与使用的全部常见问题汇总</p>
+      </div>
+      <!-- 产品选型 -->
+      <div style="margin-bottom:36px">
+        <div style="font-size:12px;font-weight:700;letter-spacing:2px;color:#C9A84C;border-bottom:1px solid #E0D8C8;padding-bottom:10px;margin-bottom:16px">产品选型</div>
+        <div class="pd2-faq-list">
+          <div class="pd2-faq-item" style="background:#fff;border-radius:8px;margin-bottom:10px;border:1px solid #E0D8C8;overflow:hidden">
+            <div onclick="this.parentElement.classList.toggle('open')" style="padding:16px 22px;font-size:14px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+              <span>MS.30P、MS.30 和 MS.20 有什么区别？</span><span style="font-size:18px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+            </div>
+            <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+              <p style="padding:0 22px 16px;font-size:14px;color:#5A6478;line-height:1.75">MS.30P 是职业级产品，面向盛装舞步、障碍赛和香港赛马会级别的专业训练；MS.30 是教育级产品，面向学校、团体课程和康复骑术（RDA认证）；MS.20 是竞速级产品，面向骑师训练和高速袭步模拟，配备PSI气压感应系统。</p>
+            </div>
+          </div>
+          <div class="pd2-faq-item" style="background:#fff;border-radius:8px;margin-bottom:10px;border:1px solid #E0D8C8;overflow:hidden">
+            <div onclick="this.parentElement.classList.toggle('open')" style="padding:16px 22px;font-size:14px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+              <span>刚起步的马术俱乐部推荐选哪款？</span><span style="font-size:18px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+            </div>
+            <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+              <p style="padding:0 22px 16px;font-size:14px;color:#5A6478;line-height:1.75">大多数俱乐部的起步配置是：1台 MS.30P 供高阶会员使用，1-2台 MS.30 用于初学者团体课。这个组合覆盖全层次会员需求，从第一天起就能将模拟器课程作为增值服务对外开放。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 技术与安装 -->
+      <div style="margin-bottom:36px">
+        <div style="font-size:12px;font-weight:700;letter-spacing:2px;color:#C9A84C;border-bottom:1px solid #E0D8C8;padding-bottom:10px;margin-bottom:16px">技术与安装</div>
+        <div class="pd2-faq-list">
+          <div class="pd2-faq-item" style="background:#fff;border-radius:8px;margin-bottom:10px;border:1px solid #E0D8C8;overflow:hidden">
+            <div onclick="this.parentElement.classList.toggle('open')" style="padding:16px 22px;font-size:14px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+              <span>安装需要什么电源和场地条件？</span><span style="font-size:18px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+            </div>
+            <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+              <p style="padding:0 22px 16px;font-size:14px;color:#5A6478;line-height:1.75">所有型号均使用标准220V/50Hz电源，无需加固地面、特殊通风或排水设施，普通室内空间满足层高要求即可。提供场地平面图后，我们可为您提供免费空间评估报告。</p>
+            </div>
+          </div>
+          <div class="pd2-faq-item" style="background:#fff;border-radius:8px;margin-bottom:10px;border:1px solid #E0D8C8;overflow:hidden">
+            <div onclick="this.parentElement.classList.toggle('open')" style="padding:16px 22px;font-size:14px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+              <span>安装需要多长时间？包含员工培训吗？</span><span style="font-size:18px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+            </div>
+            <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+              <p style="padding:0 22px 16px;font-size:14px;color:#5A6478;line-height:1.75">安装通常需要1-2天。标准包含现场员工操作培训。交付后提供7×24小时远程技术支持，整机质保2年、核心部件质保5年。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 采购与认证 -->
+      <div style="margin-bottom:36px">
+        <div style="font-size:12px;font-weight:700;letter-spacing:2px;color:#C9A84C;border-bottom:1px solid #E0D8C8;padding-bottom:10px;margin-bottom:16px">采购与认证</div>
+        <div class="pd2-faq-list">
+          <div class="pd2-faq-item" style="background:#fff;border-radius:8px;margin-bottom:10px;border:1px solid #E0D8C8;overflow:hidden">
+            <div onclick="this.parentElement.classList.toggle('open')" style="padding:16px 22px;font-size:14px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+              <span>产品持有哪些认证资质？</span><span style="font-size:18px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+            </div>
+            <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+              <p style="padding:0 22px 16px;font-size:14px;color:#5A6478;line-height:1.75">所有型号均通过CE认证（RED/EMC/LVD指令）。MS.30P 获香港赛马会（HKJC）官方认可，MS.30 获香港残障骑术协会（RDA）认证。完整认证文件可按采购需求提供。</p>
+            </div>
+          </div>
+          <div class="pd2-faq-item" style="background:#fff;border-radius:8px;margin-bottom:10px;border:1px solid #E0D8C8;overflow:hidden">
+            <div onclick="this.parentElement.classList.toggle('open')" style="padding:16px 22px;font-size:14px;font-weight:600;color:#1C2333;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+              <span>是否支持海外发货和境外售后服务？</span><span style="font-size:18px;color:#C9A84C;font-weight:300" class="faq-toggle">+</span>
+            </div>
+            <div style="max-height:0;overflow:hidden;transition:max-height 0.3s ease" class="pd2-faq-answer">
+              <p style="padding:0 22px 16px;font-size:14px;color:#5A6478;line-height:1.75">支持全球发货，提供完整出口文件。海外客户享有与国内客户同等的质保服务和远程技术支持，大多数地区可安排上门安装——请联系我们确认您所在地区的服务安排。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:16px">
+        <p style="font-size:14px;color:#5A6478">还有其他问题？<button onclick="showPage('contact')" style="background:none;border:none;color:#C9A84C;font-weight:700;cursor:pointer;font-size:14px;text-decoration:underline">联系我们获取专属解答 →</button></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: BLOG DETAIL 1 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-blog-1" class="page">
+  <div style="background:var(--gray-bg);padding:calc(120px + 24px) 40px 40px">
+    <div style="max-width:1100px;margin:0 auto">
+      <span class="blog-back" onclick="showPage('blog')">← 返回博客</span>
+    </div>
+  </div>
+  <div class="blog-detail-wrap">
+    <div class="blog-detail-main">
+      <span class="bd-tag">训练技术</span>
+      <h1 class="blog-detail-main" style="font-size:36px;font-weight:700;color:var(--black);line-height:1.3;margin:12px 0 16px">马术模拟器如何改变骑手的训练方式</h1>
+      <div class="blog-detail-meta">
+        <span class="bd-tag">训练技术</span>
+        <span>2025年3月15日</span>
+        <span>作者：模拟马® 技术团队</span>
+        <span>6 分钟阅读</span>
+      </div>
+      <div class="blog-detail-cover" style="background-image:url('images/blog-cover-1.jpg')"></div>
+      <div class="blog-detail-body">
+        <p>在过去十年，职业骑手的训练体系正在经历一场悄无声息的革命。曾经，"多骑马"是唯一的进步路径；如今，越来越多的顶级骑手将马术模拟器纳入日常训练计划。</p>
+
+        <h2>为什么模拟器能有效训练骑手？</h2>
+        <p>骑马是一项极度依赖本体感觉和神经肌肉协调的运动。研究显示，骑手在马背上需要持续微调超过 200 块肌肉来维持平衡和控制马匹。这种高度复杂的协调能力，必须通过大量重复训练才能形成稳定的"肌肉记忆"。</p>
+        <p>模拟器的核心价值在于：<strong>它能在完全可控的条件下，提供无限次高质量重复</strong>。真马会疲劳、会有情绪、会因天气拒绝出圈——但模拟器不会。</p>
+
+        <h2>生物力学数据的价值</h2>
+        <p>传统马术训练的最大痛点之一是"感受不可见"。教练只能观察外部动作，但骑手身体内部的重心偏移、腿部力度分配、手臂张力，肉眼根本看不到。</p>
+        <p>模拟马的传感器系统可以实时捕捉：</p>
+        <ul>
+          <li><strong>骨盆倾斜角度</strong> — 判断坐骨是否均匀受力</li>
+          <li><strong>重心前后偏移量</strong> — 识别"前倾"或"后仰"的坏习惯</li>
+          <li><strong>腿部闭合压力</strong> — 判断骑手腿部控制是否稳定</li>
+          <li><strong>手臂接触力</strong> — 感应缰绳力度，训练"软手"</li>
+        </ul>
+        <p>这些数据过去只有顶级运动科学实验室才能测量，现在每节课都能生成完整报告。</p>
+
+        <h2>香港赛马会的实践</h2>
+        <p>香港赛马会（HKJC）是全球最高水平的赛马机构之一。他们将模拟马引入骑师训练体系后，将原本需要"骑真马才能完成"的重心控制训练，转移到模拟器上进行——节省了真马的体力，也让骑师可以在非赛季维持竞技状态。</p>
+
+        <h2>结语</h2>
+        <p>马术模拟器不是来"替代"真马训练的，而是来"补充"它——填补那些真马训练无法覆盖的时间和场景。在可以预见的未来，顶级骑手的训练计划里，模拟器将成为标配而非例外。</p>
+      </div>
+    </div>
+    <div class="blog-sidebar" style="position:sticky;top:120px">
+      <h4>相关文章</h4>
+      <div class="blog-sidebar-card" onclick="showPage('blog-2')">
+        <p>2025年全球马术产业：数字化浪潮下的新机会</p>
+        <span>行业资讯 · 8分钟</span>
+      </div>
+      <div class="blog-sidebar-card" onclick="showPage('blog-3')">
+        <p>MS30P vs MS30：如何为你的场馆选择正确的模拟器</p>
+        <span>产品解析 · 5分钟</span>
+      </div>
+      <div style="margin-top:32px;background:var(--blue);border-radius:12px;padding:24px">
+        <p style="color:#fff;font-size:14px;font-weight:700;margin-bottom:8px">想了解更多？</p>
+        <p style="color:rgba(255,255,255,0.8);font-size:13px;margin-bottom:16px">联系我们获取专属方案演示</p>
+        <button class="btn btn-white btn-sm" style="width:100%" onclick="showPage('contact')">预约演示</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: BLOG DETAIL 2 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-blog-2" class="page">
+  <div style="background:var(--gray-bg);padding:calc(120px + 24px) 40px 40px">
+    <div style="max-width:1100px;margin:0 auto">
+      <span class="blog-back" onclick="showPage('blog')">← 返回博客</span>
+    </div>
+  </div>
+  <div class="blog-detail-wrap">
+    <div class="blog-detail-main">
+      <div class="blog-detail-meta">
+        <span class="bd-tag">行业资讯</span>
+        <span>2025年2月20日</span>
+        <span>作者：模拟马® 市场团队</span>
+        <span>8 分钟阅读</span>
+      </div>
+      <h1 style="font-size:36px;font-weight:700;color:var(--black);line-height:1.3;margin-bottom:24px">2025年全球马术产业：数字化浪潮下的新机会</h1>
+      <div class="blog-detail-cover" style="background-image:url('images/blog-cover-2.jpg')"></div>
+      <div class="blog-detail-body">
+        <p>全球马术市场正在经历前所未有的变革。根据行业研究，2025年全球马术器材市场规模预计突破 80 亿美元，而其中增长最快的细分品类正是"智能训练设备"。</p>
+
+        <h2>三大核心趋势</h2>
+
+        <h3>1. 马术运动的平民化</h3>
+        <p>过去，马术被视为"贵族运动"，高昂的真马成本让大多数人望而却步。但随着模拟器技术的成熟，马术训练的门槛正在快速下降。越来越多的学校、社区中心和康复机构开始引入马术模拟设备，将这项运动推向大众市场。</p>
+
+        <h3>2. 数据驱动的训练革命</h3>
+        <p>从 AI 动作捕捉到生物力学分析，数字化工具正在彻底改变马术训练的方式。职业骑手开始像职业篮球运动员一样，依赖数据分析来优化技术细节。这一趋势正从职业赛场向业余圈层快速渗透。</p>
+
+        <h3>3. 中国制造的崛起</h3>
+        <p>在这一轮技术升级中，中国制造商正在扮演越来越重要的角色。以模拟马® 为代表的国内品牌，凭借在生物力学、运动控制和AI技术上的深厚积累，已经开始与国际顶级机构建立合作，打破了欧美品牌的垄断格局。</p>
+
+        <h2>中国市场的特殊机遇</h2>
+        <p>中国马术运动正处于爆发前夜：政策推动马术进校园、亚运会马术项目带来大众关注度、中产家庭对高端体育教育的需求持续升级。这些因素叠加，使中国成为全球马术器材市场增长最快的地区之一。</p>
+
+        <h2>结语</h2>
+        <p>对于在这个行业深耕的企业而言，现在是最好的时代。技术红利、政策红利和消费升级三重叠加，谁能率先建立品牌认知和渠道网络，谁就能在未来十年的市场竞争中占据先机。</p>
+      </div>
+    </div>
+    <div class="blog-sidebar" style="position:sticky;top:120px">
+      <h4>相关文章</h4>
+      <div class="blog-sidebar-card" onclick="showPage('blog-1')">
+        <p>马术模拟器如何改变骑手的训练方式</p>
+        <span>训练技术 · 6分钟</span>
+      </div>
+      <div class="blog-sidebar-card" onclick="showPage('blog-3')">
+        <p>MS30P vs MS30：如何为你的场馆选择正确的模拟器</p>
+        <span>产品解析 · 5分钟</span>
+      </div>
+      <div style="margin-top:32px;background:var(--blue);border-radius:12px;padding:24px">
+        <p style="color:#fff;font-size:14px;font-weight:700;margin-bottom:8px">想了解更多？</p>
+        <p style="color:rgba(255,255,255,0.8);font-size:13px;margin-bottom:16px">联系我们获取专属方案演示</p>
+        <button class="btn btn-white btn-sm" style="width:100%" onclick="showPage('contact')">预约演示</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: BLOG DETAIL 3 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-blog-3" class="page">
+  <div style="background:var(--gray-bg);padding:calc(120px + 24px) 40px 40px">
+    <div style="max-width:1100px;margin:0 auto">
+      <span class="blog-back" onclick="showPage('blog')">← 返回博客</span>
+    </div>
+  </div>
+  <div class="blog-detail-wrap">
+    <div class="blog-detail-main">
+      <div class="blog-detail-meta">
+        <span class="bd-tag">产品解析</span>
+        <span>2025年1月8日</span>
+        <span>作者：模拟马® 产品团队</span>
+        <span>5 分钟阅读</span>
+      </div>
+      <h1 style="font-size:36px;font-weight:700;color:var(--black);line-height:1.3;margin-bottom:24px">MS30P vs MS30：如何为你的场馆选择正确的模拟器</h1>
+      <div class="blog-detail-cover" style="background-image:url('images/blog-cover-3.jpg')"></div>
+      <div class="blog-detail-body">
+        <p>这是我们收到最多的问题之一：<strong>"我到底该买 MS30P 还是 MS30？"</strong> 两款产品都很优秀，但它们服务的场景和用户群体有明显差异。这篇文章帮你从三个维度做出正确决策。</p>
+
+        <h2>维度一：使用场景</h2>
+        <p><strong>MS30P — 专业三项赛模拟器</strong>，适合：</p>
+        <ul>
+          <li>专业马术俱乐部（需要高强度竞技训练）</li>
+          <li>职业骑手或备赛需求</li>
+          <li>高校运动科学专业（需要完整数据采集）</li>
+          <li>赛马机构（香港赛马会同款）</li>
+        </ul>
+        <p><strong>MS30 — 智能教学模拟器</strong>，适合：</p>
+        <ul>
+          <li>马术培训学校（批量教学，效率优先）</li>
+          <li>中小学和社区教育机构</li>
+          <li>康复和治疗机构</li>
+          <li>家庭用户和入门骑手</li>
+          <li>展览和体验活动</li>
+        </ul>
+
+        <h2>维度二：技术规格</h2>
+        <p>MS30P 采用 <strong>6轴运动平台</strong>，可以模拟马匹在走、快步、跑步、障碍飞越等各种步态下的完整三维运动，还原度极高。MS30 采用优化后的运动系统，专注于走步和快步的核心步态，对于入门和教学场景完全足够。</p>
+        <p>在数据采集方面，MS30P 配备全套传感器，生成完整的生物力学报告；MS30 提供基础的平衡和节奏数据，满足教学评估需求。</p>
+
+        <h2>维度三：投资回报</h2>
+        <p>MS30P 单价更高，但针对的是高频商业使用场景，日均接待学员多，回报周期更短。MS30 初始投入较低，适合预算有限但希望快速开始的机构，也非常适合作为俱乐部的副机配合主力机使用。</p>
+
+        <h2>我的建议</h2>
+        <p>如果你还在犹豫，最简单的判断标准是：<strong>你的目标用户是"要提升成绩的骑手"还是"想体验马术的新手"？</strong> 前者选 MS30P，后者选 MS30。两者都需要？那就两台都配，组成完整的训练生态。</p>
+      </div>
+    </div>
+    <div class="blog-sidebar" style="position:sticky;top:120px">
+      <h4>相关文章</h4>
+      <div class="blog-sidebar-card" onclick="showPage('blog-1')">
+        <p>马术模拟器如何改变骑手的训练方式</p>
+        <span>训练技术 · 6分钟</span>
+      </div>
+      <div class="blog-sidebar-card" onclick="showPage('blog-2')">
+        <p>2025年全球马术产业：数字化浪潮下的新机会</p>
+        <span>行业资讯 · 8分钟</span>
+      </div>
+      <div style="margin-top:32px;background:var(--blue);border-radius:12px;padding:24px">
+        <p style="color:#fff;font-size:14px;font-weight:700;margin-bottom:8px">选型还有疑问？</p>
+        <p style="color:rgba(255,255,255,0.8);font-size:13px;margin-bottom:16px">联系我们，顾问一对一解答</p>
+        <button class="btn btn-white btn-sm" style="width:100%" onclick="showPage('contact')">立即咨询</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: DOWNLOADS -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-downloads" class="page">
+
+  <div class="dl-hero">
+    <h1>资料下载中心</h1>
+    <p>产品手册、技术规格、认证文件，一站式获取所有资料</p>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:48px 40px 0">
+    <div class="dl-section-title">产品资料</div>
+  </div>
+  <div class="dl-grid">
+    <div class="dl-card">
+      <div class="dl-card-icon">📘</div>
+      <div class="dl-card-type">产品手册</div>
+      <h3>Horse-MS30P 专业三项赛模拟器<br>完整产品手册</h3>
+      <p>包含完整技术参数、运动平台规格、AI训练系统说明、安装要求及配件清单。</p>
+      <div class="dl-card-meta">
+        <span>📄 PDF</span>
+        <span>约 8MB</span>
+        <span>中/英双语</span>
+      </div>
+      <a class="dl-btn" href="#" onclick="openDlModal(this.closest('.dl-card').querySelector('h3').innerText);return false">获取资料 →</a>
+    </div>
+    <div class="dl-card">
+      <div class="dl-card-icon">📗</div>
+      <div class="dl-card-type">产品手册</div>
+      <h3>Pony-MS30 智能教学模拟器<br>完整产品手册</h3>
+      <p>包含技术参数、教学模式说明、课程化配置方案、维护手册及常见问题解答。</p>
+      <div class="dl-card-meta">
+        <span>📄 PDF</span>
+        <span>约 6MB</span>
+        <span>中/英双语</span>
+      </div>
+      <a class="dl-btn" href="#" onclick="openDlModal(this.closest('.dl-card').querySelector('h3').innerText);return false">获取资料 →</a>
+    </div>
+    <div class="dl-card">
+      <div class="dl-card-icon">📙</div>
+      <div class="dl-card-type">产品手册</div>
+      <h3>Racehorse-MS20 赛马竞速模拟器<br>完整产品手册</h3>
+      <p>包含竞速模拟系统规格、骑师训练模式、数据采集接口及赛场级安装方案。</p>
+      <div class="dl-card-meta">
+        <span>📄 PDF</span>
+        <span>约 5MB</span>
+        <span>中/英双语</span>
+      </div>
+      <a class="dl-btn" href="#" onclick="openDlModal(this.closest('.dl-card').querySelector('h3').innerText);return false">获取资料 →</a>
+    </div>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:0 40px">
+    <div class="dl-section-title">认证与资质</div>
+  </div>
+  <div class="dl-grid" style="padding-top:0">
+    <div class="dl-card">
+      <div class="dl-card-icon">🏅</div>
+      <div class="dl-card-type">官方认证</div>
+      <h3>CE 认证证书</h3>
+      <p>欧盟CE安全认证，覆盖全系产品，符合欧洲市场准入标准，适用于学校、康复机构等对合规有要求的采购方。</p>
+      <div class="dl-card-meta">
+        <span>📄 PDF</span>
+        <span>官方扫描件</span>
+      </div>
+      <a class="dl-btn" href="#" onclick="showPage('contact');return false">联系我们申请获取 →</a>
+    </div>
+    <div class="dl-card">
+      <div class="dl-card-icon">🤝</div>
+      <div class="dl-card-type">合作证明</div>
+      <h3>香港赛马会 (HKJC)<br>合作证明文件</h3>
+      <p>香港赛马会官方采购及使用证明，可用于采购决策参考，证明产品在顶级专业机构的实际使用情况。</p>
+      <div class="dl-card-meta">
+        <span>📄 PDF</span>
+        <span>需签保密协议</span>
+      </div>
+      <a class="dl-btn" href="#" onclick="showPage('contact');return false">联系我们申请获取 →</a>
+    </div>
+    <div class="dl-card">
+      <div class="dl-card-icon">♿</div>
+      <div class="dl-card-type">国际认证</div>
+      <h3>RDA 残障骑术协会<br>认可证明</h3>
+      <p>英国RDA（Riding for the Disabled Association）官方认可文件，证明产品符合康复治疗用途的专业标准。</p>
+      <div class="dl-card-meta">
+        <span>📄 PDF</span>
+        <span>英文原件</span>
+      </div>
+      <a class="dl-btn" href="#" onclick="showPage('contact');return false">联系我们申请获取 →</a>
+    </div>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:0 40px">
+    <div class="dl-section-title">解决方案资料</div>
+  </div>
+  <div class="dl-grid" style="padding-top:0">
+    <div class="dl-card">
+      <div class="dl-card-icon">🏇</div>
+      <div class="dl-card-type">方案文件</div>
+      <h3>俱乐部 & 培训中心<br>整体解决方案</h3>
+      <p>包含场馆规划建议、设备配置方案、运营模式参考、培训课程框架及投资回报测算。</p>
+      <div class="dl-card-meta">
+        <span>📄 PDF</span>
+        <span>约 12MB</span>
+      </div>
+      <a class="dl-btn" href="#" onclick="showPage('contact');return false">联系我们申请获取 →</a>
+    </div>
+    <div class="dl-card">
+      <div class="dl-card-icon">🏫</div>
+      <div class="dl-card-type">方案文件</div>
+      <h3>学校 & 教育机构<br>整体解决方案</h3>
+      <p>包含课程体系设计、学时规划、场地要求、安全规范及教学评估标准，适合K12及高校体育部门。</p>
+      <div class="dl-card-meta">
+        <span>📄 PDF</span>
+        <span>约 10MB</span>
+      </div>
+      <a class="dl-btn" href="#" onclick="showPage('contact');return false">联系我们申请获取 →</a>
+    </div>
+    <div class="dl-card">
+      <div class="dl-card-icon">🩺</div>
+      <div class="dl-card-type">方案文件</div>
+      <h3>康复治疗机构<br>整体解决方案</h3>
+      <p>包含马术疗法原理介绍、设备参数与疗效关联、治疗方案模板及注意事项，附生物力学研究参考。</p>
+      <div class="dl-card-meta">
+        <span>📄 PDF</span>
+        <span>约 9MB</span>
+      </div>
+      <a class="dl-btn" href="#" onclick="showPage('contact');return false">联系我们申请获取 →</a>
+    </div>
+  </div>
+
+  <div class="dl-cta">
+    <h2>需要定制化资料包？</h2>
+    <p>告诉我们您的机构类型和采购需求，我们为您准备专属资料包并安排顾问跟进</p>
+    <button class="btn btn-primary" onclick="showPage('contact')">立即联系我们</button>
+  </div>
+
+</div>
+
+<!-- 资料下载弹窗（后台可配置表单字段，全站dl-card均触发此弹窗） -->
+<div id="dl-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(10,18,35,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:20px;padding:44px 40px;max-width:480px;width:90%;position:relative;box-shadow:0 24px 80px rgba(0,0,0,0.3)">
+    <button onclick="closeDlModal()" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:22px;color:#aaa;cursor:pointer">×</button>
+    <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:#C9A84C;margin-bottom:8px">免费获取资料</div>
+    <h3 id="dl-modal-title" style="font-size:20px;font-weight:800;color:#0A1E3F;margin-bottom:6px">获取资料</h3>
+    <p style="font-size:13px;color:#5A6478;margin-bottom:24px">填写以下信息，PDF将自动发送至您的邮箱</p>
+    <form onsubmit="submitDlForm(event)" style="display:flex;flex-direction:column;gap:14px">
+      <input type="text" placeholder="您的姓名 *" required style="padding:12px 16px;border:1px solid #E0D8C8;border-radius:8px;font-size:14px;outline:none" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='#E0D8C8'">
+      <input type="email" placeholder="电子邮箱 * （PDF将发至此邮箱）" required style="padding:12px 16px;border:1px solid #E0D8C8;border-radius:8px;font-size:14px;outline:none" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='#E0D8C8'">
+      <select required style="padding:12px 16px;border:1px solid #E0D8C8;border-radius:8px;font-size:14px;color:#5A6478;outline:none;background:#fff">
+        <option value="" disabled selected>所在国家/地区 *</option>
+        <option>中国大陆</option><option>中国香港</option><option>英国</option><option>美国</option><option>澳大利亚</option><option>德国</option><option>日本</option><option>韩国</option><option>其他</option>
+      </select>
+      <select required style="padding:12px 16px;border:1px solid #E0D8C8;border-radius:8px;font-size:14px;color:#5A6478;outline:none;background:#fff">
+        <option value="" disabled selected>所在行业 *</option>
+        <option>马术俱乐部 / 训练中心</option><option>学校 / 教育机构</option><option>康复 / 治疗机构</option><option>赛马 / 骑师训练</option><option>体验场馆 / 旅游</option><option>家庭 / 个人</option><option>其他</option>
+      </select>
+      <button type="submit" class="btn btn-primary" style="padding:14px;font-size:15px;font-weight:700">📧 发送资料到我的邮箱</button>
+      <p style="font-size:11px;color:#aaa;text-align:center;margin:0">我们不会向第三方分享您的信息，承诺24小时内发送</p>
+    </form>
+  </div>
+</div>
+<script>
+function openDlModal(title){
+  document.getElementById('dl-modal-title').textContent = title || '获取资料';
+  var m = document.getElementById('dl-modal');
+  m.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeDlModal(){
+  document.getElementById('dl-modal').style.display='none';
+  document.body.style.overflow='';
+}
+function submitDlForm(e){
+  e.preventDefault();
+  var btn = e.target.querySelector('button[type=submit]');
+  btn.textContent='✅ 已提交！PDF将在24小时内发送至您的邮箱';
+  btn.style.background='#2E7D32';
+  btn.disabled=true;
+  setTimeout(closeDlModal, 2800);
+}
+document.addEventListener('click', function(e){
+  var modal = document.getElementById('dl-modal');
+  if(modal && e.target===modal) closeDlModal();
+});
+</script>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: ABOUT -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-about" class="page">
+
+  <div class="about-hero">
+    <h1>关于模拟马®</h1>
+    <p>自2017年起，引领马术模拟技术创新</p>
+  </div>
+
+  <!-- 品牌使命 -->
+  <div class="about-split">
+    <div class="about-text">
+      <h2>我们的使命</h2>
+      <p>广东探月教育设备有限公司是模拟马®品牌的创造者——致力于让马术训练更安全、更普及、更高效。</p>
+      <p>我们融合生物力学、AI和马术科学，打造全球最逼真的骑马模拟器。我们的技术弥合了传统马术教育与现代数字化训练解决方案之间的鸿沟。</p>
+    </div>
+    <div class="about-img" style="background-image:url('images/case-usage.png')"></div>
+  </div>
+
+  <!-- 发展历程时间轴（后台可增删改每个节点） -->
+  <section class="section section-gray">
+    <div class="section-header">
+      <h2>发展历程</h2>
+      <p>从台湾原型机到全球出口</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">2017</div>
+        <div class="tl-content"><h4>公司成立</h4><p>广东探月教育设备有限公司创立，专注于机械式模拟骑马设备研发，将生物力学与课程化训练理念融入专业赛道建设。</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2018</div>
+        <div class="tl-content"><h4>台湾原型机</h4><p>第一台模拟马样机研发完成，精准还原三种步态动感运动，获马术专业机构认可。</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2020</div>
+        <div class="tl-content"><h4>获CE认证</h4><p>通过欧盟CE安全认证（RED/EMC/LVD），开始进入海外和欧洲采购体系，国际化布局启动。</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2022</div>
+        <div class="tl-content"><h4>全球认可</h4><p>获香港赛马会（HKJC）和英国残障骑术协会（RDA）官方认可采购，进入顶级专业机构和康复体系。</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2025</div>
+        <div class="tl-content"><h4>AI与创新时代</h4><p>推出搭载AI生物力学分析系统的MS.30P，全球装机客户突破500+台，覆盖50+国家和地区。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 核心优势 VS 竞品（后台可增删改行） -->
+  <section class="section" style="background:#0A1E3F;padding:72px 5%">
+    <div style="max-width:1000px;margin:0 auto">
+      <div style="text-align:center;margin-bottom:48px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:#C9A84C;margin-bottom:12px">为什么选择我们</div>
+        <h2 style="font-size:clamp(22px,2.5vw,30px);font-weight:800;color:#fff;margin-bottom:12px">我们的核心优势</h2>
+        <p style="color:rgba(255,255,255,0.6);font-size:15px">与同类产品相比，模拟马®在以下关键维度全面领先</p>
+      </div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;min-width:600px">
+          <thead>
+            <tr>
+              <th style="padding:14px 20px;text-align:left;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);border-bottom:1px solid rgba(255,255,255,0.1)">对比维度</th>
+              <th style="padding:14px 20px;text-align:center;font-size:14px;font-weight:700;color:#C9A84C;border-bottom:1px solid rgba(255,255,255,0.1);background:rgba(201,168,76,0.08)">模拟马®</th>
+              <th style="padding:14px 20px;text-align:center;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);border-bottom:1px solid rgba(255,255,255,0.1)">同类竞品</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07)">
+              <td style="padding:16px 20px;font-size:14px;color:rgba(255,255,255,0.75)">AI实时生物力学分析</td>
+              <td style="padding:16px 20px;text-align:center;background:rgba(201,168,76,0.05)"><span style="color:#C9A84C;font-weight:700;font-size:16px">✓</span></td>
+              <td style="padding:16px 20px;text-align:center"><span style="color:rgba(255,255,255,0.3)">—</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07)">
+              <td style="padding:16px 20px;font-size:14px;color:rgba(255,255,255,0.75)">HKJC 香港赛马会官方认可</td>
+              <td style="padding:16px 20px;text-align:center;background:rgba(201,168,76,0.05)"><span style="color:#C9A84C;font-weight:700;font-size:16px">✓</span></td>
+              <td style="padding:16px 20px;text-align:center"><span style="color:rgba(255,255,255,0.3)">—</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07)">
+              <td style="padding:16px 20px;font-size:14px;color:rgba(255,255,255,0.75)">RDA 残障骑术协会认可</td>
+              <td style="padding:16px 20px;text-align:center;background:rgba(201,168,76,0.05)"><span style="color:#C9A84C;font-weight:700;font-size:16px">✓</span></td>
+              <td style="padding:16px 20px;text-align:center"><span style="color:rgba(255,255,255,0.3)">—</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07)">
+              <td style="padding:16px 20px;font-size:14px;color:rgba(255,255,255,0.75)">多机无限组网教学</td>
+              <td style="padding:16px 20px;text-align:center;background:rgba(201,168,76,0.05)"><span style="color:#C9A84C;font-weight:700;font-size:16px">✓</span></td>
+              <td style="padding:16px 20px;text-align:center"><span style="color:rgba(255,255,255,0.3)">部分支持</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07)">
+              <td style="padding:16px 20px;font-size:14px;color:rgba(255,255,255,0.75)">源头工厂直供，无中间商</td>
+              <td style="padding:16px 20px;text-align:center;background:rgba(201,168,76,0.05)"><span style="color:#C9A84C;font-weight:700;font-size:16px">✓</span></td>
+              <td style="padding:16px 20px;text-align:center"><span style="color:rgba(255,255,255,0.3)">—</span></td>
+            </tr>
+            <tr>
+              <td style="padding:16px 20px;font-size:14px;color:rgba(255,255,255,0.75)">同等配置价格</td>
+              <td style="padding:16px 20px;text-align:center;background:rgba(201,168,76,0.05)"><span style="color:#C9A84C;font-weight:700;font-size:13px">竞品的40-60%</span></td>
+              <td style="padding:16px 20px;text-align:center"><span style="color:rgba(255,255,255,0.3)">基准价</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 资质证书板块（后台可上传图片/PDF，可增删） -->
+  <section class="section section-gray">
+    <div class="section-header">
+      <h2>认证与资质</h2>
+      <p>符合国际标准，设备的安全性、可靠性与技术领先性均有据可查</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;max-width:1000px;margin:0 auto;padding:0 20px">
+      <div style="background:#fff;border-radius:12px;padding:28px 20px;text-align:center;border:1px solid #E0D8C8;box-shadow:0 2px 12px rgba(0,0,0,0.05)">
+        <div style="font-size:36px;margin-bottom:12px">🏅</div>
+        <div style="font-weight:700;color:#0A1E3F;font-size:15px;margin-bottom:6px">CE 认证</div>
+        <div style="font-size:12px;color:#5A6478;line-height:1.6">欧盟安全认证<br>RED / EMC / LVD</div>
+        <button onclick="openDlModal('CE认证证书')" style="margin-top:14px;font-size:12px;padding:6px 16px;background:none;border:1px solid #C9A84C;color:#C9A84C;border-radius:20px;cursor:pointer;font-weight:600">查看证书</button>
+      </div>
+      <div style="background:#fff;border-radius:12px;padding:28px 20px;text-align:center;border:1px solid #E0D8C8;box-shadow:0 2px 12px rgba(0,0,0,0.05)">
+        <div style="font-size:36px;margin-bottom:12px">🐎</div>
+        <div style="font-weight:700;color:#0A1E3F;font-size:15px;margin-bottom:6px">HKJC 认可</div>
+        <div style="font-size:12px;color:#5A6478;line-height:1.6">香港赛马会<br>官方采购认可</div>
+        <button onclick="openDlModal('HKJC合作证明文件')" style="margin-top:14px;font-size:12px;padding:6px 16px;background:none;border:1px solid #C9A84C;color:#C9A84C;border-radius:20px;cursor:pointer;font-weight:600">申请查看</button>
+      </div>
+      <div style="background:#fff;border-radius:12px;padding:28px 20px;text-align:center;border:1px solid #E0D8C8;box-shadow:0 2px 12px rgba(0,0,0,0.05)">
+        <div style="font-size:36px;margin-bottom:12px">♿</div>
+        <div style="font-weight:700;color:#0A1E3F;font-size:15px;margin-bottom:6px">RDA 认可</div>
+        <div style="font-size:12px;color:#5A6478;line-height:1.6">英国残障骑术协会<br>官方认可</div>
+        <button onclick="openDlModal('RDA认可证明')" style="margin-top:14px;font-size:12px;padding:6px 16px;background:none;border:1px solid #C9A84C;color:#C9A84C;border-radius:20px;cursor:pointer;font-weight:600">查看证书</button>
+      </div>
+      <div style="background:#fff;border-radius:12px;padding:28px 20px;text-align:center;border:1px solid #E0D8C8;box-shadow:0 2px 12px rgba(0,0,0,0.05)">
+        <div style="font-size:36px;margin-bottom:12px">🔬</div>
+        <div style="font-weight:700;color:#0A1E3F;font-size:15px;margin-bottom:6px">研发资质</div>
+        <div style="font-size:12px;color:#5A6478;line-height:1.6">6项发明专利<br>3项软件著作权</div>
+        <button onclick="openDlModal('研发资质证明')" style="margin-top:14px;font-size:12px;padding:6px 16px;background:none;border:1px solid #C9A84C;color:#C9A84C;border-radius:20px;cursor:pointer;font-weight:600">查看资质</button>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:28px;font-size:13px;color:#5A6478">后台可上传新证书图片/PDF，无数量限制</p>
+  </section>
+
+  <!-- 数据统计 -->
+  <section class="section">
+    <div class="stats">
+      <div class="stat"><div class="stat-val">500+</div><div class="stat-lbl">全球装机台数</div></div>
+      <div class="stat"><div class="stat-val">50+</div><div class="stat-lbl">覆盖国家和地区</div></div>
+      <div class="stat"><div class="stat-val">8+</div><div class="stat-lbl">年研发经验</div></div>
+      <div class="stat"><div class="stat-val">CE</div><div class="stat-lbl">欧盟安全认证</div></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAGE: CONTACT -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+
+  <div class="about-hero">
+    <h1>联系我们</h1>
+    <p>告诉我们您的需求，我们承诺24小时内回复</p>
+  </div>
+
+  <!-- 承诺条已删除 -->
+
+  <section class="section">
+    <div class="contact-grid">
+
+      <!-- 左：联系信息 -->
+      <div class="contact-info">
+        <div class="ci-card">
+          <h4>🏢 总部地址</h4>
+          <p>广东省<br>广东探月教育设备有限公司</p>
+        </div>
+        <div class="ci-card">
+          <h4>📧 邮箱</h4>
+          <p><a href="mailto:info@equestrian-simulators.com">info@equestrian-simulators.com</a></p>
+        </div>
+        <div class="ci-card">
+          <h4>💬 WhatsApp</h4>
+          <p><a href="#">+86 XXX XXXX XXXX</a><br><span style="font-size:12px;color:var(--text-light)">点击直接发起对话</span></p>
+        </div>
+        <div class="ci-card">
+          <h4>🕘 工作时间</h4>
+          <p>周一至周五：9:00 - 18:00 (GMT+8)<br><span style="font-size:12px;color:var(--text-light)">线上询盘7天24小时接收</span></p>
+        </div>
+
+        <h4 style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--text-light);margin:24px 0 12px">联系渠道</h4>
+        <div class="contact-channels">
+          <div class="ch-card">
+            <div class="ch-icon">📋</div>
+            <div class="ch-name">询盘表单</div>
+            <div class="ch-detail">填写右侧表单 →</div>
+          </div>
+          <div class="ch-card">
+            <div class="ch-icon">💬</div>
+            <div class="ch-name">WhatsApp</div>
+            <div class="ch-detail">即时沟通</div>
+          </div>
+          <div class="ch-card">
+            <div class="ch-icon">✉️</div>
+            <div class="ch-name">邮件</div>
+            <div class="ch-detail">直接联系团队</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右：询盘表单 -->
+      <div class="contact-form">
+        <h3>获取报价</h3>
+
+        <!-- 场景快捷标签 -->
+        <div style="margin-bottom:20px">
+          <p style="font-size:12px;color:var(--text-light);margin-bottom:10px;font-weight:600">我的需求是…（点选快速填写）</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span onclick="selectScenario(this,'俱乐部 / 训练中心采购')" style="font-size:12px;padding:6px 14px;border:1px solid #E0D8C8;border-radius:20px;cursor:pointer;transition:all 0.2s" class="scenario-tag">🏇 俱乐部采购</span>
+            <span onclick="selectScenario(this,'学校 / 教育机构配置')" style="font-size:12px;padding:6px 14px;border:1px solid #E0D8C8;border-radius:20px;cursor:pointer;transition:all 0.2s" class="scenario-tag">🏫 学校配置</span>
+            <span onclick="selectScenario(this,'康复 / 治疗机构引进')" style="font-size:12px;padding:6px 14px;border:1px solid #E0D8C8;border-radius:20px;cursor:pointer;transition:all 0.2s" class="scenario-tag">🏥 康复引进</span>
+            <span onclick="selectScenario(this,'赛马 / 骑师训练中心')" style="font-size:12px;padding:6px 14px;border:1px solid #E0D8C8;border-radius:20px;cursor:pointer;transition:all 0.2s" class="scenario-tag">🏆 骑师训练</span>
+            <span onclick="selectScenario(this,'展览 / 活动体验')" style="font-size:12px;padding:6px 14px;border:1px solid #E0D8C8;border-radius:20px;cursor:pointer;transition:all 0.2s" class="scenario-tag">🎪 展览活动</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>姓名 *</label>
+          <input type="text" id="cf-name" placeholder="您的姓名">
+        </div>
+        <div class="form-group">
+          <label>邮箱 / WhatsApp *</label>
+          <input type="text" id="cf-contact" placeholder="邮箱地址 或 WhatsApp号码">
+        </div>
+        <div class="form-group">
+          <label>国家 / 地区 *</label>
+          <select id="cf-country">
+            <option value="" disabled selected>请选择...</option>
+            <option>中国大陆</option><option>中国香港</option><option>英国</option><option>美国</option><option>澳大利亚</option><option>德国</option><option>日本</option><option>韩国</option><option>阿联酋</option><option>其他</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>行业 *</label>
+          <select id="cf-industry">
+            <option value="" disabled selected>请选择...</option>
+            <option>马术俱乐部 / 训练中心</option>
+            <option>学校 / 教育机构</option>
+            <option>康复 / 治疗机构</option>
+            <option>赛马 / 骑师训练</option>
+            <option>体验场馆 / 旅游</option>
+            <option>家庭 / 个人</option>
+            <option>其他</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>感兴趣的产品</label>
+          <select id="cf-product">
+            <option value="">全部产品 / 未确定</option>
+            <option>Horse-MS30P — 专业三项赛模拟器</option>
+            <option>Pony-MS30 — 智能教学模拟器</option>
+            <option>Racehorse-MS20 — 赛马竞速模拟器</option>
+            <option>需要推荐（告诉我场景即可）</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>留言（可选）</label>
+          <textarea id="cf-message" placeholder="如：场馆面积、学员规模、期望配置数量、预计采购时间等..."></textarea>
+        </div>
+        <button class="form-submit" onclick="submitContactForm()">提交询盘</button>
+        <p style="font-size:12px;color:var(--text-lighter);margin-top:12px;text-align:center">我们承诺24小时内回复，节假日亦有响应</p>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+<script>
+function selectScenario(el, text){
+  document.querySelectorAll('.scenario-tag').forEach(function(t){
+    t.style.background=''; t.style.borderColor='#E0D8C8'; t.style.color='';
+  });
+  el.style.background='#C9A84C'; el.style.borderColor='#C9A84C'; el.style.color='#fff';
+  var msg = document.getElementById('cf-message');
+  if(msg && !msg.value) msg.placeholder = text + ' — 请补充详情（场地面积、学员规模等）';
+}
+function submitContactForm(){
+  var btn = document.querySelector('.contact-form .form-submit');
+  if(!btn) return;
+  btn.textContent='✅ 询盘已提交！我们将在24小时内与您联系';
+  btn.style.background='#2E7D32';
+  btn.disabled=true;
+}
+</script>
+
+<!-- FOOTER (Global) -->
+<!-- ══════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="images/logo02.png" alt="模拟马® Equestrian Simulators" style="height:100px;margin-bottom:16px">
+      <p>获得HKJC和RDA信赖。融合生物力学、AI与VR技术的顶级马术模拟器，为全球客户提供安全高效的室内训练方案。</p>
+    </div>
+    <div class="footer-col">
+      <h4>产品</h4>
+      <a onclick="showPage('ms30p')">Horse-MS30P</a>
+      <a onclick="showPage('ms30')">Pony-MS30</a>
+      <a onclick="showPage('ms20')">Racehorse-MS20</a>
+      <a onclick="showPage('compare')">产品对比</a>
+    </div>
+    <div class="footer-col">
+      <h4>公司</h4>
+      <a onclick="showPage('about')">关于我们</a>
+      <a onclick="showPage('cases')">客户案例</a>
+      <a onclick="showPage('blog')">行业资讯</a>
+      <a onclick="showPage('downloads')">资料下载</a>
+    </div>
+    <div class="footer-col">
+      <h4>联系</h4>
+      <a onclick="showPage('contact')">联系我们</a>
+      <a>WhatsApp</a>
+      <a>YouTube</a>
+      <a>LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 模拟马® — 广东探月教育设备有限公司 版权所有</p>
+  </div>
+</footer>
+
+<script>
+// 双层导航栏：logo行+菜单行，滚动时logo行滑出，只留菜单行
+// 状态管理：对wrapper做translateY动画控制
+function updateNav(){
+  const wrap = document.getElementById('nav-wrap');
+  if(!wrap) return;
+  wrap.classList.toggle('compact', window.scrollY > 80);
+}
+
+// 页面切换
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if(page) page.classList.add('active');
+  window.scrollTo({top:0});
+  const wrap = document.getElementById('nav-wrap');
+  if(wrap) wrap.classList.remove('compact');
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+}
+
+// 下拉菜单控制：用JS控制，避免CSS hover在mobile误触
+document.querySelectorAll && document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.nav-drop').forEach(drop => {
+    const menu = drop.querySelector('.nav-drop-menu');
+    if(!menu) return;
+    let timer;
+    drop.addEventListener('mouseenter', () => { clearTimeout(timer); menu.style.display='block'; });
+    drop.addEventListener('mouseleave', () => { timer = setTimeout(() => { menu.style.display='none'; }, 120); });
+    menu.addEventListener('mouseenter', () => clearTimeout(timer));
+    menu.addEventListener('mouseleave', () => { timer = setTimeout(() => { menu.style.display='none'; }, 120); });
+  });
+});
+
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('scroll', updateNav, {passive:true});
+  updateNav();
+});
+</script>
+
+
+
+
+
+
+
+<script>
+(function(){
+  var nav = document.getElementById('nav-wrap');
+  if(!nav) return;
+  var transparentPages = ['home'];
+  
+  function getCurrentPageId(){
+    var active = document.querySelector('.page.active');
+    if(!active) return '';
+    return active.id.replace('page-', '');
+  }
+  
+  function updateNav(){
+    var pageId = getCurrentPageId();
+    if(transparentPages.indexOf(pageId) !== -1 && window.scrollY < 60){
+      nav.classList.add('nav-transparent');
+    } else {
+      nav.classList.remove('nav-transparent');
+    }
+  }
+  
+  window.addEventListener('scroll', updateNav, {passive:true});
+  
+  var _orig = window.showPage;
+  if(typeof _orig === 'function'){
+    window.showPage = function(id){
+      _orig(id);
+      window.scrollTo({top:0, behavior:'instant'});
+      setTimeout(updateNav, 50);
+    };
+  }
+  setTimeout(updateNav, 100);
+})();
+</script>
+</body>
+</html>

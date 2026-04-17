@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>产品详情页 - 板块布局演示（A/B/C方案对比）</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif;background:#1a1a2e;color:#fff;line-height:1.6}
+:root{
+  --navy:#0A1E3F;
+  --gold:#C9A84C;
+  --gold-deep:#B8832E;
+  --cream:#F5F0E8;
+  --white:#FFFFFF;
+  --text:#1C2333;
+  --text-light:#5A6478;
+}
+
+/* ══ 顶部方案切换 ══ */
+.scheme-bar{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  background:var(--navy);border-bottom:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  padding:12px 20px;
+}
+.scheme-bar span{color:rgba(255,255,255,0.6);font-size:13px;font-weight:500}
+.scheme-btn{
+  padding:8px 24px;border:1px solid rgba(255,255,255,0.2);background:transparent;
+  color:#fff;border-radius:6px;font-size:13px;cursor:pointer;transition:all 0.2s;
+}
+.scheme-btn:hover{border-color:var(--gold);color:var(--gold)}
+.scheme-btn.active{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:600}
+
+/* ══ 方案容器 ══ */
+.scheme{display:none;padding-top:56px}
+.scheme.visible{display:block}
+
+/* ══ 方案标题 ══ */
+.scheme-title{
+  text-align:center;padding:48px 20px 32px;
+  font-size:28px;font-weight:700;color:var(--gold);
+}
+.scheme-subtitle{
+  text-align:center;font-size:14px;color:rgba(255,255,255,0.5);
+  margin-top:-20px;padding-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto;
+}
+
+/* ═══════════════════════════════════════ */
+/* 通用板块样式 */
+/* ═══════════════════════════════════════ */
+
+/* — Hero区 — */
+.block-hero{
+  position:relative;width:100%;aspect-ratio:16/7;
+  background:linear-gradient(135deg,#0A1E3F 0%,#122B52 50%,#0A1E3F 100%);
+  display:flex;align-items:center;overflow:hidden;
+}
+.block-hero .hero-img{
+  position:absolute;right:0;top:0;width:55%;height:100%;
+  object-fit:cover;opacity:0.7;
+}
+.block-hero .hero-content{
+  position:relative;z-index:2;padding:0 6%;max-width:550px;
+}
+.block-hero h1{font-size:clamp(28px,4vw,52px);font-weight:800;line-height:1.15;margin-bottom:16px}
+.block-hero .hero-badge{
+  display:inline-block;background:var(--gold);color:var(--navy);
+  padding:4px 14px;border-radius:4px;font-size:11px;font-weight:700;
+  letter-spacing:1px;margin-bottom:16px;
+}
+.block-hero p{font-size:clamp(13px,1.5vw,17px);color:rgba(255,255,255,0.8);line-height:1.7}
+.block-hero .hero-btn{
+  display:inline-block;margin-top:24px;padding:12px 32px;
+  background:var(--gold);color:var(--navy);border-radius:6px;
+  font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;
+}
+
+/* — Spec-bar — */
+.block-spec{
+  background:var(--navy);padding:40px 6%;
+  display:flex;justify-content:center;gap:40px;flex-wrap:wrap;
+}
+.spec-item{text-align:center;min-width:120px}
+.spec-num{font-size:clamp(28px,3.5vw,42px);font-weight:800;
+  background:linear-gradient(180deg,#fff 30%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.spec-label{font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;letter-spacing:0.5px}
+
+/* — 左文右图 / 右文左图 — */
+.block-text-image{
+  display:flex;align-items:center;gap:0;
+  background:var(--cream);min-height:420px;
+}
+.block-text-image.reverse{flex-direction:row-reverse}
+.block-text-image .ti-text{flex:1;padding:48px 5%}
+.block-text-image .ti-text h2{font-size:clamp(22px,2.5vw,32px);font-weight:700;color:var(--text);margin-bottom:16px;line-height:1.3}
+.block-text-image .ti-text p{font-size:14px;color:var(--text-light);line-height:1.8}
+.block-text-image .ti-img{flex:1;height:420px;overflow:hidden;position:relative}
+.block-text-image .ti-img .placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(135deg,#ddd 0%,#ccc 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:#999;
+}
+
+/* — 全幅大图 — */
+.block-fullwidth{
+  position:relative;width:100%;aspect-ratio:16/6;
+  background:linear-gradient(135deg,#122B52 0%,#0A1E3F 100%);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.block-fullwidth .fw-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,30,63,0.3) 0%,rgba(10,30,63,0.85) 100%);
+}
+.block-fullwidth .fw-content{
+  position:relative;z-index:2;text-align:center;max-width:700px;padding:0 5%;
+}
+.block-fullwidth h2{font-size:clamp(24px,3vw,40px);font-weight:700;margin-bottom:16px}
+.block-fullwidth p{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.8}
+
+/* — Feature Cards — */
+.block-features{
+  background:var(--white);padding:60px 6%;
+}
+.block-features .section-title{text-align:center;font-size:clamp(22px,2.5vw,32px);font-weight:700;color:var(--text);margin-bottom:40px}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.feature-card{
+  background:var(--cream);border-radius:12px;padding:32px 24px;
+  text-align:center;transition:transform 0.2s,box-shadow 0.2s;
+}
+.feature-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.feature-card .icon{font-size:36px;margin-bottom:16px}
+.feature-card h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px}
+.feature-card p{font-size:13px;color:var(--text-light);line-height:1.6}
+
+/* — Video — */
+.block-video{
+  background:var(--navy);padding:60px 6%;text-align:center;
+}
+.block-video .section-title{color:#fff;font-size:clamp(22px,2.5vw,32px);font-weight:700;margin-bottom:32px}
+.video-placeholder{
+  max-width:900px;margin:0 auto;aspect-ratio:16/9;
+  background:#111;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,0.1);
+}
+.play-btn{width:64px;height:64px;background:var(--gold);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:transform 0.2s;
+}
+.play-btn:hover{transform:scale(1.1)}
+.play-btn::after{content:'';width:0;height:0;border-left:20px solid var(--navy);
+  border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:4px}
+
+/* — FAQ — */
+.block-faq{
+  background:var(--cream);padding:60px 6%;
+}
+.block-faq .section-title{text-align:center;font-size:clamp(22px,2.5vw,32px);font-weight:700;color:var(--text);margin-bottom:40px}
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{
+  background:var(--white);border-radius:8px;margin-bottom:12px;
+  border:1px solid var(--cream);overflow:hidden;
+}
+.faq-q{
+  padding:18px 24px;font-size:15px;font-weight:600;color:var(--text);
+  cursor:pointer;display:flex;justify-content:space-between;align-items:center;
+  transition:background 0.2s;
+}
+.faq-q:hover{background:rgba(201,168,76,0.05)}
+.faq-q::after{content:'+';font-size:20px;color:var(--gold);font-weight:300;transition:transform 0.2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{
+  max-height:0;overflow:hidden;transition:max-height 0.3s ease;
+}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a p{padding:0 24px 18px;font-size:14px;color:var(--text-light);line-height:1.7}
+
+/* — CTA — */
+.block-cta{
+  background:var(--navy);padding:60px 6%;text-align:center;
+}
+.block-cta h2{font-size:clamp(22px,3vw,36px);font-weight:700;margin-bottom:12px}
+.block-cta p{font-size:15px;color:rgba(255,255,255,0.6);margin-bottom:28px}
+.block-cta .cta-btn{
+  display:inline-block;padding:14px 40px;background:var(--gold);
+  color:var(--navy);border-radius:6px;font-size:15px;font-weight:600;
+  cursor:pointer;transition:all 0.2s;
+}
+.block-cta .cta-btn:hover{background:var(--gold-deep);transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,0.3)}
+
+/* — 板块标注 — */
+.block-label{
+  position:absolute;top:8px;left:8px;z-index:10;
+  background:rgba(201,168,76,0.9);color:var(--navy);
+  padding:4px 12px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:0.5px;
+}
+.block-wrap{position:relative}
+
+/* — 分隔线 — */
+.scheme-divider{
+  text-align:center;padding:48px 20px 24px;
+  font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:2px;
+}
+
+@media(max-width:768px){
+  .block-text-image,.block-text-image.reverse{flex-direction:column}
+  .block-text-image .ti-img{height:260px;width:100%}
+  .features-grid{grid-template-columns:1fr}
+  .block-spec{gap:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ 方案切换栏 ══ -->
+<div class="scheme-bar">
+  <span>产品详情页布局方案：</span>
+  <button class="scheme-btn active" onclick="showScheme('a')">方案A · 旗舰展示型</button>
+  <button class="scheme-btn" onclick="showScheme('b')">方案B · 教育实用型</button>
+  <button class="scheme-btn" onclick="showScheme('c')">方案C · 混合穿插型</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 方案A：旗舰展示型（适合MS30P）—— 大量全幅大图穿插，视觉冲击 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="scheme visible" id="scheme-a">
+  <div class="scheme-title">方案A · 旗舰展示型</div>
+  <div class="scheme-subtitle">适合旗舰产品MS30P —— 全幅大图+规格条+视频，视觉冲击力最大化<br>节奏：暗→亮→暗→亮→暗，深色和浅色交替</div>
+
+  <!-- Hero -->
+  <div class="block-wrap">
+    <div class="block-label">① HERO 产品首屏</div>
+    <div class="block-hero">
+      <div class="hero-content">
+        <div class="hero-badge">AI-POWERED</div>
+        <h1>Horse Simulator<br>MS30P</h1>
+        <p>AI驱动的专业马术模拟器，搭载高精度传感器矩阵与实时数据反馈系统，复刻 Walk / Trot / Canter / Jump 四大步态</p>
+        <div class="hero-btn">获取报价 →</div>
+      </div>
+      <div style="position:absolute;right:0;top:0;width:55%;height:100%;background:linear-gradient(90deg,#0A1E3F 0%,rgba(10,30,63,0) 30%),url('') center/cover;opacity:0.6"></div>
+    </div>
+  </div>
+
+  <!-- Spec-bar -->
+  <div class="block-wrap">
+    <div class="block-label">② SPEC-BAR 关键参数</div>
+    <div class="block-spec">
+      <div class="spec-item"><div class="spec-num">8</div><div class="spec-label">种步态模式</div></div>
+      <div class="spec-item"><div class="spec-num">128</div><div class="spec-label">个传感器</div></div>
+      <div class="spec-item"><div class="spec-num">3-15</div><div class="spec-label">岁适用</div></div>
+      <div class="spec-item"><div class="spec-num">CE</div><div class="spec-label">认证</div></div>
+      <div class="spec-item"><div class="spec-num">HKJC</div><div class="spec-label">官方认可</div></div>
+    </div>
+  </div>
+
+  <!-- 左文右图 -->
+  <div class="block-wrap">
+    <div class="block-label">③ TEXT-IMAGE 左文右图</div>
+    <div class="block-text-image">
+      <div class="ti-text">
+        <h2>AI实时步态分析<br>让每一次训练都有数据支撑</h2>
+        <p>内置AI算法实时分析骑手姿态与平衡度，通过12.1英寸触控面板输出训练报告。教练可根据数据精准调整教学方案，替代传统"凭经验判断"。</p>
+      </div>
+      <div class="ti-img"><div class="placeholder">📷 产品使用场景图</div></div>
+    </div>
+  </div>
+
+  <!-- 全幅大图穿插 -->
+  <div class="block-wrap">
+    <div class="block-label">④ FULL-WIDTH 全幅大图（打断节奏）</div>
+    <div class="block-fullwidth">
+      <div class="fw-overlay"></div>
+      <div class="fw-content">
+        <h2>香港赛马会官方指定<br>训练设备</h2>
+        <p>2019年起，MS30P被HKJC纳入见习骑师培训体系，累计完成超过15,000小时训练课程，成为亚洲最权威的马术模拟训练认证设备</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 右文左图 -->
+  <div class="block-wrap">
+    <div class="block-label">⑤ TEXT-IMAGE 右文左图（交替）</div>
+    <div class="block-text-image reverse">
+      <div class="ti-text">
+        <h2>多机组网协同<br>打造智能马术教室</h2>
+        <p>支持最多8台设备同时联网，教练通过主控面板统一管理全班训练进度、调整步态难度、实时查看每位学员的AI评分。</p>
+      </div>
+      <div class="ti-img"><div class="placeholder">📷 多机教室场景图</div></div>
+    </div>
+  </div>
+
+  <!-- 视频 -->
+  <div class="block-wrap">
+    <div class="block-label">⑥ VIDEO 产品视频</div>
+    <div class="block-video">
+      <div class="section-title">See It in Action</div>
+      <div class="video-placeholder">
+        <div class="play-btn"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Cards -->
+  <div class="block-wrap">
+    <div class="block-label">⑦ FEATURES 核心特性卡片</div>
+    <div class="block-features">
+      <div class="section-title">Core Technology</div>
+      <div class="features-grid">
+        <div class="feature-card"><div class="icon">🔬</div><h3>128传感器矩阵</h3><p>毫米级精度感知骑手重心偏移，实时反馈修正建议</p></div>
+        <div class="feature-card"><div class="icon">🧠</div><h3>AI步态引擎</h3><p>自学习算法根据骑手水平自动调节步态难度和幅度</p></div>
+        <div class="feature-card"><div class="icon">📊</div><h3>训练数据仪表盘</h3><p>每次训练生成PDF报告：坐姿评分/平衡指数/进步曲线</p></div>
+        <div class="feature-card"><div class="icon">🔗</div><h3>多机组网</h3><p>最多8台同时联网，教练主控面板统一管理</p></div>
+        <div class="feature-card"><div class="icon">🛡️</div><h3>CE+HKJC双认证</h3><p>通过欧盟CE安全认证及香港赛马会官方技术审核</p></div>
+        <div class="feature-card"><div class="icon">🌐</div><h3>多语言界面</h3><p>支持中/英/日/阿拉伯/韩/德/西 7种语言切换</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="block-wrap">
+    <div class="block-label">⑧ FAQ 常见问题</div>
+    <div class="block-faq">
+      <div class="section-title">Frequently Asked Questions</div>
+      <div class="faq-list">
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">MS30P适合多大年龄的骑手？</div>
+          <div class="faq-a"><p>MS30P适合3-15岁的骑手使用。设备可根据骑手身高和体重自动调整鞍座高度和步态幅度，确保安全舒适。</p></div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">设备是否需要专业场地？</div>
+          <div class="faq-a"><p>不需要。MS30P占地面积仅2.5m×1.2m，标准教室即可容纳。需220V电源，无需特殊地基或通风设施。</p></div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">与Racewood产品相比有什么优势？</div>
+          <div class="faq-a"><p>MS30P独有AI实时步态分析和多机组网功能，同时价格仅为同级竞品的40%-60%，性价比显著。</p></div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">保修和售后服务怎么安排？</div>
+          <div class="faq-a"><p>全球范围2年质保，核心部件5年保修。提供远程技术支持和上门培训安装服务。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="block-wrap">
+    <div class="block-label">⑨ CTA 行动号召</div>
+    <div class="block-cta">
+      <h2>Ready to Transform Your Training?</h2>
+      <p>联系我们获取定制化方案与报价</p>
+      <div class="cta-btn">获取报价 →</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 方案B：教育实用型（适合MS30）—— 更多文图交替，少全幅，重实用信息 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="scheme" id="scheme-b">
+  <div class="scheme-title">方案B · 教育实用型</div>
+  <div class="scheme-subtitle">适合教育产品MS30 —— 文图交替为主，重信息传达，减少大图穿插<br>节奏：紧凑、信息密集、适合理性决策者</div>
+
+  <!-- Hero（更简洁） -->
+  <div class="block-wrap">
+    <div class="block-label">① HERO</div>
+    <div class="block-hero">
+      <div class="hero-content">
+        <div class="hero-badge">EDUCATION SERIES</div>
+        <h1>Pony Simulator<br>MS30</h1>
+        <p>专为学校与教育机构设计的智能马术教学设备，支持多机组网协同教学</p>
+        <div class="hero-btn">获取报价 →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Cards 紧跟Hero -->
+  <div class="block-wrap">
+    <div class="block-label">② FEATURES 核心卖点前置</div>
+    <div class="block-features">
+      <div class="section-title">Why Schools Choose MS30</div>
+      <div class="features-grid">
+        <div class="feature-card"><div class="icon">🏫</div><h3>校园适配</h3><p>220V标准电源，占地仅2m²，普通教室即可部署</p></div>
+        <div class="feature-card"><div class="icon">🔗</div><h3>多机组网</h3><p>最多8台联网，1位教练同时管理8位学员</p></div>
+        <div class="feature-card"><div class="icon">📚</div><h3>教学模式</h3><p>内置分级教学课程，从入门到进阶自动匹配</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 左文右图 -->
+  <div class="block-wrap">
+    <div class="block-label">③ TEXT-IMAGE</div>
+    <div class="block-text-image">
+      <div class="ti-text">
+        <h2>分级教学课程体系</h2>
+        <p>MS30内置从"零基础入门"到"盛装舞步进阶"的完整课程体系。教练可自定义课程进度，系统自动根据学员评分推荐下一步训练内容。</p>
+      </div>
+      <div class="ti-img"><div class="placeholder">📷 教学界面截图</div></div>
+    </div>
+  </div>
+
+  <!-- 右文左图 -->
+  <div class="block-wrap">
+    <div class="block-label">④ TEXT-IMAGE 交替</div>
+    <div class="block-text-image reverse">
+      <div class="ti-text">
+        <h2>RDA残障骑术协会认可</h2>
+        <p>MS30通过RDA官方评估，成为残障人士马术康复训练的推荐设备。安全护栏与低速模式确保特殊需求骑手的使用安全。</p>
+      </div>
+      <div class="ti-img"><div class="placeholder">📷 RDA使用场景图</div></div>
+    </div>
+  </div>
+
+  <!-- Spec-bar -->
+  <div class="block-wrap">
+    <div class="block-label">⑤ SPEC-BAR</div>
+    <div class="block-spec">
+      <div class="spec-item"><div class="spec-num">6</div><div class="spec-label">种步态模式</div></div>
+      <div class="spec-item"><div class="spec-num">8</div><div class="spec-label">台组网</div></div>
+      <div class="spec-item"><div class="spec-num">RDA</div><div class="spec-label">认可</div></div>
+      <div class="spec-item"><div class="spec-num">2m²</div><div class="spec-label">占地面积</div></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="block-wrap">
+    <div class="block-label">⑥ FAQ</div>
+    <div class="block-faq">
+      <div class="section-title">Frequently Asked Questions</div>
+      <div class="faq-list">
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">学校采购需要什么条件？</div>
+          <div class="faq-a"><p>标准220V教室即可，无需特殊场地。我们提供免费场地评估和部署方案设计。</p></div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">教师培训怎么做？</div>
+          <div class="faq-a"><p>购买后提供2天上门培训+在线教学手册+视频教程，确保教师能独立操作和教学。</p></div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">MS30和MS30P有什么区别？</div>
+          <div class="faq-a"><p>MS30P是旗舰版，拥有更多步态模式和HKJC认证。MS30针对教育场景优化，性价比更高，更适合批量部署。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="block-wrap">
+    <div class="block-label">⑦ CTA</div>
+    <div class="block-cta">
+      <h2>为您的学校定制马术教学方案</h2>
+      <p>我们为100+教育机构提供过完整的马术教学解决方案</p>
+      <div class="cta-btn">获取教育方案报价 →</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 方案C：混合穿插型 —— A和B的结合，后台可配置 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="scheme" id="scheme-c">
+  <div class="scheme-title">方案C · 混合穿插型（推荐✅）</div>
+  <div class="scheme-subtitle">A和B的板块全部做成组件，后台自由拖拽排列<br>下面展示的是一种排列方式，每种板块都可以增删、调换顺序</div>
+
+  <!-- Hero -->
+  <div class="block-wrap">
+    <div class="block-label">① HERO ─ 必选</div>
+    <div class="block-hero">
+      <div class="hero-content">
+        <div class="hero-badge">RACEHORSE SERIES</div>
+        <h1>Racehorse<br>Simulator MS20</h1>
+        <p>紧凑型赛马训练模拟器，专为骑师体能训练与袭步技术打磨设计</p>
+        <div class="hero-btn">获取报价 →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spec-bar -->
+  <div class="block-wrap">
+    <div class="block-label">② SPEC-BAR ─ 可选/可调位置</div>
+    <div class="block-spec">
+      <div class="spec-item"><div class="spec-num">45</div><div class="spec-label">km/h 模拟</div></div>
+      <div class="spec-item"><div class="spec-num">PSI</div><div class="spec-label">气压感应</div></div>
+      <div class="spec-item"><div class="spec-num">Pro</div><div class="spec-label">骑师认可</div></div>
+    </div>
+  </div>
+
+  <!-- 左文右图 -->
+  <div class="block-wrap">
+    <div class="block-label">③ TEXT-IMAGE ─ 可选/可重复/可切换方向</div>
+    <div class="block-text-image">
+      <div class="ti-text">
+        <h2>真实赛马速度体验</h2>
+        <p>MS20模拟真实赛马的袭步速度感，通过PSI气压感应系统让骑手体验高速骑乘的重心变化和风阻。</p>
+      </div>
+      <div class="ti-img"><div class="placeholder">📷 骑师训练场景</div></div>
+    </div>
+  </div>
+
+  <!-- 全幅大图 -->
+  <div class="block-wrap">
+    <div class="block-label">④ FULL-WIDTH ─ 可选/用于穿插打断节奏</div>
+    <div class="block-fullwidth">
+      <div class="fw-overlay"></div>
+      <div class="fw-content">
+        <h2>职业骑师的秘密武器</h2>
+        <p>被多国赛马训练中心采用，帮助骑师在不消耗马匹体能的前提下高频训练核心技术</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 右文左图 -->
+  <div class="block-wrap">
+    <div class="block-label">⑤ TEXT-IMAGE反向 ─ 可选</div>
+    <div class="block-text-image reverse">
+      <div class="ti-text">
+        <h2>紧凑设计 灵活部署</h2>
+        <p>MS20体积比MS30P小40%，适合空间有限的训练室。220V即插即用，单人即可完成安装。</p>
+      </div>
+      <div class="ti-img"><div class="placeholder">📷 尺寸对比图</div></div>
+    </div>
+  </div>
+
+  <!-- Video -->
+  <div class="block-wrap">
+    <div class="block-label">⑥ VIDEO ─ 可选</div>
+    <div class="block-video">
+      <div class="section-title">训练实拍</div>
+      <div class="video-placeholder">
+        <div class="play-btn"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="block-wrap">
+    <div class="block-label">⑦ FAQ ─ 必选（SEO/GEO要求）</div>
+    <div class="block-faq">
+      <div class="section-title">常见问题</div>
+      <div class="faq-list">
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">MS20和MS30P有什么区别？</div>
+          <div class="faq-a"><p>MS20专注赛马骑师训练，体积更小、模拟速度更高。MS30P是综合型旗舰产品，步态更多、功能更全。</p></div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">适合哪些用户？</div>
+          <div class="faq-a"><p>职业骑师、赛马训练中心、体能训练机构。也适合追求高速骑乘体验的马术爱好者。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="block-wrap">
+    <div class="block-label">⑧ CTA ─ 必选</div>
+    <div class="block-cta">
+      <h2>开始您的赛马训练升级</h2>
+      <p>联系我们了解MS20详细技术参数与价格</p>
+      <div class="cta-btn">获取报价 →</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showScheme(id){
+  document.querySelectorAll('.scheme').forEach(s=>s.classList.remove('visible'));
+  document.getElementById('scheme-'+id).classList.add('visible');
+  document.querySelectorAll('.scheme-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

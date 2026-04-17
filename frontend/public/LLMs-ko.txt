@@ -1,0 +1,32 @@
+# 승마 시뮬레이터 - LLMs.txt
+## About
+훈련, 교육, 재활, 조키 성과를 위한 전문 승마 시뮬레이터. 홍콩 자키클럽, 홍콩 RDA, 아시아 전역의 대학에서 신뢰하는 제조업체 및 공급업체.
+## 제품
+- Horse-MS.30P: 드레서지, 장애물 비월, 종합 승마용 전문 시뮬레이터 (홍콩 자키클럽(HKJC) 공식 채택 모델. 두부·복부 이중 고정밀 센서를 탑재하여 전문 선수의 고급 훈련에 최적화)
+- Pony-MS.30: 승마 학교, 대학, 초보자 훈련용 교육 시뮬레이터 (홍콩 RDA 공식 채택 모델. 다중 기기 네트워크 연동으로 디지털 단체 교육 및 승마 치료 프로그램 구현)
+- Racehorse-MS.20: 전문 조키 훈련 시뮬레이터 — 공기압 가속 시스템 (산업용 복부 센서가 조키의 다리 죔과 밀어 올림 힘을 감지, 선형 가속 피드백으로 실제 경주마 응답을 복제). Walk/Canter/Gallop 경주 속도, Monkey Style 자세, 200KG 경량 설계. 전문 조키 훈련 센터와 엘리트 경마 클럽을 위해 설계됨.
+## 주요 페이지
+- 홈페이지: /
+- 제품: /ai-equestrian-simulators/ms30p-professional-dressage-jumping-simulator
+- 제품: /ai-equestrian-simulators/ms30-education-pony-simulator
+- 제품: /ai-equestrian-simulators/ms20-racehorse-jockey-training-simulator
+- 비교: /compare
+- 도입 사례: /cases
+- 회사 소개: /about
+- 문의하기: /contact
+- 자료 다운로드 (브로슈어, 사양서, CE 인증): /downloads
+- 솔루션 - 승마 클럽: /solutions/club
+- 솔루션 - 교육: /solutions/education
+- 솔루션 - 재활: /solutions/rehab
+- 솔루션 - 경마: /solutions/racing
+- 솔루션 - 홈: /solutions/home
+- 솔루션 - 이벤트: /solutions/event
+## 신뢰 기관
+홍콩 자키클럽, 홍콩 RDA, 쓰촨관광학원, 중국 군사 승마 프로그램 및 정부 훈련 센터.
+
+
+## 연락처
+- 이메일: info@equestrian-simulators.com
+- WhatsApp: +86 131 1288 6222
+- 연락 페이지: https://www.equestrian-simulators.com/contact
+- 응답 시간: 24시간 이내

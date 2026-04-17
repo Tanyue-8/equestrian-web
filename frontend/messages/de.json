@@ -1,0 +1,1001 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "products": "Produkte",
+    "compare": "Vergleich",
+    "solutions": "Lösungen",
+    "cases": "Referenzen",
+    "blog": "Blog",
+    "downloads": "Downloads",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "solClub": "Reitclub",
+    "solEducation": "Schule & Bildung",
+    "solRehab": "Rehabilitationstherapie & Equine Healing",
+    "solRacing": "Rennsport & Jockey",
+    "solHome": "Zuhause & Einzelreiter",
+    "solEvent": "Events & Messen"
+  },
+  "common": {
+    "learnMore": "Mehr erfahren",
+    "contactUs": "Kontakt aufnehmen",
+    "getQuote": "Angebot anfordern",
+    "download": "Herunterladen"
+  },
+  "home": {
+    "hero": {
+      "badge": "Globaler Hersteller · Seit 2017",
+      "title1": "Professioneller Hersteller von",
+      "title2": "Reitsimulator-Systemen",
+      "subtitle": "Wir entwickeln und fertigen professionelle Reitsimulatoren, die Reitern weltweit sicheres, effektives und datengestütztes Training ermöglichen.",
+      "btnProducts": "Produkte entdecken →",
+      "btnCases": "Referenzen ansehen →",
+      "btnQuote": "Angebot anfordern →",
+      "stat1": "Produktlinien",
+      "stat2": "Anwendungsbereiche",
+      "stat3": "Jahre F&E",
+      "stat4": "Globale Partner"
+    },
+    "products": {
+      "title": "Produktübersicht",
+      "subtitle": "Drei professionelle Simulatoren – von Spitzensport bis zur therapeutischen Rehabilitation.",
+      "ms30p": {
+        "tag": "Profisport Vielseitigkeit",
+        "subtitle": "Professioneller Vielseitigkeits-Simulator",
+        "desc": "Eingesetzt vom Hong Kong Jockey Club. Für Leistungssportler konzipiert, mit dualem biomechanischem Hochpräzisions-Sensorsystem an Kopf und Rumpf."
+      },
+      "ms30": {
+        "tag": "Intelligente Ausbildung",
+        "subtitle": "Intelligenter Ausbildungssimulator",
+        "desc": "Eingesetzt von RDA Hongkong. Vernetzbares Mehrgeräte-System für digitalen Gruppenunterricht und therapeutisches Reiten."
+      },
+      "ms20": {
+        "tag": "Renntraining",
+        "subtitle": "Rennpferd-Trainingssimulator",
+        "desc": "Simulation von Vollgalopp-Dynamik und pneumatischer Beschleunigung – Hochleistungsgerät für professionelle Jockeys."
+      },
+      "learnMore": "Mehr erfahren",
+      "prev": "Zurück",
+      "next": "Weiter"
+    },
+    "whyUs": {
+      "title": "Warum Equestrian Simulators?",
+      "subtitle": "Professionelle Reitsportlösungen für Institutionen und Einzelpersonen, die smarter trainieren wollen.",
+      "items": {
+        "safe": {
+          "title": "Risikofreies Training",
+          "desc": "Kein Pferd erforderlich. Verletzungsrisiko eliminiert – alle Bewegungsabläufe können sicher geübt werden."
+        },
+        "weather": {
+          "title": "Wetter- und ortsunabhängig",
+          "desc": "Training unabhängig von Witterung und Hallenkapazität – jederzeit und überall."
+        },
+        "data": {
+          "title": "Datengestütztes Coaching",
+          "desc": "Biomechanische Echtzeit-Analyse für objektive Leistungsbewertung und individuelles Feedback."
+        },
+        "cost": {
+          "title": "Drastische Kostensenkung",
+          "desc": "Keine Pferdehaltungskosten. Betriebs- und Einstiegskosten erheblich reduzieren."
+        }
+      }
+    },
+    "solutions": {
+      "title": "Lösungen für jeden Bereich",
+      "subtitle": "Maßgeschneiderte Reittraining-Lösungen für Institutionen aller Disziplinen.",
+      "items": {
+        "club": {
+          "title": "Reitvereine",
+          "desc": "Mitgliedererlebnis verbessern und Trainingsfrequenz steigern."
+        },
+        "education": {
+          "title": "Schulen & Hochschulen",
+          "desc": "Sichere, strukturierte Reitausbildung für Bildungseinrichtungen."
+        },
+        "rehab": {
+          "title": "Rehabilitation & Therapie",
+          "desc": "Kontrollierte, risikoarme Hippotherapie-Umgebung."
+        },
+        "racing": {
+          "title": "Galopprennsport & Jockey-Training",
+          "desc": "Datengestütztes Leistungstraining für professionelle Jockeys."
+        },
+        "home": {
+          "title": "Privat & Heimnutzung",
+          "desc": "In eigenem Tempo und nach eigenem Zeitplan trainieren."
+        },
+        "event": {
+          "title": "Messen & Veranstaltungen",
+          "desc": "Publikum begeistern und unvergessliche Markenerlebnisse schaffen."
+        }
+      }
+    },
+    "trusted": {
+      "title": "Weltweit vertraut",
+      "subtitle": "Die Wahl führender Institutionen und Regierungsstellen weltweit."
+    },
+    "whatIs": {
+      "title": "Was ist ein Reitsimulator?",
+      "desc": "Ein Reitsimulator ist ein KI-gestütztes Reittrainingsgerät, das die Gangarten und Bewegungen eines Pferdes mithilfe von Präzisionssensoren und biomechanischen Algorithmen nachbildet – für effektives Training in einer vollständig risikofreien Umgebung. Weitverbreitet in Reitvereinen, Schulen, Rehabilitationszentren und Jockey-Trainingsprogrammen als ideale Ergänzung zum Reiten auf echten Pferden."
+    },
+    "reviews": {
+      "title": "Was unsere Partner sagen",
+      "subtitle": "Das Vertrauen führender Institutionen weltweit.",
+      "items": [
+        {
+          "quote": "Der MS.30P hat unser Jockey-Ausbildungsprogramm erheblich verbessert. Das präzise Sensor-Feedback liefert biomechanische Daten, die wir mit herkömmlichen Trainingsmethoden schlichtweg nicht gewinnen könnten.",
+          "name": "Ausbildungsleiter",
+          "org": "HKJC Trainingszentrum Shenzhen"
+        },
+        {
+          "quote": "Für unsere Reiter mit Behinderungen hat Sicherheit höchste Priorität. Der Nothalt und die sanfte Gangartensimulation des MS.30 schaffen eine wirklich risikofreie Umgebung, in der unsere Teilnehmer schrittweise Vertrauen aufbauen können.",
+          "name": "Programmleiterin",
+          "org": "Riding for the Disabled Association, Hongkong"
+        },
+        {
+          "quote": "Seit der Einführung des Simulators hat sich die Kapazität unseres Reitprogramms verdreifacht. Die Schüler trainieren unabhängig von Wetter und Pferdestatus, und die Lernergebnisse haben sich spürbar verbessert.",
+          "name": "Leiter der Reitsportabteilung",
+          "org": "Sichuan Tourism University"
+        },
+        {
+          "quote": "Der Simulator gibt unseren Schülern eine solide Grundlage, bevor sie erstmals auf einem echten Pferd sitzen. Eltern schätzen die Sicherheit sehr, und die Anmeldezahlen für unser Reitprogramm sind um 40 % gestiegen.",
+          "name": "Trainingsbeauftragter",
+          "org": "Angeschlossene Schule der Sun Yat-sen-Universität, Shenzhen"
+        }
+      ]
+    },
+    "cta": {
+      "title": "Bereit, Ihr Training zu revolutionieren?",
+      "subtitle": "Sprechen Sie mit unserem Team für eine individuelle Beratung und Produktvorführung.",
+      "btnProduct": "Produkte entdecken →",
+      "btnWhatsapp": "WhatsApp-Anfrage →",
+      "btnCases": "Referenzen ansehen →"
+    },
+    "faq": {
+      "items": [
+        {
+          "q": "Wie unterscheidet sich der Simulator vom Training auf einem echten Pferd?",
+          "a": "Unsere Simulatoren replizieren die Biomechanik des Pferdes über eine 6-Achs-Bewegungsplattform und mehr als 200 Präzisionssensoren und bieten konsistente, messbare Trainingsbedingungen. Anders als beim echten Pferd sind sie unabhängig von Tierstimmung, Witterung und Verfügbarkeit von Reitanlagen."
+        },
+        {
+          "q": "Für wen ist der Reitsimulator geeignet?",
+          "a": "Für alle Reiter: Einsteiger, die Sitz und Balance entwickeln; Fortgeschrittene, die ihre Technik verfeinern; Rehabilitationspatienten; und professionelle Jockeys, die Gewichtsverteilung und Reaktionsvermögen trainieren."
+        },
+        {
+          "q": "Welche Modelle bieten Sie an?",
+          "a": "Wir bieten drei Modelle: MS.30P (professionelle Vielseitigkeitsklasse), MS.30 / Pony-MS.30 (Ausbildungs- und Therapieklasse, beide CE-zertifiziert) und MS.20 (spezialisiert auf Jockey- und Rennpferdtraining). Kontaktieren Sie uns für eine maßgeschneiderte Empfehlung."
+        },
+        {
+          "q": "Wie kann ich ein Angebot anfordern?",
+          "a": "Füllen Sie das Anfrageformular auf unserer Kontaktseite aus oder schreiben Sie uns direkt an info@equestrian-simulators.com. Wir antworten innerhalb von 24 Stunden mit einem individuellen Angebot."
+        }
+      ]
+    },
+    "footer": {
+      "companyDesc": "Guangdong TanYue Education Equipment Co., Ltd. — Spezialisten fuer intelligente Reitsimulationen. Offizieller Lieferant des Hong Kong Jockey Club (HKJC) und RDA-anerkannt. CE-zertifiziert. ",
+      "productsTitle": "Produkte",
+      "companyTitle": "Unternehmen",
+      "aboutUs": "Ueber Uns",
+      "cases": "Referenzen",
+      "blog": "Blog",
+      "downloads": "Downloads",
+      "contactTitle": "Kontakt",
+      "email": "info@equestrian-simulators.com",
+      "whatsapp": "+86 131 1288 6222",
+      "address": "Dongguan, Guangdong, China",
+      "hours": "Mo–Fr 9:00–18:00 (GMT+8)",
+      "certified": "CE-zertifiziert · RDA anerkannt",
+      "copyright": "© 2025 Guangdong TanYue Education Equipment Co., Ltd. Alle Rechte vorbehalten.",
+      "privacy": "Datenschutzrichtlinie",
+      "terms": "Nutzungsbedingungen",
+      "sitemap": "Sitemap",
+      "icp": ""
+    }
+  },
+  "ms30p": {
+    "badge": "Offizielle HKJC-Anerkennung",
+    "subtitle": "Professioneller Vielseitigkeitssimulator fuer Elitebewerb und fortgeschrittenes Training",
+    "btnQuote": "Angebot anfordern",
+    "btnCompare": "Modelle vergleichen",
+    "immersive": {
+      "tag": "Kernfunktion",
+      "title": "Hochpraezise biomechanische Sensorik",
+      "desc": "Hochempfindliche Sensorarrays am Kopf und Bauch des Pferdes erfassen Gewichtsverlagerungen und Schenkelhilfen des Reiters in Echtzeit. Die Zugelzugsensorik ermoeglicht dynamische Reaktionen im Millisekundenbereich.",
+      "tags": [
+        "Kopfsensoren",
+        "Bauchsensoren",
+        "Echtzeit-Feedback",
+        "Biomechanikanalyse"
+      ]
+    },
+    "features": {
+      "title": "Kernfunktionen",
+      "subtitle": "Professionelle Technologie fuer den Wettkampfsport",
+      "card1": {
+        "title": "Intelligente Hilfenerkennung",
+        "desc": "Erkennt innere Schenkelhilfen und loest praezise Gangartenwechsel und Geschwindigkeitsaenderungen durch echte biomechanische Bewegung aus, mit Unterstuetzung fuer Piaffe, Passage und weitere Lektionen.",
+        "tags": [
+          "Innerer Wechsel",
+          "Piaffe",
+          "Passage",
+          "Gangartwechsel"
+        ]
+      },
+      "card2": {
+        "title": "Vollstaendige Vielseitigkeitserfahrung",
+        "desc": "Praezise Reproduktion von Schritt, Trab und Galopp mit Unterstuetzung fortgeschrittener Dressurlektionen wie Piaffe und Passage sowie Simulation von Springparcours.",
+        "tags": [
+          "Schritt",
+          "Trab",
+          "Galopp",
+          "Piaffe",
+          "Passage",
+          "Springen"
+        ]
+      },
+      "card3": {
+        "title": "Professionelles Sicherheitssystem",
+        "desc": "Doppelschutz durch Notbremse und Software-Fehlerabsicherung. CE (RED/EMC/LVD) zertifiziert. Offiziell eingesetzt vom Hong Kong Jockey Club Shenzhen Centre.",
+        "tags": [
+          "Notbremse",
+          "CE-zertifiziert",
+          "HKJC anerkannt"
+        ]
+      }
+    },
+    "video": {
+      "title": "Produktdemonstration"
+    },
+    "specs": {
+      "title": "Technische Daten",
+      "left": [
+        [
+          "Modell",
+          "MS.30P (Horse)"
+        ],
+        [
+          "Kategorie",
+          "Professioneller Reitsimulator"
+        ],
+        [
+          "Zertifizierung",
+          "CE (RED / EMC / LVD)"
+        ],
+        [
+          "Anerkannt von",
+          "HKJC"
+        ],
+        [
+          "Gangarten",
+          "Schritt / Trab / Galopp / Piaffe / Passage"
+        ],
+        [
+          "Gesamtlaenge",
+          "2263mm"
+        ],
+        [
+          "Gesamtbreite",
+          "1122mm"
+        ],
+        [
+          "Statische Hoehe",
+          "1750mm"
+        ],
+        [
+          "Basismasse",
+          "2100x690mm"
+        ],
+        [
+          "Sattelloehe",
+          "1500mm"
+        ]
+      ],
+      "right": [
+        [
+          "Gesamtgewicht",
+          "450KG"
+        ],
+        [
+          "Nennlast",
+          "98KG"
+        ],
+        [
+          "Stromversorgung",
+          "220V AC / 50Hz"
+        ],
+        [
+          "Nennleistung",
+          "4.8KW"
+        ],
+        [
+          "Mindest-Deckenhoehe",
+          ">=3000mm"
+        ],
+        [
+          "Seitlicher Abstand",
+          ">=300mm"
+        ],
+        [
+          "Vorderer/hinterer Abstand",
+          ">=500mm"
+        ],
+        [
+          "Tuerbreite (montiert)",
+          ">=1222mm"
+        ],
+        [
+          "Tuerbreite (demontiert)",
+          ">=800mm"
+        ],
+        [
+          "Betriebstemperatur",
+          "5C - 40C"
+        ],
+        [
+          "Garantie",
+          "1 Jahr"
+        ]
+      ]
+    },
+    "whatIs": {
+      "title": "Was ist der MS.30P Professional Equestrian Simulator?",
+      "desc": "Der MS.30P ist ein professioneller Reitsimulator fuer Elitebewerb und fortgeschrittenes Training. Angetrieben von einem KI-Biomechanik-Feedbacksystem, offiziell anerkannt vom Hong Kong Jockey Club (HKJC) und CE (RED/EMC/LVD) zertifiziert. Ausgestattet mit 200+ Praezisionssensoren reproduziert er Schritt, Trab und Galopp sowie Piaffe, Passage und Springparcours-Simulation.",
+      "stat1": "Gangartmodi",
+      "stat2": "Praezisionssensoren",
+      "stat3": "Offizielle Anerkennung"
+    },
+    "faq": {
+      "title": "Haeufig gestellte Fragen",
+      "items": [
+        {
+          "q": "Fuer welche Altersgruppe ist der MS.30P geeignet?",
+          "a": "Fuer Reiter ab 10 Jahren konzipiert, insbesondere fuer fortgeschrittene Jugendliche und professionelle Erwachsene. Piaffe- und Passage-Funktionen ideal fuer wettkampforientierte Reiter. Fuer Kinder unter 10 Jahren empfehlen wir MS.30."
+        },
+        {
+          "q": "Welche Standortanforderungen gelten fuer die Installation?",
+          "a": "Mindest-Deckenhoehe >=3000mm, 220V/4.8KW. Maschinenmasse: 2263x1122x1750mm, 450KG, Nennlast 98KG. Seitlicher Abstand >=300mm, vorderer/hinterer >=500mm. Tuerbreite >=1222mm (montiert), >=800mm (demontiert)."
+        },
+        {
+          "q": "Wie unterscheidet sich das Simulatortraining vom Reiten auf einem echten Pferd?",
+          "a": "Der MS.30P verwendet eine 6-Achsen-Bewegungsplattform und 200+ Sensoren, um die Biomechanik eines echten Pferdes zu reproduzieren. Er bietet stabile, messbare Trainingsbedingungen - die ideale Ergaenzung zum Reiten auf echten Pferden."
+        },
+        {
+          "q": "Welche Trainingsdaten liefert das KI-System?",
+          "a": "Nach jeder Einheit wird automatisch ein Bericht erstellt mit Gewichtsbalanceverteilung, Haltungsbewertung, Piaffe/Passage-Gangartbewertung und Trainingsfortschrittstrends, alles exportierbar."
+        },
+        {
+          "q": "Was ist im Kundendienst und in der Installation enthalten?",
+          "a": "Der MS.30P wird mit 1 Jahr Vollgarantie geliefert, inklusive einer kostenlosen Vor-Ort-Installation und Mitarbeiterschulung. Die Basis ist mit Lenkrollen ausgestattet."
+        }
+      ]
+    },
+    "downloads": {
+      "tag": "Kostenlose Downloads",
+      "title": "Vollstaendiges Horse-MS.30P Ressourcenpaket herunterladen",
+      "item1": {
+        "label": "Produktkatalog",
+        "title": "Vollstaendige technische Daten",
+        "desc": "PDF - Zweisprachig CN/EN",
+        "btn": "Herunterladen"
+      },
+      "item2": {
+        "label": "Zertifizierung",
+        "title": "CE-Zertifikat",
+        "desc": "PDF - Offizieller Scan - EU-Standard",
+        "btn": "Anfordern"
+      }
+    },
+    "cta": {
+      "title": "Interessiert am MS.30P?",
+      "subtitle": "Kontaktieren Sie unser Team fuer Preise, massgeschneiderte Loesungen und eine Demo-Buchung",
+      "btnQuote": "Angebot anfordern",
+      "btnWhatsapp": "WhatsApp",
+      "btnEmail": "E-Mail senden"
+    }
+  },
+  "ms30": {
+    "badge": "Offizielle RDA-Anerkennung",
+    "subtitle": "Intelligenter Reitsimulator fuer digitalen Gruppenunterricht",
+    "btnQuote": "Angebot anfordern",
+    "btnCompare": "Modelle vergleichen",
+    "immersive": {
+      "tag": "Kernfunktion",
+      "title": "Multi-Unit-Netzwerk-Lehrsystem",
+      "desc": "Mehrere Einheiten synchron vernetzt. Ausbilder ueberwachen die biomechanischen Daten jedes Reiters in Echtzeit ueber ein zentrales Dashboard.",
+      "tags": [
+        "Multi-Unit-Netzwerk",
+        "Echtzeit-Monitoring",
+        "Datensync",
+        "Zentralverwaltung"
+      ]
+    },
+    "features": {
+      "title": "Kernfunktionen",
+      "subtitle": "Vernetztes Training fuer effizienteren Gruppenunterricht",
+      "card1": {
+        "title": "Dualer Unterrichtsmodus",
+        "desc": "Wechsel zwischen Freier Fahrt und Lehrplan-Fuehrungsmodus fuer jeden Unterrichtsrahmen, vom Anfaenger bis zur fortgeschrittenen Technik.",
+        "tags": [
+          "Freie Fahrt",
+          "Lehrplanmodus",
+          "Stufenlernen"
+        ]
+      },
+      "card2": {
+        "title": "Drei-Gangarten-Simulation",
+        "desc": "Praezise Reproduktion von Schritt, Trab und Galopp mit sanften, sicheren Gangartparametern, ideal fuer Kinder und Anfaenger.",
+        "tags": [
+          "Schritt",
+          "Trab",
+          "Galopp"
+        ]
+      },
+      "card3": {
+        "title": "Sicherheitsorientiertes Design",
+        "desc": "Doppelschutz durch Notbremse und Software-Fehlerabsicherung. CE (RED/EMC/LVD) zertifiziert. Offiziell eingesetzt von der Riding for the Disabled Association (RDA) Hong Kong.",
+        "tags": [
+          "Notbremse",
+          "CE-zertifiziert",
+          "RDA anerkannt"
+        ]
+      }
+    },
+    "video": {
+      "title": "Produktdemonstration"
+    },
+    "specs": {
+      "title": "Technische Daten",
+      "left": [
+        [
+          "Modell",
+          "MS.30 (Pony)"
+        ],
+        [
+          "Kategorie",
+          "Bildungs-Reitsimulator"
+        ],
+        [
+          "Zertifizierung",
+          "CE (RED / EMC / LVD)"
+        ],
+        [
+          "Anerkannt von",
+          "Riding for the Disabled Association (RDA) Hong Kong"
+        ],
+        [
+          "Gangarten",
+          "Schritt / Trab / Galopp"
+        ],
+        [
+          "Multi-Unit-Netz",
+          "Unterstuetzt"
+        ],
+        [
+          "Gesamtlaenge",
+          "2068mm"
+        ],
+        [
+          "Gesamtbreite",
+          "1002mm"
+        ],
+        [
+          "Statische Hoehe",
+          "1500mm"
+        ],
+        [
+          "Basismasse",
+          "1905x570mm"
+        ],
+        [
+          "Sattelloehe",
+          "1200mm"
+        ]
+      ],
+      "right": [
+        [
+          "Gesamtgewicht",
+          "300KG"
+        ],
+        [
+          "Nennlast",
+          "80KG"
+        ],
+        [
+          "Stromversorgung",
+          "220V AC / 50Hz"
+        ],
+        [
+          "Nennleistung",
+          "4KW"
+        ],
+        [
+          "Mindest-Deckenhoehe",
+          ">=2600mm"
+        ],
+        [
+          "Seitlicher Abstand",
+          ">=300mm"
+        ],
+        [
+          "Vord./hint. Abstand",
+          ">=500mm"
+        ],
+        [
+          "Tuerbreite (montiert)",
+          ">=1102mm"
+        ],
+        [
+          "Tuerbreite (demontiert)",
+          ">=670mm"
+        ],
+        [
+          "Betriebstemperatur",
+          "5C - 40C"
+        ],
+        [
+          "Garantie",
+          "1 Jahr"
+        ]
+      ]
+    },
+    "whatIs": {
+      "title": "Was ist der MS.30 Smart Equestrian Simulator?",
+      "desc": "Der MS.30 ist ein Bildungs-Reitsimulator fuer Reitschulen, Universitaeten und Rehabilitationszentren. Mehrere Einheiten vernetzen sich ueber LAN, sodass Ausbilder die Daten jedes Reiters in Echtzeit ueberwachen. Offiziell anerkannt von der Riding for the Disabled Association (RDA) Hong Kong und CE (RED/EMC/LVD) zertifiziert. Reproduziert Schritt, Trab und Galopp praezise mit sanften Parametern fuer Kinder ab 4 Jahren und Erwachsene.",
+      "stat1": "Gangartmodi",
+      "stat2": "RDA Anerkannt",
+      "stat3": "Installationen"
+    },
+    "faq": {
+      "title": "Haeufig gestellte Fragen",
+      "items": [
+        {
+          "q": "Fuer welches Alter ist der MS.30 geeignet?",
+          "a": "Fuer alle Altersgruppen ab 4 Jahren. Sanfte, sichere Gangartparameter ideal fuer Kinder und Anfaenger. Fuer Wettkampftraining empfehlen wir den MS.30P."
+        },
+        {
+          "q": "Wie funktioniert das Multi-Unit-Netzwerk?",
+          "a": "Mehrere MS.30-Einheiten synchronisieren ueber LAN. Ausbilder koennen Reiterdaten, Haltungsbewertungen und Trainingsfortschritte in Echtzeit vom zentralen Dashboard abrufen."
+        },
+        {
+          "q": "Sind spezielle Standortmodifikationen erforderlich?",
+          "a": "Keine Sondermodifikationen noetig. 220V/4KW Anschluss. Masse: 2068x1002x1500mm, 300KG, Nennlast 80KG. Deckenthoehe >=2600mm, seitlich >=300mm, vorne/hinten >=500mm. Tuerbreite >=1102mm (montiert), >=670mm (demontiert)."
+        },
+        {
+          "q": "Was ist der Unterschied zwischen MS.30 und MS.30P?",
+          "a": "Der MS.30 ist das Bildungsmodell fuer Gruppenunterricht. Der MS.30P ist das Profi-Modell mit hochpraezisen biomechanischen Sensoren und Unterstuetzung fuer Piaffe und Passage."
+        },
+        {
+          "q": "Was ist in Garantie und Kundendienst enthalten?",
+          "a": "1 Jahr Vollgarantie inkl. kostenloser Vor-Ort-Installation und Mitarbeiterschulung, 7x24 Fernwartung und kostenlose Software-Updates waehrend der Garantiezeit."
+        }
+      ]
+    },
+    "downloads": {
+      "tag": "Kostenlose Downloads",
+      "title": "Vollstaendiges Pony-MS.30 Ressourcenpaket herunterladen",
+      "item1": {
+        "label": "Produktkatalog",
+        "title": "Vollstaendige technische Daten",
+        "desc": "PDF - Zweisprachig CN/EN",
+        "btn": "Herunterladen"
+      },
+      "item2": {
+        "label": "Offizielle Zertifizierung",
+        "title": "CE-Zertifikat",
+        "desc": "PDF - Offizieller Scan - EU-Standard",
+        "btn": "Anfordern"
+      }
+    },
+    "cta": {
+      "title": "Interessiert am MS.30?",
+      "subtitle": "Kontaktieren Sie unser Team fuer Preise, massgeschneiderte Loesungen und eine Demo-Buchung",
+      "btnQuote": "Angebot anfordern",
+      "btnWhatsapp": "WhatsApp",
+      "btnEmail": "E-Mail senden"
+    }
+  },
+  "ms20": {
+    "badge": "Jockey-Training Spezialist",
+    "subtitle": "Hochgeschwindigkeitssimulator fuer Jockeys und Renntraining",
+    "btnQuote": "Angebot anfordern",
+    "btnCompare": "Modelle vergleichen",
+    "immersive": {
+      "tag": "Kernfunktion",
+      "title": "Hochgeschwindigkeits-Galoppierfahrtsystem",
+      "desc": "Konzipiert fuer Renntraining und Ausstellungserlebnisse. Das pneumatische Sattelsystem reproduziert die Jockey-Haltung praezise und unterstuetzt hochdynamische Galoppierfahrten mit grossem Immersions-Display.",
+      "tags": [
+        "Hochgeschwindigkeitsgalopp",
+        "Pneumatischer Sattel",
+        "Jockey-Training",
+        "Immersions-Display"
+      ]
+    },
+    "features": {
+      "title": "Kernfunktionen",
+      "subtitle": "Professioneller Rennsport — Fuer das Jockey-Training",
+      "card1": {
+        "title": "Hochgeschwindigkeits-Galoppsimulation",
+        "desc": "Praezise Simulation von Rennpferd-Galoppbewegungen mit einstellbaren Hochgeschwindigkeitsparametern. Jockeys entwickeln Muskelgedaechtnis in sicherer Umgebung.",
+        "tags": [
+          "Galopp",
+          "Hochgeschwindigkeit",
+          "Renntraining"
+        ]
+      },
+      "card2": {
+        "title": "Pneumatisches Sattelsystem",
+        "desc": "Der einzigartige Drucksensorsattel erfasst Sitzbeindruck und Schwerpunktverschiebung in Echtzeit und generiert Haltungsbewertungen zur Optimierung von Balance und Krafteinsatz.",
+        "tags": [
+          "Drucksensor",
+          "Haltungsanalyse",
+          "Datenfeedback"
+        ]
+      },
+      "card3": {
+        "title": "Leichtbau-Kompaktdesign",
+        "desc": "Nur 200KG. Kleine Stellflaeche fuer flexiblen Einsatz in Jockey-Trainingszentren, Rennbahnen, Ausstellungen und Erlebnisveranstaltungen.",
+        "tags": [
+          "200KG",
+          "Flexibel einsetzbar",
+          "Ausstellungsgeeignet"
+        ]
+      }
+    },
+    "video": {
+      "title": "Produktdemonstration"
+    },
+    "specs": {
+      "title": "Technische Daten",
+      "left": [
+        [
+          "Modell",
+          "MS.20"
+        ],
+        [
+          "Kategorie",
+          "Rennsport / Jockey-Trainingssimulator"
+        ],
+        [
+          "Gangart",
+          "Galopp (Hochgeschwindigkeitsrennen)"
+        ],
+        [
+          "Sattelsystem",
+          "Pneumatischer Sensorsattel"
+        ],
+        [
+          "Gesamtlaenge",
+          "2000mm"
+        ],
+        [
+          "Gesamtbreite",
+          "600mm"
+        ],
+        [
+          "Statische Hoehe",
+          "1610mm"
+        ],
+        [
+          "Pferdekoeperlaenge",
+          "1833mm"
+        ],
+        [
+          "Sattelhoehe (statisch)",
+          "1385mm"
+        ],
+        [
+          "Sattelhoehe (Betrieb)",
+          "1435mm"
+        ]
+      ],
+      "right": [
+        [
+          "Gesamtgewicht",
+          "200KG"
+        ],
+        [
+          "Nennlast",
+          "80KG"
+        ],
+        [
+          "Stromversorgung",
+          "220V AC / 50Hz"
+        ],
+        [
+          "Nennleistung",
+          "1.2KW"
+        ],
+        [
+          "Mindest-Deckenthoehe",
+          ">=2600mm"
+        ],
+        [
+          "Tuerbreite (montiert)",
+          ">=700mm"
+        ],
+        [
+          "Basisrollen",
+          "Inklusive"
+        ],
+        [
+          "Betriebstemperatur",
+          "5C - 40C"
+        ],
+        [
+          "Garantie",
+          "1 Jahr"
+        ]
+      ]
+    },
+    "whatIs": {
+      "title": "Was ist der MS.20 Rennsimulator?",
+      "desc": "Der MS.20 ist ein Rennsimulator fuer Jockey-Training, Rennerlebnisse und Ausstellungen. Das pneumatische Sattelsystem reproduziert Hochgeschwindigkeits-Galopperfahrungen praezise. Bei nur 200KG und kompaktem Design ist er flexibel in Jockey-Trainingszentren, Rennbahnen und Ausstellungsgelaende einsetzbar.",
+      "stat1": "Leichtbauweise",
+      "stat2": "Demo-Dauer",
+      "stat3": "Anwendungsfaelle"
+    },
+    "faq": {
+      "title": "Haeufig gestellte Fragen",
+      "items": [
+        {
+          "q": "Was ist der Unterschied zwischen MS.20 und MS.30?",
+          "a": "Der MS.20 ist der Rennspezialist mit pneumatischem Sattel fuer Hochgeschwindigkeitsgalopp. Der MS.30 ist das Bildungsmodell fuer Gruppenunterricht. Der MS.30P ist das Profi-Modell fuer fortgeschrittene Dressurbewegungen."
+        },
+        {
+          "q": "Wo ist der MS.20 geeignet?",
+          "a": "Ideal fuer Jockey-Trainingszentren, Rennbahnen, Ausstellungsgelaende, Erlebniszentren und Grossveranstaltungen. Bei 200KG keine Festinstallation erforderlich."
+        },
+        {
+          "q": "Wie funktioniert der pneumatische Sattel?",
+          "a": "Drucksensoren im Sattel erfassen Sitzbeindruck und Schwerpunktverschiebung in Echtzeit und generieren Haltungsbewertungen zur Verbesserung von Balance und Krafteinsatz."
+        },
+        {
+          "q": "Was muss ich bei Installation und Transport beachten?",
+          "a": "Keine Sondermodifikationen noetig. 220V/1.2KW Anschluss. Masse: 2000x600x1610mm, 200KG, Nennlast 80KG. Deckenthoehe >=2600mm, Tuerbreite >=700mm. Basisrollen fuer Bewegung auf ebenen Flaechen inklusive."
+        },
+        {
+          "q": "Was ist in Garantie und Kundendienst enthalten?",
+          "a": "1 Jahr Vollgarantie inkl. kostenloser Installation, Mitarbeiterschulung, 7x24 Fernwartung und kostenlose Software-Updates."
+        }
+      ]
+    },
+    "downloads": {
+      "tag": "Kostenlose Downloads",
+      "title": "Vollstaendiges Racehorse-MS.20 Ressourcenpaket",
+      "item1": {
+        "label": "Produktkatalog",
+        "title": "Vollstaendige technische Daten",
+        "desc": "PDF - Zweisprachig CN/EN",
+        "btn": "Herunterladen"
+      }
+    },
+    "cta": {
+      "title": "Interessiert am MS.20?",
+      "subtitle": "Kontaktieren Sie unser Team fuer Preise, Loesungen und Demo-Buchung",
+      "btnQuote": "Angebot anfordern",
+      "btnWhatsapp": "WhatsApp",
+      "btnEmail": "E-Mail senden"
+    }
+  },
+  "compare": {
+    "hero": {
+      "tag": "Vollstaendiger Modellvergleich",
+      "title": "Welches Modell passt zu Ihnen?",
+      "subtitle": "Vergleichen Sie alle drei intelligenten Reitsimulationen nebeneinander und finden Sie die beste Loesung fuer Ihre Einrichtung"
+    },
+    "which": {
+      "title": "Welches sollte ich waehlen?",
+      "ms30p_items": [
+        "Profireiter / Eventing",
+        "Hochpraezise Biomechanikanalyse",
+        "Piaffe / Passage fortgeschrittene Dressur",
+        "Offizieller HKJC-Lieferant"
+      ],
+      "ms30_items": [
+        "Reitschulen / Universitaeten",
+        "Multi-Unit Gruppenunterricht",
+        "Rehabilitation & Jugend-Einstieg",
+        "Riding for the Disabled Association (RDA) Hong Kong offiziell anerkannt"
+      ],
+      "ms20_items": [
+        "Rennbahn-Erlebnisveranstaltungen",
+        "Ausstellungen und Events",
+        "Jockey-Trainingszentren",
+        "Hochgeschwindigkeits-Galoppsimulation"
+      ],
+      "ms30p_desc": "Fuer Einrichtungen, die Elite-Trainingsleistung anstreben",
+      "ms30_desc": "Fuer Einrichtungen mit Fokus auf Sicherheit, Unterricht und Mehrgeraeteverwaltung",
+      "ms20_desc": "Fuer Ausstellungsgelaende und Jockey-Erlebniszentren"
+    },
+    "table": {
+      "title": "Detaillierter Spezifikationsvergleich",
+      "groups": [
+        {
+          "group": "Anwendung und Positionierung",
+          "rows": [
+            {
+              "label": "Kategorie",
+              "ms30p": "Professionelles Eventing",
+              "ms30": "Bildung & Rehabilitation",
+              "ms20": "Rennsport / Geschwindigkeit",
+              "highlight": false
+            },
+            {
+              "label": "Anerkannt von",
+              "ms30p": "HKJC Hong Kong",
+              "ms30": "Riding for the Disabled Association (RDA) Hong Kong",
+              "ms20": "—",
+              "highlight": false
+            },
+            {
+              "label": "Am besten fuer",
+              "ms30p": "Profireiter, Elite-Clubs",
+              "ms30": "Schulen, Reha-Zentren",
+              "ms20": "Jockeys, Rennbahn-Clubs",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "group": "Gangarten und Training",
+          "rows": [
+            {
+              "label": "Gangartsimulation",
+              "ms30p": "Schritt/Trab/Galopp/Piaffe/Passage",
+              "ms30": "Schritt/Trab/Galopp",
+              "ms20": "Galopp (Hochgeschwindigkeit)",
+              "highlight": true
+            },
+            {
+              "label": "Multi-Unit-Netzwerk",
+              "ms30p": "✓",
+              "ms30": "✓",
+              "ms20": "—",
+              "highlight": false
+            },
+            {
+              "label": "Lehrplanmodus",
+              "ms30p": "✓",
+              "ms30": "✓",
+              "ms20": "—",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "group": "Sensoren und Daten",
+          "rows": [
+            {
+              "label": "Biomechanische Sensoren",
+              "ms30p": "Hochpraez. Lenden+Bein",
+              "ms30": "Basis-Haltungsbewertung",
+              "ms20": "Pneumatischer Sattel",
+              "highlight": true
+            },
+            {
+              "label": "Echtzeit-Datenfeedback",
+              "ms30p": "✓",
+              "ms30": "✓",
+              "ms20": "✓",
+              "highlight": false
+            },
+            {
+              "label": "Schenkelhilfen-Erkennung",
+              "ms30p": "✓",
+              "ms30": "—",
+              "ms20": "—",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "group": "Sicherheit und Zertifizierung",
+          "rows": [
+            {
+              "label": "CE-Zertifizierung",
+              "ms30p": "✓ RED/EMC/LVD",
+              "ms30": "✓ RED/EMC/LVD",
+              "ms20": "—",
+              "highlight": false
+            },
+            {
+              "label": "Notbremse",
+              "ms30p": "✓",
+              "ms30": "✓",
+              "ms20": "✓",
+              "highlight": false
+            },
+            {
+              "label": "Software-Schutz",
+              "ms30p": "✓",
+              "ms30": "✓",
+              "ms20": "✓",
+              "highlight": false
+            }
+          ]
+        },
+        {
+          "group": "Technische Daten",
+          "rows": [
+            {
+              "label": "Gesamtgewicht",
+              "ms30p": "450 KG",
+              "ms30": "300 KG",
+              "ms20": "200 KG",
+              "highlight": false
+            },
+            {
+              "label": "Nennlast",
+              "ms30p": "98 KG",
+              "ms30": "80 KG",
+              "ms20": "80 KG",
+              "highlight": false
+            },
+            {
+              "label": "Nennleistung",
+              "ms30p": "4.8 KW",
+              "ms30": "4 KW",
+              "ms20": "1.2 KW",
+              "highlight": false
+            },
+            {
+              "label": "Abmessungen",
+              "ms30p": "2263x1122x1750mm",
+              "ms30": "2068x1002x1500mm",
+              "ms20": "2000x600x1610mm",
+              "highlight": false
+            },
+            {
+              "label": "Sattelthoehe",
+              "ms30p": "1500mm",
+              "ms30": "1200mm",
+              "ms20": "1385mm(stat)/1435mm(Betr)",
+              "highlight": false
+            },
+            {
+              "label": "Garantie",
+              "ms30p": "1 Jahr",
+              "ms30": "1 Jahr",
+              "ms20": "1 Jahr",
+              "highlight": false
+            }
+          ]
+        }
+      ]
+    },
+    "faq": {
+      "title": "Haeufig gestellte Fragen",
+      "items": [
+        {
+          "q": "Was ist der Unterschied zwischen MS.30P und MS.30?",
+          "a": "MS.30P ist professionelles Eventing mit hochpraezisen Biomechanik-Sensoren und Schenkelhilfen-Erkennung. MS.30 ist Bildung und Rehabilitation. Beide sind CE-zertifiziert."
+        },
+        {
+          "q": "Sind die Simulatoren CE-zertifiziert?",
+          "a": "MS.30P und MS.30 sind CE-zertifiziert (RED/EMC/LVD). Der MS.20 hat derzeit keine CE-Zertifizierung."
+        },
+        {
+          "q": "Wie waehle ich das richtige Modell?",
+          "a": "MS.30P fuer professionelles Training und Elite-Clubs; MS.30 fuer Schulen und Reha-Zentren; MS.20 fuer Jockey-Training und Rennerlebnisse."
+        },
+        {
+          "q": "Unterstuetzen die Simulatoren Mehrgeraete-Netzwerk?",
+          "a": "MS.30P und MS.30 unterstuetzen Multi-Unit-Networking. Der MS.20 unterstuetzt derzeit kein Netzwerk."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Nicht sicher, welches Modell passt?",
+      "subtitle": "Kontaktieren Sie uns fuer eine kostenlose Beratung",
+      "btnConsult": "Kostenlose Beratung",
+      "btnWhatsapp": "WhatsApp",
+      "btnEmail": "E-Mail senden",
+      "ms30p_tag": "Profi-Eventing - HKJC anerkannt",
+      "ms30_tag": "Bildung & Reha - RDA anerkannt",
+      "ms20_tag": "Renn-Jockey - Pneumatischer Sattel",
+      "learnMore": "Mehr erfahren",
+      "unsure": "Noch unsicher?",
+      "contactUs": "Kontaktieren Sie uns fuer individuelle Beratung →"
+    }
+  }
+}

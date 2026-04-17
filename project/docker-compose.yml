@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: equestrian_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: equestrian2026
+      MYSQL_DATABASE: equestrian_db
+      MYSQL_USER: equestrian
+      MYSQL_PASSWORD: equestrian2026
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  directus:
+    image: directus/directus:latest
+    container_name: equestrian_directus
+    restart: always
+    ports:
+      - "8055:8055"
+    depends_on:
+      - mysql
+    environment:
+      SECRET: equestrian-secret-2026
+      DB_CLIENT: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: equestrian_db
+      DB_USER: equestrian
+      DB_PASSWORD: equestrian2026
+      ADMIN_EMAIL: admin@equestrian.com
+      ADMIN_PASSWORD: Admin2026!
+      PUBLIC_URL: http://localhost:8055
+    volumes:
+      - directus_uploads:/directus/uploads
+
+volumes:
+  mysql_data:
+  directus_uploads:

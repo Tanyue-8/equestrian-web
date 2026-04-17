@@ -1,0 +1,69 @@
+# 特斯拉官网设计拆解报告
+
+## 一、首页设计分析
+
+### 1. 导航栏
+- 高度：56px
+- 背景：rgba(0, 0, 0, 0) 透明
+- 文字样式：14px, font-weight 500, color #171A20
+- 间距：导航链接间距约24px
+
+### 2. Hero Section（Model Y）
+- 高度：880px（100vh）
+- 标题位置：顶部居中，距离顶部约20%高度
+- 标题样式：h1，48px，font-weight 600，color #fff
+- 按钮组：
+  - Order Now：background #3E6AE1, color #fff, padding 8px 56px, border-radius 4px, font-size 14px, font-weight 500
+  - View Inventory：background rgba(255,255,255,0.65), color #171A20, padding 8px 56px, border-radius 4px, font-size 14px, font-weight 500
+- 按钮间距：约20px
+- 图片：background-size: cover，铺满整个section
+
+### 3. Section 2（Current Offers + American Heroes）
+- 布局：两栏网格布局，每栏宽度50%
+- 标题：h1，40px，font-weight 600，color #171A20，左对齐
+- 副标题：h4，16px，font-weight 400，color #5C5E62
+- 按钮：Learn More，background #fff, color #171A20, border 1px solid #171A20, padding 8px 32px, border-radius 4px, font-size 14px, font-weight 500
+- 图片：object-fit: cover，圆角8px
+
+### 4. Section 3（Travel Safer）
+- 高度：880px（100vh）
+- 标题：h1，48px，font-weight 600，color #fff，左对齐，距离底部约10%
+- 副标题：h4，16px，font-weight 400，color #fff
+- 图片：background-size: cover，背景色#000
+
+### 5. Section 4（Features That Come Standard）
+- 布局：两栏网格，左侧图片，右侧文字
+- 标题：h1，40px，font-weight 600，color #171A20，左对齐
+- 图片：object-fit: cover，圆角8px
+
+## 二、产品页设计分析
+
+### 1. Model 3 产品页
+#### Hero Section
+- 高度：880px（100vh）
+- 标题：h1，72px，font-weight 600，color #fff，居中
+- 按钮组：
+  - Order Now：background #3E6AE1, color #fff, padding 8px 56px, border-radius 4px, font-size 14px, font-weight 500
+  - Compare Models：background #fff, color #171A20, padding 8px 56px, border-radius 4px, font-size 14px, font-weight 500
+- 图片：background-size: cover，轮播图设计，左右箭头切换，底部圆点指示器
+
+#### 参数区域
+- 布局：三栏网格布局，每栏展示一个核心参数（Range、Acceleration、Cargo Space）
+- 标题：h1，48px，font-weight 600，color #171A20
+- 数值：h1，72px，font-weight 600，color #171A20
+- 单位：h4，16px，font-weight 400，color #5C5E62
+
+### 2. Model Y 产品页
+- 视觉一致性：与Model 3产品页保持一致的导航栏样式、按钮样式、字体系统
+- Hero Section：高度880px（100vh），标题居中，按钮组样式与Model 3相同
+- 图片：background-size: cover，轮播图设计
+
+## 三、整体设计风格总结
+1. **布局**：大量使用100vh全屏section，网格布局（2栏、3栏），文字与图片的层级关系清晰
+2. **视觉**：极简风格，主色调#171A20、#3E6AE1、#fff，按钮样式统一，hover效果为轻微阴影变化
+3. **一致性**：所有页面保持相同的导航栏、按钮样式、字体系统，整体风格统一
+
+## 截图文件列表
+- D:\equestrian-web\ui-design\tesla-study\tesla-home-hero.png
+- D:\equestrian-web\ui-design\tesla-study\tesla-home-section2.png
+- D:\equestrian-web\ui-design\tesla-study\tesla-product-model3.png

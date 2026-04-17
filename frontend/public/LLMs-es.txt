@@ -1,0 +1,32 @@
+# Simuladores Ecuestres - LLMs.txt
+## About
+Simuladores ecuestres profesionales para entrenamiento, educacion, rehabilitacion y rendimiento de jockeys. Fabricante y proveedor de confianza del Hong Kong Jockey Club, Hong Kong RDA y universidades de toda Asia.
+## Productos
+- Horse-MS.30P: Simulador profesional para doma, salto y concurso completo (Adoptado por el Hong Kong Jockey Club. Disenado para atletas de elite con doble matriz de sensores biomecanicos de alta precision en cabeza y torso)
+- Pony-MS.30: Simulador de ensenanza para escuelas de equitacion, universidades y entrenamiento de principiantes (Adoptado por RDA Hong Kong. Sistema en red multi-unidad para instruccion grupal digital y equinoterapia)
+- Racehorse-MS.20: Simulador profesional de entrenamiento para jockeys — Sistema de aceleracion neumatica (sensores abdominales industriales detectan el apriete de pierna y fuerza de impulso del jinete, retroalimentacion de aceleracion lineal replicando la respuesta real del caballo de carreras). Aires de carrera Walk/Canter/Gallop, postura Monkey Style, 200KG ligero. Disenado exclusivamente para centros de entrenamiento profesional de jockeys y clubes de carreras de elite.
+## Paginas Clave
+- Pagina de inicio: /
+- Productos: /ai-equestrian-simulators/ms30p-professional-dressage-jumping-simulator
+- Productos: /ai-equestrian-simulators/ms30-education-pony-simulator
+- Productos: /ai-equestrian-simulators/ms20-racehorse-jockey-training-simulator
+- Comparar: /compare
+- Casos de exito: /cases
+- Acerca de: /about
+- Contacto: /contact
+- Descargas (folletos, hojas de especificaciones, certificado CE): /downloads
+- Soluciones - Club Ecuestre: /solutions/club
+- Soluciones - Educacion: /solutions/education
+- Soluciones - Rehabilitacion: /solutions/rehab
+- Soluciones - Carreras: /solutions/racing
+- Soluciones - Hogar: /solutions/home
+- Soluciones - Eventos: /solutions/event
+## Confianza
+Hong Kong Jockey Club, Hong Kong RDA, Universidad de Turismo de Sichuan, programas ecuestres militares chinos y centros de capacitacion gubernamentales.
+
+
+## Contacto
+- Correo electronico: info@equestrian-simulators.com
+- WhatsApp: +86 131 1288 6222
+- Pagina de contacto: https://www.equestrian-simulators.com/contact
+- Tiempo de respuesta: dentro de 24 horas

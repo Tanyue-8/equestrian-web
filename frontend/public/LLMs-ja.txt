@@ -1,0 +1,32 @@
+# 馬術シミュレーター - LLMs.txt
+## About
+トレーニング、教育、リハビリテーション、ジョッキーパフォーマンスのためのプロフェッショナル馬術シミュレーター。香港ジョッキークラブ、香港RDA、アジア各国の大学から信頼されているメーカー・サプライヤー。
+## 製品
+- Horse-MS.30P: プロフェッショナルなドレッサージ、障害飛越、総合馬術シミュレーター（香港ジョッキークラブ公式認定。エリートアスリートと上級トレーニング向け。頭部・腰部のダウルバイオメカニクスセンサーを搭載）
+- Pony-MS.30: 騎乗学校、大学、初心者トレーニング向け教育シミュレーター（香港RDA公式認定。デジタルグループ指導と馬術支援セラピー向けのマルチユニットネットワークシステム）
+- Racehorse-MS.20: プロフェッショナルジョッキートレーニングシミュレーター — 気圧推浪感应システム（工業用腹部センサーがジョッキーのレグスqueezeとサージ力を検知、線形加速フィードバックで実際の競走馬の応答を再現）。Walk/Canter/Gallopレーシングゲイト、Monkey Style姿勢、200KG軽量設計。プロフェッショナルジョッキートレーニングセンターとエリートレースクラブ専用設計。
+## 主要ページ
+- ホームページ: /
+- 製品: /ai-equestrian-simulators/ms30p-professional-dressage-jumping-simulator
+- 製品: /ai-equestrian-simulators/ms30-education-pony-simulator
+- 製品: /ai-equestrian-simulators/ms20-racehorse-jockey-training-simulator
+- 比較: /compare
+- 導入事例: /cases
+- 会社概要: /about
+- お問い合わせ: /contact
+- 資料ダウンロード（パンフレット、仕様書、CE認証）: /downloads
+- ソリューション - クラブ: /solutions/club
+- ソリューション - 教育: /solutions/education
+- ソリューション - リハビリ: /solutions/rehab
+- ソリューション - レーシング: /solutions/racing
+- ソリューション - ホーム: /solutions/home
+- ソリューション - イベント: /solutions/event
+## 信頼されている機関
+香港ジョッキークラブ、香港RDA、四川観光大学、中国人民解放軍騎兵連、および政府トレーニングセンター。
+
+
+## お問い合わせ
+- メール: info@equestrian-simulators.com
+- WhatsApp: +86 131 1288 6222
+- お問い合わせページ: https://www.equestrian-simulators.com/contact
+- 応答時間: 24時間以内

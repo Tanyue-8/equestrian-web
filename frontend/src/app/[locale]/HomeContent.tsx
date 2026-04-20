@@ -40,8 +40,8 @@ export default function HomeContent({ products, locale }: HomeContentProps) {
   const heroSlides = [
     '/images/hero-bg.jpg',
     '/images/hero-slide-1.png',
-    '/images/hero-slide-2.png',
-    '/images/hero-slide-3.png',
+    '/images/hero-slide-2.webp',
+    '/images/hero-slide-3.webp',
   ];
   useEffect(() => {
     const timer = setInterval(() => {

@@ -299,7 +299,7 @@ const i18n: Record<LocaleKey, {
 
 const STATIC = {
   heroImg: '/images/solution-home-hero.jpg',
-  caseImg: '/images/hero-slide-2.png',
+  caseImg: '/images/hero-slide-2.webp',
   caseImgPosition: 'center center',
   caseLink: '/cases',
   ctaBtn2Href: '/compare',

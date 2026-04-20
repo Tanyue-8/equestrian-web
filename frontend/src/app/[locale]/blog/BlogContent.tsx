@@ -8,6 +8,7 @@ interface BlogPost {
   slug: string;
   title: string;
   summary: string | null;
+  category: string | null;  // 新增分类字段
   featured_image: string | null;
   author: string | null;
   tags: string[] | null;
@@ -27,10 +28,10 @@ export default function BlogContent({ posts, locale }: BlogContentProps) {
     ? ['全部', '产品对比', '训练技术', '行业资讯']
     : ['All', 'Product Comparison', 'Training Techniques', 'Industry News'];
 
-  // 过滤博客：检查post的tags中是否包含当前分类
+  // 过滤博客：根据category字段筛选
   const filteredPosts = activeTab === '全部' || activeTab === 'All'
     ? posts 
-    : posts.filter(post => post.tags && post.tags.includes(activeTab));
+    : posts.filter(post => post.category === activeTab);
 
   // 格式化日期
   const formatDate = (dateString: string | null) => {
@@ -136,7 +137,7 @@ export default function BlogContent({ posts, locale }: BlogContentProps) {
                   : `linear-gradient(135deg, ${colors.gold}, #8B7355)`,
                 position: 'relative'
               }}>
-                {post.tags && post.tags.length > 0 && (
+                {post.category && (
                   <div style={{
                     position: 'absolute',
                     top: '16px',
@@ -148,7 +149,7 @@ export default function BlogContent({ posts, locale }: BlogContentProps) {
                     fontWeight: 700,
                     borderRadius: '6px'
                   }}>
-                    {post.tags[0]}
+                    {post.category}
                   </div>
                 )}
               </div>

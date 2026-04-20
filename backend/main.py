@@ -82,6 +82,7 @@ class BlogPostResponse(BaseModel):
     title: str
     summary: Optional[str] = None
     content: str
+    category: Optional[str] = None  # 新增分类字段
     featured_image: Optional[str] = None
     author: Optional[str] = None
     tags: Optional[List[str]] = None
@@ -333,11 +334,12 @@ async def get_blog_posts(locale: str = "zh", limit: int = 10, offset: int = 0):
                 if post.get("featured_image"):
                     featured_image = f"{DIRECTUS_URL}/assets/{post['featured_image']}"
                 
-                # 使用翻译的标题、摘要、内容、标签、作者，如果没有则使用主表
+                # 使用翻译的标题、摘要、内容、分类、标签、作者，如果没有则使用主表
                 title = translation.get("title") if translation else post.get("title", "")
                 summary = translation.get("summary") if translation else post.get("excerpt", "")
                 content = translation.get("content") if translation else post.get("content", "")
                 slug = translation.get("slug") if translation else post.get("slug", "")
+                category = translation.get("category") if translation and translation.get("category") else post.get("category")  # 新增
                 tags = translation.get("tags") if translation and translation.get("tags") else post.get("tags")
                 author = translation.get("author") if translation and translation.get("author") else post.get("author")
                 
@@ -347,6 +349,7 @@ async def get_blog_posts(locale: str = "zh", limit: int = 10, offset: int = 0):
                     "title": title,
                     "summary": summary,
                     "content": content,
+                    "category": category,  # 新增
                     "featured_image": featured_image,
                     "author": author,
                     "tags": tags,
@@ -438,6 +441,7 @@ async def get_blog_post_by_slug(slug: str, locale: str = "zh"):
             summary = translation.get("summary") if translation else post.get("excerpt", "")
             content = translation.get("content") if translation else post.get("content", "")
             slug_return = translation.get("slug") if translation else post.get("slug", "")
+            category = translation.get("category") if translation and translation.get("category") else post.get("category")  # 新增
             tags = translation.get("tags") if translation and translation.get("tags") else post.get("tags")
             author = translation.get("author") if translation and translation.get("author") else post.get("author")
             
@@ -447,6 +451,7 @@ async def get_blog_post_by_slug(slug: str, locale: str = "zh"):
                 "title": title,
                 "summary": summary,
                 "content": content,
+                "category": category,  # 新增
                 "featured_image": featured_image,
                 "author": author,
                 "tags": tags,

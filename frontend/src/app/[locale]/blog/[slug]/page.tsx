@@ -14,6 +14,7 @@ interface BlogPost {
   title: string;
   summary: string | null;
   content: string;
+  category: string | null;  // 新增分类字段
   featured_image: string | null;
   author: string | null;
   tags: string[] | null;
@@ -115,28 +116,48 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
         background: colors.grayBg,
       }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          {/* Tags */}
-          {post.tags && post.tags.length > 0 && (
-            <div style={{ marginBottom: '16px' }}>
-              {post.tags.map(tag => (
-                <span
-                  key={tag}
-                  style={{
-                    display: 'inline-block',
-                    padding: '6px 12px',
-                    background: colors.gold,
-                    color: '#fff',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    borderRadius: '6px',
-                    marginRight: '8px'
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
+          {/* Category + Tags */}
+          <div style={{ marginBottom: '16px' }}>
+            {/* Category（主分类，突出显示） */}
+            {post.category && (
+              <span
+                style={{
+                  display: 'inline-block',
+                  padding: '8px 16px',
+                  background: colors.gold,
+                  color: '#fff',
+                  fontSize: '14px',
+                  fontWeight: 900,
+                  borderRadius: '8px',
+                  marginRight: '12px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}
+              >
+                {post.category}
+              </span>
+            )}
+            
+            {/* Tags（标签，次要显示） */}
+            {post.tags && post.tags.length > 0 && post.tags.map(tag => (
+              <span
+                key={tag}
+                style={{
+                  display: 'inline-block',
+                  padding: '6px 12px',
+                  background: 'rgba(201, 168, 76, 0.15)',
+                  color: colors.gold,
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  borderRadius: '6px',
+                  marginRight: '8px',
+                  border: `1px solid ${colors.gold}`
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
 
           {/* Title */}
           <h1 style={{

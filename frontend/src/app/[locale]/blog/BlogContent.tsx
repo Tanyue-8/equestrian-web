@@ -21,6 +21,43 @@ interface BlogContentProps {
 }
 
 export default function BlogContent({ posts, locale }: BlogContentProps) {
+  // 分类翻译映射
+  const categoryTranslations: Record<string, Record<string, string>> = {
+    '产品对比': {
+      'zh': '产品对比',
+      'en': 'Product Comparison',
+      'ja': '製品比較',
+      'ko': '제품 비교',
+      'es': 'Comparación de Productos',
+      'de': 'Produktvergleich',
+      'ar': 'مقارنة المنتجات'
+    },
+    '训练技术': {
+      'zh': '训练技术',
+      'en': 'Training Techniques',
+      'ja': 'トレーニング技術',
+      'ko': '훈련 기술',
+      'es': 'Técnicas de Entrenamiento',
+      'de': 'Trainingstechniken',
+      'ar': 'تقنيات التدريب'
+    },
+    '行业资讯': {
+      'zh': '行业资讯',
+      'en': 'Industry News',
+      'ja': '業界ニュース',
+      'ko': '업계 뉴스',
+      'es': 'Noticias de la Industria',
+      'de': 'Branchennachrichten',
+      'ar': 'أخبار الصناعة'
+    }
+  };
+
+  // 翻译分类名称
+  const translateCategory = (category: string | null) => {
+    if (!category) return '';
+    return categoryTranslations[category]?.[locale] || category;
+  };
+
   const [activeTab, setActiveTab] = useState('全部');
   
   // 固定的主分类（根据语言）
@@ -28,10 +65,13 @@ export default function BlogContent({ posts, locale }: BlogContentProps) {
     ? ['全部', '产品对比', '训练技术', '行业资讯']
     : ['All', 'Product Comparison', 'Training Techniques', 'Industry News'];
 
-  // 过滤博客：根据category字段筛选
+  // 过滤博客：根据category字段筛选（支持翻译后的分类名称）
   const filteredPosts = activeTab === '全部' || activeTab === 'All'
     ? posts 
-    : posts.filter(post => post.category === activeTab);
+    : posts.filter(post => {
+        const translatedCategory = translateCategory(post.category);
+        return translatedCategory === activeTab;
+      });
 
   // 格式化日期
   const formatDate = (dateString: string | null) => {
@@ -149,7 +189,7 @@ export default function BlogContent({ posts, locale }: BlogContentProps) {
                     fontWeight: 700,
                     borderRadius: '6px'
                   }}>
-                    {post.category}
+                    {translateCategory(post.category)}
                   </div>
                 )}
               </div>

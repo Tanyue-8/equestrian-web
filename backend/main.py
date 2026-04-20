@@ -182,7 +182,9 @@ async def get_products(locale: str = "zh"):
     except httpx.RequestError as e:
         raise HTTPException(status_code=503, detail=f"无法连接到Directus: {str(e)}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"服务器错误: {str(e)}")
+        # 生产环境不暴露详细错误信息
+        print(f"[get_products] 内部错误: {str(e)}")  # 记录到日志
+        raise HTTPException(status_code=500, detail="服务器内部错误，请稍后再试")
 
 @app.get("/api/products/{slug}", response_model=ProductResponse)
 async def get_product_by_slug(slug: str, locale: str = "zh"):
@@ -270,7 +272,9 @@ async def get_product_by_slug(slug: str, locale: str = "zh"):
     except httpx.RequestError as e:
         raise HTTPException(status_code=503, detail=f"无法连接到Directus: {str(e)}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"服务器错误: {str(e)}")
+        # 生产环境不暴露详细错误信息
+        print(f"[get_product_by_slug] 内部错误: {str(e)}")  # 记录到日志
+        raise HTTPException(status_code=500, detail="服务器内部错误，请稍后再试")
 
 @app.get("/api/blog", response_model=List[BlogPostResponse])
 async def get_blog_posts(locale: str = "zh", limit: int = 10, offset: int = 0):
@@ -357,7 +361,9 @@ async def get_blog_posts(locale: str = "zh", limit: int = 10, offset: int = 0):
     except httpx.RequestError as e:
         raise HTTPException(status_code=503, detail=f"无法连接到Directus: {str(e)}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"服务器错误: {str(e)}")
+        # 生产环境不暴露详细错误信息
+        print(f"[get_blog_posts] 内部错误: {str(e)}")  # 记录到日志
+        raise HTTPException(status_code=500, detail="服务器内部错误，请稍后再试")
 
 @app.get("/api/blog/{slug}", response_model=BlogPostResponse)
 async def get_blog_post_by_slug(slug: str, locale: str = "zh"):
@@ -455,7 +461,9 @@ async def get_blog_post_by_slug(slug: str, locale: str = "zh"):
     except httpx.RequestError as e:
         raise HTTPException(status_code=503, detail=f"无法连接到Directus: {str(e)}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"服务器错误: {str(e)}")
+        # 生产环境不暴露详细错误信息
+        print(f"[get_blog_post_by_slug] 内部错误: {str(e)}")  # 记录到日志
+        raise HTTPException(status_code=500, detail="服务器内部错误，请稍后再试")
 
 # ========== 邮件发送函数 ==========
 
@@ -640,7 +648,9 @@ async def submit_inquiry(inquiry: InquiryRequest):
     except httpx.RequestError as e:
         raise HTTPException(status_code=503, detail=f"无法连接到Directus: {str(e)}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"服务器错误: {str(e)}")
+        # 生产环境不暴露详细错误信息
+        print(f"[submit_download] 内部错误: {str(e)}")  # 记录到日志
+        raise HTTPException(status_code=500, detail="服务器内部错误，请稍后再试")
 
 # ========== 下载资料 API ==========
 
@@ -721,7 +731,9 @@ async def submit_download(download: DownloadRequest):
     except httpx.RequestError as e:
         raise HTTPException(status_code=503, detail=f"无法连接到Directus: {str(e)}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"服务器错误: {str(e)}")
+        # 生产环境不暴露详细错误信息
+        print(f"[submit_inquiry] 内部错误: {str(e)}")  # 记录到日志
+        raise HTTPException(status_code=500, detail="服务器内部错误，请稍后再试")
 
 # PDF文件映射（资料名称 → Directus文件ID）
 PDF_FILES = {

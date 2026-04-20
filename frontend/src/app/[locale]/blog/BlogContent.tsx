@@ -65,12 +65,38 @@ export default function BlogContent({ posts, locale }: BlogContentProps) {
     ? ['全部', '产品对比', '训练技术', '行业资讯']
     : ['All', 'Product Comparison', 'Training Techniques', 'Industry News'];
 
-  // 过滤博客：根据category字段筛选（支持翻译后的分类名称）
+  // 过滤博客：根据category字段筛选（支持原始分类名和翻译后的分类名）
   const filteredPosts = activeTab === '全部' || activeTab === 'All'
     ? posts 
     : posts.filter(post => {
+        if (!post.category) {
+          console.log('[BlogContent] Post has no category:', post.title);
+          return false;
+        }
+        
+        console.log('[BlogContent] Filtering:', {
+          title: post.title,
+          originalCategory: post.category,
+          translatedCategory: translateCategory(post.category),
+          activeTab,
+          locale
+        });
+        
+        // 方案1：直接匹配原始category（后台存储的中文）
+        if (post.category === activeTab) {
+          console.log('[BlogContent] ✅ Match by original category');
+          return true;
+        }
+        
+        // 方案2：匹配翻译后的category
         const translatedCategory = translateCategory(post.category);
-        return translatedCategory === activeTab;
+        if (translatedCategory === activeTab) {
+          console.log('[BlogContent] ✅ Match by translated category');
+          return true;
+        }
+        
+        console.log('[BlogContent] ❌ No match');
+        return false;
       });
 
   // 格式化日期

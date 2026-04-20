@@ -74,24 +74,35 @@ export default function BlogContent({ posts, locale }: BlogContentProps) {
           return false;
         }
         
+        // 清理字符串（去除首尾空格，统一编码）
+        const cleanCategory = post.category.trim();
+        const cleanActiveTab = activeTab.trim();
+        
         console.log('[BlogContent] Filtering:', {
           title: post.title,
           originalCategory: post.category,
-          translatedCategory: translateCategory(post.category),
+          cleanCategory: cleanCategory,
+          translatedCategory: translateCategory(cleanCategory),
           activeTab,
-          locale
+          cleanActiveTab: cleanActiveTab,
+          locale,
+          charCodes: {
+            category: Array.from(cleanCategory).map(c => c.charCodeAt(0)),
+            activeTab: Array.from(cleanActiveTab).map(c => c.charCodeAt(0))
+          }
         });
         
-        // 方案1：直接匹配原始category（后台存储的中文）
-        if (post.category === activeTab) {
-          console.log('[BlogContent] ✅ Match by original category');
+        // 方案1：直接匹配原始category（后台存储的中文，清理后）
+        if (cleanCategory === cleanActiveTab) {
+          console.log('[BlogContent] ✅ Match by original category (cleaned)');
           return true;
         }
         
         // 方案2：匹配翻译后的category
-        const translatedCategory = translateCategory(post.category);
-        if (translatedCategory === activeTab) {
-          console.log('[BlogContent] ✅ Match by translated category');
+        const translatedCategory = translateCategory(cleanCategory);
+        const cleanTranslatedCategory = translatedCategory.trim();
+        if (cleanTranslatedCategory === cleanActiveTab) {
+          console.log('[BlogContent] ✅ Match by translated category (cleaned)');
           return true;
         }
         

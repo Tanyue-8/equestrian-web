@@ -44,3 +44,6 @@ frontend/assets/素材/
 
 # Git备份
 .git.backup/
+
+# 部署配置文件（敏感信息，不提交）
+deploy-configs/

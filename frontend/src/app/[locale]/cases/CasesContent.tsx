@@ -388,7 +388,7 @@ export default function CasesContent({ locale, colors, hero, intro, caseLabels, 
                       color: colors.textLight,
                       lineHeight: 1.5
                     }}>
-                      {adv.description}
+                      {adv.desc}
                     </p>
                   </div>
                 </div>

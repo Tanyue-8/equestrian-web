@@ -59,9 +59,10 @@ const messages = (await import(`../../../messages/${locale}.json`)).default;
 - **风险**: 高（需要改动大量代码）
 
 ### 监控指标
-- next-intl版本: 4.9.0 (当前)
+- next-intl版本: 4.9.0 (当前，最新4.12.0，未升级）
 - Next.js版本: 16.2.1 (当前)
-- 最后检查时间: 2026-04-15
+- 最后检查时间: 2026-05-18
+- 检查结论: 4.10~4.12版本均未修复requestLocale问题，暂不升级
 
 ### Revisit时间表
 - **第一次检查**: 2026-05-15 (1个月后)
@@ -82,3 +83,4 @@ const messages = (await import(`../../../messages/${locale}.json`)).default;
 
 **更新日志**:
 - 2026-04-15: 创建文档，记录next-intl兼容性问题
+- 2026-05-18: 检查v4.10~4.12，均未修复requestLocale bug。不升级。下次检查：2026-06-15

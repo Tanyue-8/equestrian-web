@@ -14,6 +14,7 @@ interface BlogPost {
   slug: string;
   title: string;
   summary: string | null;
+  category: string | null;  // 新增分类字段
   featured_image: string | null;
   author: string | null;
   tags: string[] | null;

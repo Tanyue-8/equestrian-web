@@ -22,6 +22,9 @@ import html
 # 加载环境变量
 load_dotenv()
 
+# 环境检测（默认生产环境，除非明确设置为 development）
+IS_PRODUCTION = os.getenv("ENVIRONMENT") != "development"
+
 app = FastAPI(title="Equestrian Simulator API", version="1.0.0")
 
 # CORS配置
@@ -179,9 +182,14 @@ async def get_products(locale: str = "zh"):
             return result
             
     except httpx.HTTPStatusError as e:
-        raise HTTPException(status_code=e.response.status_code, detail=f"Directus API错误: {str(e)}")
+        if IS_PRODUCTION:
+            print(f"[get_products] Directus API错误: {str(e)}")  # 记录到日志
+            raise HTTPException(status_code=500, detail="服务暂时不可用，请稍后再试")
+        else:
+            raise HTTPException(status_code=e.response.status_code, detail=f"Directus API错误: {str(e)}")
     except httpx.RequestError as e:
-        raise HTTPException(status_code=503, detail=f"无法连接到Directus: {str(e)}")
+        print(f"[get_products] 无法连接到Directus: {str(e)}")  # 记录到日志
+        raise HTTPException(status_code=503, detail="服务暂时不可用，请稍后再试")
     except Exception as e:
         # 生产环境不暴露详细错误信息
         print(f"[get_products] 内部错误: {str(e)}")  # 记录到日志
@@ -269,9 +277,14 @@ async def get_product_by_slug(slug: str, locale: str = "zh"):
     except HTTPException:
         raise
     except httpx.HTTPStatusError as e:
-        raise HTTPException(status_code=e.response.status_code, detail=f"Directus API错误: {str(e)}")
+        if IS_PRODUCTION:
+            print(f"[get_product_by_slug] Directus API错误: {str(e)}")
+            raise HTTPException(status_code=500, detail="服务暂时不可用，请稍后再试")
+        else:
+            raise HTTPException(status_code=e.response.status_code, detail=f"Directus API错误: {str(e)}")
     except httpx.RequestError as e:
-        raise HTTPException(status_code=503, detail=f"无法连接到Directus: {str(e)}")
+        print(f"[get_product_by_slug] 无法连接到Directus: {str(e)}")
+        raise HTTPException(status_code=503, detail="服务暂时不可用，请稍后再试")
     except Exception as e:
         # 生产环境不暴露详细错误信息
         print(f"[get_product_by_slug] 内部错误: {str(e)}")  # 记录到日志
@@ -360,9 +373,14 @@ async def get_blog_posts(locale: str = "zh", limit: int = 10, offset: int = 0):
             return result
             
     except httpx.HTTPStatusError as e:
-        raise HTTPException(status_code=e.response.status_code, detail=f"Directus API错误: {str(e)}")
+        if IS_PRODUCTION:
+            print(f"[get_blog_posts] Directus API错误: {str(e)}")
+            raise HTTPException(status_code=500, detail="服务暂时不可用，请稍后再试")
+        else:
+            raise HTTPException(status_code=e.response.status_code, detail=f"Directus API错误: {str(e)}")
     except httpx.RequestError as e:
-        raise HTTPException(status_code=503, detail=f"无法连接到Directus: {str(e)}")
+        print(f"[get_blog_posts] 无法连接到Directus: {str(e)}")
+        raise HTTPException(status_code=503, detail="服务暂时不可用，请稍后再试")
     except Exception as e:
         # 生产环境不暴露详细错误信息
         print(f"[get_blog_posts] 内部错误: {str(e)}")  # 记录到日志
@@ -462,12 +480,17 @@ async def get_blog_post_by_slug(slug: str, locale: str = "zh"):
     except HTTPException:
         raise
     except httpx.HTTPStatusError as e:
-        raise HTTPException(status_code=e.response.status_code, detail=f"Directus API错误: {str(e)}")
+        if IS_PRODUCTION:
+            print(f"[get_blog_post_by_slug] Directus API错误: {str(e)}")
+            raise HTTPException(status_code=500, detail="服务暂时不可用，请稍后再试")
+        else:
+            raise HTTPException(status_code=e.response.status_code, detail=f"Directus API错误: {str(e)}")
     except httpx.RequestError as e:
-        raise HTTPException(status_code=503, detail=f"无法连接到Directus: {str(e)}")
+        print(f"[get_blog_post_by_slug] 无法连接到Directus: {str(e)}")
+        raise HTTPException(status_code=503, detail="服务暂时不可用，请稍后再试")
     except Exception as e:
         # 生产环境不暴露详细错误信息
-        print(f"[get_blog_post_by_slug] 内部错误: {str(e)}")  # 记录到日志
+        print(f"[get_blog_post_by_slug] 内部错讯: {str(e)}")  # 记录到日志
         raise HTTPException(status_code=500, detail="服务器内部错误，请稍后再试")
 
 # ========== 邮件发送函数 ==========
@@ -732,12 +755,17 @@ async def submit_download(download: DownloadRequest):
             }
             
     except httpx.HTTPStatusError as e:
-        raise HTTPException(status_code=e.response.status_code, detail=f"Directus API错误: {str(e)}")
+        if IS_PRODUCTION:
+            print(f"[submit_download] Directus API错误: {str(e)}")
+            raise HTTPException(status_code=500, detail="服务暂时不可用，请稍后再试")
+        else:
+            raise HTTPException(status_code=e.response.status_code, detail=f"Directus API错误: {str(e)}")
     except httpx.RequestError as e:
-        raise HTTPException(status_code=503, detail=f"无法连接到Directus: {str(e)}")
+        print(f"[submit_download] 无法连接到Directus: {str(e)}")
+        raise HTTPException(status_code=503, detail="服务暂时不可用，请稍后再试")
     except Exception as e:
         # 生产环境不暴露详细错误信息
-        print(f"[submit_inquiry] 内部错误: {str(e)}")  # 记录到日志
+        print(f"[submit_download] 内部错误: {str(e)}")  # 记录到日志
         raise HTTPException(status_code=500, detail="服务器内部错误，请稍后再试")
 
 # PDF文件映射（资料名称 → Directus文件ID）

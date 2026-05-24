@@ -28,6 +28,13 @@ const nextConfig: NextConfig = {
   assetPrefix: process.env.NODE_ENV === 'production' 
     ? process.env.NEXT_PUBLIC_CDN_URL || undefined
     : undefined,
+  
+  // 生产环境移除 console.log（保留 error 和 warn）
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn']
+    } : false
+  }
 };
 
 export default withNextIntl(nextConfig);

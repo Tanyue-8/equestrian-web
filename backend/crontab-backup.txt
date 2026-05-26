@@ -1,0 +1,54 @@
+# Crontab配置 - Directus数据库自动备份
+# 
+# 部署方法：
+#   1. 编辑crontab：crontab -e
+#   2. 复制下面的配置并粘贴
+#   3. 保存退出（:wq）
+#   4. 查看当前任务：crontab -l
+#
+# Crontab格式说明：
+#   分 时 日 月 周 命令
+#   * * * * * command
+#   │ │ │ │ │
+#   │ │ │ │ └─── 周几 (0-7, 0和7都代表周日)
+#   │ │ │ └───── 月份 (1-12)
+#   │ │ └─────── 日期 (1-31)
+#   │ └───────── 小时 (0-23)
+#   └─────────── 分钟 (0-59)
+
+# ========================================
+# 数据库备份任务
+# ========================================
+
+# 每天凌晨2点备份数据库（推荐）
+0 2 * * * /var/www/equestrian-web/backend/backup-database.sh >> /var/log/directus-backup.log 2>&1
+
+# 其他备份频率选项（取消注释即可使用）：
+
+# 每6小时备份一次（高频备份）
+# 0 */6 * * * /var/www/equestrian-web/backend/backup-database.sh >> /var/log/directus-backup.log 2>&1
+
+# 每周日凌晨3点备份（低频备份）
+# 0 3 * * 0 /var/www/equestrian-web/backend/backup-database.sh >> /var/log/directus-backup.log 2>&1
+
+# 每月1号凌晨4点备份（月度归档）
+# 0 4 1 * * /var/www/equestrian-web/backend/backup-database.sh >> /var/log/directus-backup.log 2>&1
+
+# ========================================
+# 其他维护任务
+# ========================================
+
+# 每天凌晨3点清理日志（保留最近30天）
+0 3 * * * find /var/log/equestrian-api -name "*.log" -mtime +30 -delete
+
+# 每周日凌晨4点清理临时文件
+0 4 * * 0 find /tmp -name "directus-*" -mtime +7 -delete
+
+# ========================================
+# 注意事项
+# ========================================
+# 1. 确保脚本有执行权限：chmod +x /var/www/equestrian-web/backend/backup-database.sh
+# 2. 确保日志目录存在：mkdir -p /var/log
+# 3. 测试脚本是否正常：bash /var/www/equestrian-web/backend/backup-database.sh
+# 4. 查看cron日志：grep CRON /var/log/syslog（Ubuntu）或 journalctl -u cron（CentOS）
+# 5. 确保POSTGRES_PASSWORD环境变量已设置或在脚本中硬编码

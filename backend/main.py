@@ -106,11 +106,63 @@ class BlogPostResponse(BaseModel):
 
 @app.get("/")
 async def root():
-    """健康检查"""
+    """根端点"""
     return {
         "service": "Equestrian Simulator API",
         "version": "1.0.0",
         "status": "running"
+    }
+
+@app.get("/health")
+async def health_check():
+    """
+    健康检查端点（用于监控/负载均衡）
+    
+    返回：
+        - status: healthy/unhealthy
+        - checks: 各项依赖检查结果
+        - version: API版本
+        - environment: 当前环境
+    """
+    checks = {
+        "api": "healthy",
+        "directus": "unknown",
+        "smtp": "unknown"
+    }
+    
+    # 检查Directus连接
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                f"{DIRECTUS_URL}/server/health",
+                timeout=3.0
+            )
+            if response.status_code == 200:
+                checks["directus"] = "healthy"
+            else:
+                checks["directus"] = "unhealthy"
+    except Exception as e:
+        checks["directus"] = f"error: {type(e).__name__}"
+    
+    # 检查SMTP配置（不实际发送，只验证配置）
+    if SMTP_SERVER and SMTP_USERNAME and SMTP_PASSWORD:
+        checks["smtp"] = "configured"
+    else:
+        checks["smtp"] = "not_configured"
+    
+    # 判断整体健康状态
+    overall_status = "healthy"
+    if checks["directus"] != "healthy":
+        overall_status = "degraded"  # 降级但可用
+    
+    from datetime import datetime
+    
+    return {
+        "status": overall_status,
+        "version": "1.0.0",
+        "environment": "production" if IS_PRODUCTION else "development",
+        "checks": checks,
+        "timestamp": datetime.utcnow().isoformat() + "Z"
     }
 
 @app.get("/api/products", response_model=List[ProductResponse])

@@ -1,0 +1,99 @@
+# Systemd服务配置 - FastAPI进程守护
+# 部署路径：/etc/systemd/system/equestrian-api.service
+#
+# 使用方法：
+#   1. 复制到服务器：sudo cp equestrian-api.service /etc/systemd/system/
+#   2. 重载配置：sudo systemctl daemon-reload
+#   3. 启动服务：sudo systemctl start equestrian-api
+#   4. 开机自启：sudo systemctl enable equestrian-api
+#   5. 查看状态：sudo systemctl status equestrian-api
+#   6. 查看日志：sudo journalctl -u equestrian-api -f
+
+[Unit]
+Description=Equestrian Simulator FastAPI Backend
+After=network.target
+# 如果使用Docker部署Directus，添加：
+# After=docker.service
+# Requires=docker.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/equestrian-web/backend
+
+# 环境变量配置
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+EnvironmentFile=/var/www/equestrian-web/backend/.env
+
+# 启动命令
+ExecStart=/usr/bin/python3 -m uvicorn main:app --host 0.0.0.0 --port 8000 --workers 2
+
+# 重启策略
+Restart=always
+RestartSec=5s
+StartLimitInterval=60s
+StartLimitBurst=3
+
+# 日志配置
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=equestrian-api
+
+# 安全加固
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/equestrian-web/backend
+
+# 资源限制
+LimitNOFILE=65535
+TimeoutStopSec=30s
+
+[Install]
+WantedBy=multi-user.target
+
+# ========================================
+# 配置说明
+# ========================================
+# 1. User/Group: 运行用户（建议使用www-data，不要用root）
+# 2. WorkingDirectory: FastAPI项目根目录
+# 3. EnvironmentFile: .env文件路径（自动加载环境变量）
+# 4. ExecStart: 启动命令
+#    - --workers 2: 双进程（根据CPU核心数调整，建议CPU核心数*2+1）
+#    - --host 0.0.0.0: 监听所有网卡
+#    - --port 8000: 监听端口
+# 5. Restart=always: 崩溃自动重启
+# 6. RestartSec=5s: 重启间隔5秒
+# 7. StartLimitBurst=3: 60秒内最多重启3次（防止无限重启）
+#
+# ========================================
+# 部署前准备
+# ========================================
+# 1. 安装依赖：
+#    cd /var/www/equestrian-web/backend
+#    pip3 install -r requirements.txt
+#
+# 2. 配置.env文件：
+#    sudo nano /var/www/equestrian-web/backend/.env
+#    （设置ENVIRONMENT=production、ALLOWED_ORIGINS等）
+#
+# 3. 测试启动：
+#    sudo -u www-data python3 -m uvicorn main:app --host 0.0.0.0 --port 8000
+#    （确认无报错后再配置systemd）
+#
+# 4. 创建日志目录：
+#    sudo mkdir -p /var/log/equestrian-api
+#    sudo chown www-data:www-data /var/log/equestrian-api
+#
+# ========================================
+# 常用命令
+# ========================================
+# 启动服务：sudo systemctl start equestrian-api
+# 停止服务：sudo systemctl stop equestrian-api
+# 重启服务：sudo systemctl restart equestrian-api
+# 查看状态：sudo systemctl status equestrian-api
+# 查看日志：sudo journalctl -u equestrian-api -f
+# 开机自启：sudo systemctl enable equestrian-api
+# 禁用自启：sudo systemctl disable equestrian-api

@@ -9,7 +9,7 @@ FastAPI中间层
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, constr, EmailStr
 from typing import List, Optional
 import httpx
 import os
@@ -27,8 +27,18 @@ IS_PRODUCTION = os.getenv("ENVIRONMENT") != "development"
 
 app = FastAPI(title="Equestrian Simulator API", version="1.0.0")
 
-# CORS配置
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:3001").split(",")
+# CORS配置（生产环境强制检查）
+ALLOWED_ORIGINS_STR = os.getenv("ALLOWED_ORIGINS")
+if not ALLOWED_ORIGINS_STR:
+    if IS_PRODUCTION:
+        raise ValueError(
+            "生产环境必须设置 ALLOWED_ORIGINS 环境变量\n"
+            "示例: ALLOWED_ORIGINS=https://www.equestrian-simulators.com,https://equestrian-simulators.com"
+        )
+    else:
+        ALLOWED_ORIGINS_STR = "http://localhost:3000,http://localhost:3001"
+
+ALLOWED_ORIGINS = ALLOWED_ORIGINS_STR.split(",")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
@@ -585,29 +595,14 @@ async def send_inquiry_email(inquiry: 'InquiryRequest', inquiry_id: int):
 
 class InquiryRequest(BaseModel):
     """联系表单数据模型（带安全验证）"""
-    name: str
-    contact: str  # 邮箱或WhatsApp
-    country: str
-    industry: str
-    product: Optional[str] = None
-    message: Optional[str] = None
-    scenario: Optional[str] = None  # 使用场景（可选）
-    locale: str = "zh"  # 语言
-    
-    # 字段长度限制，防止恶意输入
-    class Config:
-        str_max_length = 1000  # 最大1000字符
-        
-    # 字段验证
-    @classmethod
-    def validate_fields(cls, values):
-        # 限制name长度
-        if len(values.get('name', '')) > 100:
-            raise ValueError('姓名过长')
-        # 限制message长度
-        if values.get('message') and len(values['message']) > 2000:
-            raise ValueError('留言过长')
-        return values
+    name: constr(min_length=1, max_length=100)  # 姓名：1-100字符
+    contact: constr(min_length=5, max_length=200)  # 联系方式：5-200字符（邮箱或WhatsApp）
+    country: constr(min_length=1, max_length=100)  # 国家：1-100字符
+    industry: constr(min_length=1, max_length=200)  # 行业：1-200字符
+    product: Optional[constr(max_length=200)] = None  # 产品：最多200字符
+    message: Optional[constr(max_length=2000)] = None  # 留言：最多2000字符
+    scenario: Optional[constr(max_length=500)] = None  # 使用场景：最多500字符
+    locale: constr(min_length=2, max_length=10) = "zh"  # 语言代码：2-10字符
 
 @app.post("/api/inquiry")
 async def submit_inquiry(inquiry: InquiryRequest):
@@ -684,12 +679,12 @@ async def submit_inquiry(inquiry: InquiryRequest):
 
 class DownloadRequest(BaseModel):
     """下载资料表单数据模型"""
-    name: str
-    email: str
-    country: str
-    industry: str
-    resource: str  # 资料名称
-    locale: str = "zh"
+    name: constr(min_length=1, max_length=100)  # 姓名：1-100字符
+    email: EmailStr  # 邮箱：自动格式验证
+    country: constr(min_length=1, max_length=100)  # 国家：1-100字符
+    industry: constr(min_length=1, max_length=200)  # 行业：1-200字符
+    resource: constr(min_length=1, max_length=200)  # 资料名称：1-200字符
+    locale: constr(min_length=2, max_length=10) = "zh"  # 语言代码：2-10字符
 
 @app.post("/api/download")
 async def submit_download(download: DownloadRequest):

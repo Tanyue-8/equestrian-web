@@ -26,7 +26,7 @@ const PARTNERS = [
   { zh: '中山大学深圳附属学校', en: 'Sun Yat-sen University Shenzhen School',        logo: '/images/partner-sysu.png' },
   { zh: '新疆农业大学',         en: 'Xinjiang Agricultural University',               logo: '/images/partner-xjau.png' },
   { zh: '德保职业技术学院',     en: 'Debao Vocational and Technical College',        logo: '/images/partner-debao.png' },
-  { zh: '深圳市马术协会',       en: 'Shenzhen Equestrian Association',               logo: '/images/partner-sz.png' },
+  { zh: '深圳市高级中学高中园', en: 'Shenzhen Senior High School (High School Campus)', logo: '/images/partner-szsschs.png' },
   { zh: 'RDA残障骑术协会',      en: 'Hong Kong RDA',                                 logo: '/images/partner-rda.png' },
   { zh: '伊犁哈萨克自治州人民政府', en: 'Ili Kazakh Autonomous Prefecture Government', logo: '/images/partner-yili.png' },
 ];

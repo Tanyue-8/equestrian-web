@@ -1,6 +1,7 @@
 ﻿'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 
@@ -87,13 +88,14 @@ export default function HomeContent({ products, locale }: HomeContentProps) {
         }}
       >
         {/* 背景图片：cover填满整个容器，不变形 */}
-        <img
+        <Image
           src={heroSlides[heroSlide]}
           alt={heroSlide === 0 ? "Professional equestrian simulators training facility - Equestrian Simulators" : heroSlide === 1 ? "Multiple equestrian simulators in group training session at riding school" : heroSlide === 2 ? "Equestrian Simulators at Hong Kong Jockey Club HKJC exhibition" : "MS.30P professional equestrian simulator showroom display"}
+          fill
+          priority={heroSlide === 0}
+          sizes="100vw"
+          quality={80}
           style={{
-            position: 'absolute',
-            top: 0, left: 0,
-            width: '100%', height: '100%',
             objectFit: 'cover',
             objectPosition: 'center',
           }}
@@ -337,12 +339,13 @@ export default function HomeContent({ products, locale }: HomeContentProps) {
                             cursor: 'pointer',
                           }}
                         >
-                        <img
+                        <Image
                           src={scene.bg}
                           alt={index === 0 ? "Equestrian simulator for riding clubs and training centers" : index === 1 ? "Equestrian simulator for schools and universities" : index === 2 ? "Rehabilitation equestrian simulator for therapy centers" : index === 3 ? "Jockey training equestrian simulator for racehorse training" : index === 4 ? "Home equestrian simulator for personal training" : "Equestrian simulator for exhibitions and events"}
+                          fill
+                          sizes="(max-width: 768px) 88vw, 25vw"
+                          quality={75}
                           style={{
-                            width: '100%',
-                            height: '100%',
                             objectFit: 'cover',
                             transition: 'transform 0.4s',
                           }}
@@ -449,7 +452,7 @@ export default function HomeContent({ products, locale }: HomeContentProps) {
                       style={{ textDecoration: 'none', scrollSnapAlign: 'start' }}
                     >
                       <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', borderRadius: '12px', overflow: 'hidden' }}>
-                        <img src={scene.bg} alt={scene.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <Image src={scene.bg} alt={scene.title} fill sizes="75vw" quality={75} style={{ objectFit: 'cover' }} />
                         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '10px 12px', background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)' }}>
                           <div style={{ fontSize: '13px', fontWeight: 700, color: '#fff', marginBottom: '2px' }}>{scene.title}</div>
                           <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.85)' }}>{scene.desc}</div>

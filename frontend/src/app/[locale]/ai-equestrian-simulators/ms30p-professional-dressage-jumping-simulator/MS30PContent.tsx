@@ -482,6 +482,7 @@ export default function MS30PContent({ product, locale }: MS30PContentProps) {
             src={product.video_file}
             poster={product.video_poster || undefined}
             controls
+            preload="none"
             style={{
               width: '100%',
               maxWidth: '900px',

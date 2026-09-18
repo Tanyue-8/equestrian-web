@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 
@@ -202,13 +203,14 @@ export default function ProductsSection({ products }: ProductsSectionProps) {
                         padding: '40px',
                       }}
                     >
-                      <img
+                      <Image
                         src={product.featured_image || fallbackImage}
                         alt={product.name}
+                        fill
+                        sizes="(max-width: 768px) 88vw, 600px"
+                        quality={75}
                         className="tc-float"
                         style={{
-                          width: '100%',
-                          height: '100%',
                           objectFit: 'contain',
                           objectPosition: 'center bottom',
                           filter: `drop-shadow(0 0 32px ${style.shadowColor})`,
@@ -356,12 +358,13 @@ export default function ProductsSection({ products }: ProductsSectionProps) {
                         padding: '30px',
                       }}
                     >
-                      <img
+                      <Image
                         src={product.featured_image || fallbackImage}
                         alt={product.name}
+                        fill
+                        sizes="88vw"
+                        quality={75}
                         style={{
-                          width: '100%',
-                          height: '100%',
                           objectFit: 'contain',
                           objectPosition: 'center bottom',
                           filter: `drop-shadow(0 0 24px ${style.shadowColor})`,
